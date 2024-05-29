@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Star Wars Travel</string>
+    <string name="planets">Planets</string>
+    <string name="settings">Settings</string>
+    <string name="about_app">About App</string>
+    <string name="planet_preview">Planet preview</string>
+    <string name="secret_location">Secret location</string>
+    <string name="climate_label">Climate: %1$s</string>
+    <string name="gravity_label">Gravity: %1$s</string>
+    <string name="population_label">Population: %1$s</string>
+    <string name="no_planet_description">Be the first to visit this planet!</string>
+    <string name="unknown">Unknown</string>
+    <string name="planets_welcome_label">Your Journey Begins Here!</string>
+    <string name="planets_welcome_label_1">Your Journey</string>
+    <string name="planets_welcome_label_2">Begins Here!</string>
+    <string name="travel">Travel Now</string>
+    <string name="enjoy_journey_to">Enjoy your journey to %1$s!</string>
+    <string name="search">Search</string>
+    <string name="cancel_search">Cancel search</string>
+    <string name="enter_planet">Enter your planet here…</string>
+    <string name="all">All</string>
+    <string name="interest_preview">Point of interest</string>
+    <string name="description">Description</string>
+    <string name="show">Show</string>
+    <string name="hide">Hide</string>
+    <string name="no_description">No description available. Top-secret information.</string>
+    <string name="astro_info">Astrographical information</string>
+    <string name="region">Region</string>
+    <string name="sector">Sector</string>
+    <string name="system">System</string>
+    <string name="moons">Moons</string>
+    <string name="trade_routes">Trade routes</string>
+    <string name="rotation_period">Rotation period</string>
+    <string name="orbital_period">Orbital period</string>
+    <string name="phys_info">Physical information</string>
+    <string name="planet_class">Class</string>
+    <string name="diameter">Diameter</string>
+    <string name="atmosphere">Atmosphere</string>
+    <string name="climate">Climate</string>
+    <string name="gravity">Gravity</string>
+    <string name="terrain">Terrain</string>
+    <string name="surface_water">Surface Water</string>
+    <string name="flora">Flora</string>
+    <string name="fauna">Fauna</string>
+    <string name="soc_info">Societal information</string>
+    <string name="native_spec">Native species</string>
+    <string name="other_spec">Other species</string>
+    <string name="languages">Primary Languages</string>
+    <string name="government">Government</string>
+    <string name="population">Population</string>
+    <string name="major_cities">Major cities</string>
+    <string name="light_mode">Light Mode</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="developer">Developer</string>
+    <string name="available_on_github">Available on GitHub</string>
+    <string name="app_description_1">Explore the Galaxy with Star Wars Travel!</string>
+    <string name="app_description_2">
+        Star Wars Travel is a sample KMP application that utilises multiple services to preview the most historically important planets from Star Wars universe.
+        App is aimed to provide crucial information for travelers, explorers and SW fans.</string>
+</resources>
