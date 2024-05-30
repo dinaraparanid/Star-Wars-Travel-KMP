@@ -59,6 +59,8 @@ kotlin {
             implementation(libs.koin.android)
         }
         commonMain.dependencies {
+            implementation(project(":core:common"))
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
@@ -72,6 +74,13 @@ kotlin {
 
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
+
+            implementation(libs.decompose)
+            implementation(libs.decompose.extensions.compose)
+            implementation(libs.mvikotlin)
+            implementation(libs.mviKotlinMain)
+            implementation(libs.mviKotlinLogging)
+            implementation(libs.mviKotlinCoroutines)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
