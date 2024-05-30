@@ -1,7 +1,7 @@
 package com.paranid5.star_wars_travel.di
 
-import com.paranid5.star_wars_travel.presentation.ThemeProvider
-import com.paranid5.star_wars_travel.presentation.ThemeProviderImpl
+import com.paranid5.star_wars_travel.presentation.ui.theme.provider.ThemeProvider
+import com.paranid5.star_wars_travel.presentation.ui.theme.provider.ThemeProviderImpl
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
