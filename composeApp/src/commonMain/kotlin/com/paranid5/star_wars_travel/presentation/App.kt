@@ -3,11 +3,13 @@ package com.paranid5.star_wars_travel.presentation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Scaffold
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.paranid5.star_wars_travel.presentation.appbar.AppBar
-import com.paranid5.star_wars_travel.presentation.ui.theme.AppTheme
-import com.paranid5.star_wars_travel.presentation.ui.theme.provider.ThemeProvider
+import com.paranid5.star_wars_travel.core.common.presentation.ui.theme.provider.ThemeProvider
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
 import org.koin.compose.koinInject
 
 @Composable

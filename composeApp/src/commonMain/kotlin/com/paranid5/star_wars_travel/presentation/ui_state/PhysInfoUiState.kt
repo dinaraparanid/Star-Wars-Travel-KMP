@@ -1,7 +1,7 @@
 package com.paranid5.star_wars_travel.presentation.ui_state
 
 import androidx.compose.runtime.Immutable
-import com.paranid5.star_wars_travel.domain.entities.wookiepedia.PhysicalInformation
+import com.paranid5.star_wars_travel.core.common.domain.entities.wookiepedia.PhysicalInformation
 import kotlinx.serialization.Serializable
 
 @Immutable

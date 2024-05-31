@@ -16,8 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.paranid5.star_wars_travel.presentation.ui.StarWarsYellow
-import com.paranid5.star_wars_travel.presentation.ui.theme.AppTheme
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
 
 private val ICON_SIZE = 24.dp
 
@@ -55,7 +54,7 @@ private fun AppBarIcon(
     modifier: Modifier = Modifier
 ) {
     //val itemColor by rememberItemColor(screenMatches)
-    val itemColor = StarWarsYellow
+    val itemColor = AppTheme.colors.starWarsYellow
 
     Column(modifier) {
         Icon(
@@ -85,7 +84,7 @@ private fun AppBarIcon(
     modifier: Modifier = Modifier
 ) {
     //val itemColor by rememberItemColor(screenMatches)
-    val itemColor = StarWarsYellow
+    val itemColor = AppTheme.colors.starWarsYellow
 
     Column(modifier) {
         Icon(

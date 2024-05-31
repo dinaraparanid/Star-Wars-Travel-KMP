@@ -59,7 +59,7 @@ kotlin {
             implementation(libs.koin.android)
         }
         commonMain.dependencies {
-            implementation(project(":core:common"))
+            implementation(project(":core:ui"))
 
             implementation(compose.runtime)
             implementation(compose.foundation)

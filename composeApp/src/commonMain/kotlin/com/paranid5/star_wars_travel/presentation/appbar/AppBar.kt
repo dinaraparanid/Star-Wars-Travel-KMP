@@ -5,21 +5,20 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import com.paranid5.star_wars_travel.presentation.ui.AppBarColor
-import com.paranid5.star_wars_travel.presentation.ui.theme.AppTheme
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import starwarstravel.composeapp.generated.resources.Res
-import starwarstravel.composeapp.generated.resources.about_app
-import starwarstravel.composeapp.generated.resources.planet
-import starwarstravel.composeapp.generated.resources.planets
-import starwarstravel.composeapp.generated.resources.question
-import starwarstravel.composeapp.generated.resources.settings
+import com.paranid5.star_wars_travel.core.resources.Res
+import com.paranid5.star_wars_travel.core.resources.about_app
+import com.paranid5.star_wars_travel.core.resources.planet
+import com.paranid5.star_wars_travel.core.resources.planets
+import com.paranid5.star_wars_travel.core.resources.question
+import com.paranid5.star_wars_travel.core.resources.settings
 
 @Composable
 internal fun AppBar(modifier: Modifier = Modifier) =
     BottomAppBar(
-        containerColor = AppBarColor,
+        containerColor = AppTheme.colors.appBarColor,
         modifier = modifier.clip(
             RoundedCornerShape(
                 topStart = AppTheme.dimensions.corners.medium,

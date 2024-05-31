@@ -12,7 +12,7 @@ plugins {
 kotlin {
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
-        moduleName = "coreCommon"
+        moduleName = "coreUi"
         browser {
             commonWebpackConfig {
                 outputFileName = "composeApp.js"
@@ -36,32 +36,40 @@ kotlin {
     }
 
     jvm("desktop")
-    
+
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "common"
+            baseName = "ui"
             isStatic = true
         }
     }
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.koin.core)
+            api(project(":core:common"))
 
             implementation(compose.runtime)
             implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.material3)
+            implementation(compose.ui)
+            implementation(compose.components.resources)
+
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+        }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
         }
     }
 }
 
 android {
-    namespace = "com.paranid5.star_wars_travel.core.common"
+    namespace = "com.paranid5.star_wars_travel.core.resources"
     compileSdk = 34
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
@@ -70,4 +78,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        compose = true
+    }
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.paranid5.star_wars_travel.core.resources"
 }
