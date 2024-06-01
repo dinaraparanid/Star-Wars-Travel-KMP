@@ -31,8 +31,8 @@ data class AppTypography(
                 h1 = TextStyle(
                     fontStyle = FontStyle.Normal,
                     fontWeight = FontWeight.Normal,
-                    fontSize = 40.sp,
-                    lineHeight = 40.sp,
+                    fontSize = 32.sp,
+                    lineHeight = 32.sp,
                     letterSpacing = 0.sp,
                 ),
                 h2 = TextStyle(

@@ -33,7 +33,7 @@ private fun ScreenScaffold(
     Scaffold(
         modifier = modifier,
         bottomBar = { AppBar(rootComponent) },
-        contentColor = backgroundColor,
+        backgroundColor = backgroundColor,
         content = { ContentScreen(rootComponent, paddingValues = it) }
     )
 }

@@ -20,9 +20,12 @@ data class AppDimensions(val padding: Padding, val corners: Corners) {
                 extraBig = 48.dp,
                 large = 32.dp,
                 extraLarge = 48.dp,
+                enormous = 64.dp,
             ),
             corners = Corners(
-                medium = 24.dp
+                small = 16.dp,
+                extraSmall = 20.dp,
+                medium = 24.dp,
             )
         )
     }
@@ -39,10 +42,15 @@ data class AppDimensions(val padding: Padding, val corners: Corners) {
         val extraLarge: Dp,
         val big: Dp,
         val extraBig: Dp,
+        val enormous: Dp,
     )
 
     @Immutable
-    data class Corners(val medium: Dp)
+    data class Corners(
+        val small: Dp,
+        val extraSmall: Dp,
+        val medium: Dp,
+    )
 }
 
 internal val LocalDimensions = staticCompositionLocalOf { AppDimensions.default }
