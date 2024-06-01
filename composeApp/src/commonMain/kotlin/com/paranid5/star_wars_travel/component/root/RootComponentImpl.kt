@@ -6,9 +6,9 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
-import com.paranid5.star_wars_travel.component.about_app.AboutAppComponent
-import com.paranid5.star_wars_travel.component.planets.PlanetsComponent
-import com.paranid5.star_wars_travel.component.settings.SettingsComponent
+import com.paranid5.star_wars_travel.feature.about_app.component.AboutAppComponent
+import com.paranid5.star_wars_travel.feature.planets.component.PlanetsComponent
+import com.paranid5.star_wars_travel.feature.settings.component.SettingsComponent
 
 class RootComponentImpl(
     componentContext: ComponentContext,
@@ -29,15 +29,15 @@ class RootComponentImpl(
 
     private fun createChild(config: RootConfig, componentContext: ComponentContext) =
         when (config) {
-            RootConfig.Planets -> RootChild.PlanetsChild(
+            RootConfig.Planets -> RootChild.Planets(
                 planetsComponentFactory.create(componentContext)
             )
 
-            RootConfig.AboutApp -> RootChild.AboutAppChild(
+            RootConfig.AboutApp -> RootChild.AboutApp(
                 aboutAppComponentFactory.create(componentContext)
             )
 
-            RootConfig.Settings -> RootChild.SettingsChild(
+            RootConfig.Settings -> RootChild.Settings(
                 settingsComponentFactory.create(componentContext)
             )
         }

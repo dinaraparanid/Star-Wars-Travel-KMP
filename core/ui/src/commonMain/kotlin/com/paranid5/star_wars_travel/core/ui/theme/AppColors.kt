@@ -14,6 +14,7 @@ import com.paranid5.star_wars_travel.core.ui.Purple40
 import com.paranid5.star_wars_travel.core.ui.Purple80
 import com.paranid5.star_wars_travel.core.ui.PurpleGrey40
 import com.paranid5.star_wars_travel.core.ui.PurpleGrey80
+import com.paranid5.star_wars_travel.core.ui.StarWarsHologram
 import com.paranid5.star_wars_travel.core.ui.StarWarsYellow
 import com.paranid5.star_wars_travel.core.ui.TransparentUtilityDark
 import com.paranid5.star_wars_travel.core.ui.TransparentUtilityLight
@@ -65,8 +66,8 @@ data class AppColors(val colorScheme: ColorScheme = DarkColorScheme) {
     val appBarColor
         get() = AppBarColor
 
-    val starWarsYellow
-        get() = StarWarsYellow
+    fun getTabColor(isScreenCurrent: Boolean) =
+        if (isScreenCurrent) StarWarsHologram else StarWarsYellow
 }
 
 internal val LocalColors = staticCompositionLocalOf { AppColors.create(Theme.DARK) }

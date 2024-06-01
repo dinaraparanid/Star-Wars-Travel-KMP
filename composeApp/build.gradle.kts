@@ -29,16 +29,16 @@ kotlin {
         }
         binaries.executable()
     }
-    
+
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     jvm("desktop")
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -46,10 +46,11 @@ kotlin {
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
-            isStatic = true
+            export(libs.decompose)
+            export(libs.essenty.lifecycle)
         }
     }
-    
+
     sourceSets {
         val desktopMain by getting
 
@@ -59,7 +60,11 @@ kotlin {
             implementation(libs.koin.android)
         }
         commonMain.dependencies {
+            implementation(project(":core:component"))
             implementation(project(":core:ui"))
+            implementation(project(":feature:about_app"))
+            implementation(project(":feature:planets"))
+            implementation(project(":feature:settings"))
 
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -75,7 +80,8 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
 
-            implementation(libs.decompose)
+            api(libs.decompose)
+            api(libs.essenty.lifecycle)
             implementation(libs.decompose.extensions.compose)
             implementation(libs.mvikotlin)
             implementation(libs.mviKotlinMain)

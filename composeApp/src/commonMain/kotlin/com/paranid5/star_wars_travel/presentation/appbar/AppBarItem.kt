@@ -10,6 +10,10 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,37 +28,36 @@ private val ICON_SIZE = 24.dp
 internal fun AppBarItem(
     title: String,
     image: ImageVector,
-    //screen: RootConfig,
+    isScreenCurrent: Boolean,
     modifier: Modifier = Modifier,
-    //screenMatches: (RootConfig) -> Boolean = { it == screen }
+    onClick: () -> Unit,
 ) = AppBarItemImpl(
-    //screen = screen,
     modifier = modifier,
-    icon = { AppBarIcon(title, image) }
+    icon = { AppBarIcon(title, image, isScreenCurrent) },
+    onClick = onClick,
 )
 
 @Composable
 internal fun AppBarItem(
     title: String,
     image: Painter,
-    //screen: RootConfig,
+    isScreenCurrent: Boolean,
     modifier: Modifier = Modifier,
-    //screenMatches: (RootConfig) -> Boolean = { it == screen }
+    onClick: () -> Unit,
 ) = AppBarItemImpl(
-    //screen = screen,
     modifier = modifier,
-    icon = { AppBarIcon(title, image) }
+    icon = { AppBarIcon(title, image, isScreenCurrent) },
+    onClick = onClick,
 )
 
 @Composable
 private fun AppBarIcon(
     title: String,
     image: ImageVector,
-    //screenMatches: (RootConfig) -> Boolean,
-    modifier: Modifier = Modifier
+    isScreenCurrent: Boolean,
+    modifier: Modifier = Modifier,
 ) {
-    //val itemColor by rememberItemColor(screenMatches)
-    val itemColor = AppTheme.colors.starWarsYellow
+    val itemColor by rememberItemColor(isScreenCurrent)
 
     Column(modifier) {
         Icon(
@@ -80,11 +83,10 @@ private fun AppBarIcon(
 private fun AppBarIcon(
     title: String,
     image: Painter,
-    //screenMatches: (RootConfig) -> Boolean,
-    modifier: Modifier = Modifier
+    isScreenCurrent: Boolean,
+    modifier: Modifier = Modifier,
 ) {
-    //val itemColor by rememberItemColor(screenMatches)
-    val itemColor = AppTheme.colors.starWarsYellow
+    val itemColor by rememberItemColor(isScreenCurrent)
 
     Column(modifier) {
         Icon(
@@ -108,34 +110,24 @@ private fun AppBarIcon(
 
 @Composable
 private fun AppBarItemImpl(
-    //screen: RootConfig,
     icon: @Composable () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    //val navigator = LocalNavigator.current!!
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+) = Button(
+    modifier = modifier,
+    colors = ButtonDefaults.buttonColors(
+        backgroundColor = Color.Transparent,
+    ),
+    elevation = null,
+    shape = RoundedCornerShape(AppTheme.dimensions.corners.medium),
+    onClick = onClick,
+    content = { icon() },
+)
 
-    Button(
-        modifier = modifier,
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color.Transparent,
-        ),
-        elevation = null,
-        shape = RoundedCornerShape(AppTheme.dimensions.corners.medium),
-        onClick = { /*navigator navigateTo screen*/ },
-        content = { icon() }
-    )
+@Composable
+private fun rememberItemColor(isScreenCurrent: Boolean): State<Color> {
+    val colors = AppTheme.colors
+    return remember(isScreenCurrent, colors) {
+        derivedStateOf { colors.getTabColor(isScreenCurrent) }
+    }
 }
-
-//@Composable
-//private fun rememberItemColor(screenMatches: (RootConfig) -> Boolean): State<Color> {
-//    val navigator = LocalNavigator.current!!
-//    val stack by navigator.stack.subscribeAsState()
-//
-//    val isScreenCurrent by remember(stack) {
-//        derivedStateOf { screenMatches(stack.active.configuration) }
-//    }
-//
-//    return remember(isScreenCurrent) {
-//        derivedStateOf { if (isScreenCurrent) StarWarsHologram else StarWarsYellow }
-//    }
-//}

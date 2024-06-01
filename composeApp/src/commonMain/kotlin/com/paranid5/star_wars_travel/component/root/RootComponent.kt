@@ -3,7 +3,7 @@ package com.paranid5.star_wars_travel.component.root
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
-import com.paranid5.star_wars_travel.component.utils.UiIntentHandler
+import com.paranid5.star_wars_travel.core.component.UiIntentHandler
 
 interface RootComponent : ComponentContext, UiIntentHandler<RootUiIntent> {
     val stack: Value<ChildStack<RootConfig, RootChild>>
