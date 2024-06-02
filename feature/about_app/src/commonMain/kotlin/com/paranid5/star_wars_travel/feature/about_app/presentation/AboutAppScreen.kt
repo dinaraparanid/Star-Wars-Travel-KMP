@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -21,6 +22,7 @@ import com.paranid5.star_wars_travel.feature.about_app.presentation.views.AppNam
 import com.paranid5.star_wars_travel.feature.about_app.presentation.views.GitHubButton
 
 private val APP_ICON_SIZE = 120.dp
+private val DESCRIPTION_2_MAX_WIDTH = 512.dp
 
 @Composable
 fun AboutAppScreen(
@@ -42,26 +44,28 @@ fun AboutAppScreen(
 
         AppNameLabel(Modifier.align(Alignment.CenterHorizontally))
 
-        Spacer(Modifier.height(padding.large))
+        Spacer(Modifier.height(padding.small))
 
-        AppDeveloperLabel(Modifier.align(Alignment.Start))
+        AppDeveloperLabel(Modifier.align(Alignment.CenterHorizontally))
 
         Spacer(Modifier.height(padding.small))
 
         AppDeveloper(
             aboutAppComponent = aboutAppComponent,
-            modifier = Modifier.align(Alignment.Start)
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
-        Spacer(Modifier.height(padding.extraMedium))
+        Spacer(Modifier.height(padding.big))
 
-        AppDescription1(Modifier.align(Alignment.Start))
+        AppDescription1(Modifier.align(Alignment.CenterHorizontally))
 
-        Spacer(Modifier.height(padding.small))
+        AppDescription2(
+            Modifier
+                .widthIn(max = DESCRIPTION_2_MAX_WIDTH)
+                .align(Alignment.CenterHorizontally)
+        )
 
-        AppDescription2(Modifier.align(Alignment.Start))
-
-        Spacer(Modifier.height(padding.extraMedium))
+        Spacer(Modifier.height(padding.large))
 
         GitHubButton(
             aboutAppComponent = aboutAppComponent,

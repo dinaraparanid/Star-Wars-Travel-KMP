@@ -58,5 +58,6 @@
     <string name="app_description_1">Explore the Galaxy with Star Wars Travel!</string>
     <string name="app_description_2">
         Star Wars Travel is a sample KMP application that utilises multiple services to preview the most historically important planets from Star Wars universe.
+
         App is aimed to provide crucial information for travelers, explorers and SW fans.</string>
 </resources>

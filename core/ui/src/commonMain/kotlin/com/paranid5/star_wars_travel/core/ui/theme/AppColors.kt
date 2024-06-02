@@ -5,7 +5,10 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import com.materialkolor.ktx.darken
+import com.materialkolor.ktx.lighten
 import com.paranid5.star_wars_travel.core.common.presentation.ui.theme.Theme
 import com.paranid5.star_wars_travel.core.ui.AppBarColor
 import com.paranid5.star_wars_travel.core.ui.Pink40
@@ -56,6 +59,14 @@ data class AppColors(val colorScheme: ColorScheme = DarkColorScheme) {
 
     val background
         get() = colorScheme.background
+
+    val backgroundGradient
+        get() = Brush.linearGradient(
+            listOf(
+                colorScheme.background.lighten(ratio = 1.5F),
+                colorScheme.background.darken(ratio = 1.5F),
+            )
+        )
 
     val onBackground
         get() = colorScheme.onBackground

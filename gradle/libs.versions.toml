@@ -21,6 +21,7 @@ koin = "3.5.6"
 koin-compose = "1.1.5"
 junit = "4.13.2"
 kotlin = "2.0.0"
+kolor = "1.6.1"
 jetbrainsKotlinJvm = "1.9.0"
 
 [libraries]
@@ -36,6 +37,8 @@ androidx-material = { group = "com.google.android.material", name = "material", 
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+
+kolor = { module = "com.materialkolor:material-kolor", version.ref = "kolor" }
 
 decompose = { group = "com.arkivanov.decompose", name = "decompose", version.ref = "decompose" }
 decompose-extensions-compose = { group = "com.arkivanov.decompose", name = "extensions-compose", version.ref = "decompose" }

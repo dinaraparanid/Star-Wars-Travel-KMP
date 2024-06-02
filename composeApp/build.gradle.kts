@@ -144,9 +144,9 @@ compose.desktop {
             packageName = "com.paranid5.star_wars_travel"
             packageVersion = "1.0.0"
 
-            macOS { iconFile.set(project.file("/app_icon/app-icon.icns")) }
-            windows { iconFile.set(project.file("/app_icon/app-icon.ico")) }
-            linux { iconFile.set(project.file("/app_icon/app-icon.png")) }
+            macOS { iconFile.set(project.file("app_icon/app-icon.icns")) }
+            windows { iconFile.set(project.file("app_icon/app-icon.ico")) }
+            linux { iconFile.set(project.file("app_icon/app-icon.png")) }
         }
     }
 }

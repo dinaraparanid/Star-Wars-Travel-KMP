@@ -1,4 +1,4 @@
-package com.paranid5.star_wars_travel.presentation.appbar
+package com.paranid5.star_wars_travel.presentation.navbar
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,33 +25,33 @@ import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
 private val ICON_SIZE = 24.dp
 
 @Composable
-internal fun AppBarItem(
+internal fun NavBarItem(
     title: String,
     image: ImageVector,
     isScreenCurrent: Boolean,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-) = AppBarItemImpl(
+) = NavBarItemImpl(
     modifier = modifier,
-    icon = { AppBarIcon(title, image, isScreenCurrent) },
+    icon = { NavBarIcon(title, image, isScreenCurrent) },
     onClick = onClick,
 )
 
 @Composable
-internal fun AppBarItem(
+internal fun NavBarItem(
     title: String,
     image: Painter,
     isScreenCurrent: Boolean,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-) = AppBarItemImpl(
+) = NavBarItemImpl(
     modifier = modifier,
-    icon = { AppBarIcon(title, image, isScreenCurrent) },
+    icon = { NavBarIcon(title, image, isScreenCurrent) },
     onClick = onClick,
 )
 
 @Composable
-private fun AppBarIcon(
+private fun NavBarIcon(
     title: String,
     image: ImageVector,
     isScreenCurrent: Boolean,
@@ -80,7 +80,7 @@ private fun AppBarIcon(
 }
 
 @Composable
-private fun AppBarIcon(
+private fun NavBarIcon(
     title: String,
     image: Painter,
     isScreenCurrent: Boolean,
@@ -109,7 +109,7 @@ private fun AppBarIcon(
 }
 
 @Composable
-private fun AppBarItemImpl(
+private fun NavBarItemImpl(
     icon: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
