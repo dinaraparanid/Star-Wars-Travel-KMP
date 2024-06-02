@@ -50,11 +50,16 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(project(":core:component"))
+            implementation(project(":core:ui"))
+            implementation(project(":data"))
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
             implementation(compose.material3)
             implementation(compose.ui)
+            implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
 
             implementation(libs.bundles.component)
