@@ -11,13 +11,12 @@ import androidx.compose.ui.graphics.Color
 import com.paranid5.star_wars_travel.component.root.RootComponent
 import com.paranid5.star_wars_travel.core.common.presentation.ui.theme.provider.ThemeProvider
 import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
-import org.koin.compose.koinInject
 
 @Composable
 fun App(
     rootComponent: RootComponent,
+    themeProvider: ThemeProvider,
     modifier: Modifier = Modifier,
-    themeProvider: ThemeProvider = koinInject(),
 ) {
     val theme by themeProvider.themeState.collectAsState()
 

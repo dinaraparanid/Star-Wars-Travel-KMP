@@ -1,12 +1,15 @@
 package com.paranid5.star_wars_travel.core.common.utils
 
+import com.paranid5.star_wars_travel.core.common.domain.use_case.OpenBrowserUseCase
 import java.awt.Desktop
 import java.net.URI
 
-actual fun openBrowser(url: String): Boolean =
-    openWebpage(URI.create(url))
+internal class OpenBrowserUseCaseImpl : OpenBrowserUseCase {
+    override fun openBrowser(url: String): Boolean =
+        openWebpage(URI.create(url))
+}
 
-private fun openWebpage(uri: URI): Boolean {
+internal fun openWebpage(uri: URI): Boolean {
     val desktop = when {
         Desktop.isDesktopSupported() -> Desktop.getDesktop()
         else -> return false

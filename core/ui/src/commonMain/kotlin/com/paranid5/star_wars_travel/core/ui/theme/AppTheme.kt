@@ -7,7 +7,6 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import com.paranid5.star_wars_travel.core.common.presentation.ui.theme.Theme
-import org.koin.compose.KoinContext
 
 @Composable
 fun AppTheme(
@@ -20,18 +19,16 @@ fun AppTheme(
         derivedStateOf { AppColors.create(theme) }
     }
 
-    KoinContext {
-        CompositionLocalProvider(
-            LocalColors provides colors,
-            LocalDimensions provides dimensions,
-            LocalTypography provides typography,
+    CompositionLocalProvider(
+        LocalColors provides colors,
+        LocalDimensions provides dimensions,
+        LocalTypography provides typography,
+    ) {
+        MaterialTheme(
+            colorScheme = colors.colorScheme,
+            typography = MaterialTypography
         ) {
-            MaterialTheme(
-                colorScheme = colors.colorScheme,
-                typography = MaterialTypography
-            ) {
-                content()
-            }
+            content()
         }
     }
 }

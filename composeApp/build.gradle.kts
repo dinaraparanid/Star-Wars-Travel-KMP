@@ -46,6 +46,7 @@ kotlin {
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
+            export(project(":core:common"))
             export(libs.decompose)
             export(libs.essenty.lifecycle)
         }
@@ -57,9 +58,10 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-            implementation(libs.koin.android)
+            implementation(libs.kodein.android)
         }
         commonMain.dependencies {
+            api(project(":core:common"))
             implementation(project(":core:component"))
             implementation(project(":core:ui"))
             implementation(project(":feature:about_app"))
@@ -77,8 +79,8 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.coroutines.core)
 
-            implementation(libs.koin.core)
-            implementation(libs.koin.compose)
+            implementation(libs.kodein)
+            implementation(libs.kodein.compose)
 
             api(libs.decompose)
             api(libs.essenty.lifecycle)
@@ -90,7 +92,6 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-            implementation(libs.koin.test)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

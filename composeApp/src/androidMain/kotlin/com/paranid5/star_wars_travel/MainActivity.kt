@@ -8,12 +8,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.defaultComponentContext
 import com.paranid5.star_wars_travel.component.root.RootComponent
+import com.paranid5.star_wars_travel.core.common.presentation.ui.theme.provider.ThemeProvider
 import com.paranid5.star_wars_travel.presentation.App
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.android.closestDI
+import org.kodein.di.instance
 
-class MainActivity : ComponentActivity(), KoinComponent {
-    private val rootComponentFactory by inject<RootComponent.Factory>()
+class MainActivity : ComponentActivity(), DIAware {
+    override val di: DI by closestDI()
+    private val themeProvider: ThemeProvider by instance()
+    private val rootComponentFactory: RootComponent.Factory by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +29,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
         setContent {
             App(
                 rootComponent = rootComponent,
+                themeProvider = themeProvider,
                 modifier = Modifier.fillMaxSize(),
             )
         }

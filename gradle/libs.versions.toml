@@ -17,8 +17,7 @@ kotlinxSerializationJson = "1.6.3"
 decompose = "3.0.0"
 mviKotlin = "4.0.0"
 essenty = "2.1.0"
-koin = "3.5.6"
-koin-compose = "1.1.5"
+kodein = "7.22.0"
 junit = "4.13.2"
 kotlin = "2.0.0"
 kolor = "1.6.1"
@@ -52,10 +51,9 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
-koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
-koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin" }
-koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
-koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin-compose"}
+kodein = { group = "org.kodein.di", name = "kodein-di", version.ref = "kodein" }
+kodein-android = { group = "org.kodein.di", name = "kodein-di-framework-android-x", version.ref = "kodein" }
+kodein-compose = { group = "org.kodein.di", name = "kodein-di-framework-compose", version.ref = "kodein" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -70,7 +68,7 @@ jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrai
 component = [
     "kotlinx-serialization-json",
     "kotlinx-coroutines-core",
-    "koin-core",
+    "kodein",
     "decompose",
     "mvikotlin",
     "mviKotlinMain",

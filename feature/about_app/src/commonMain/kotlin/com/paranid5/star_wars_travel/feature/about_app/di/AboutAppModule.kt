@@ -2,10 +2,11 @@ package com.paranid5.star_wars_travel.feature.about_app.di
 
 import com.paranid5.star_wars_travel.feature.about_app.component.AboutAppComponent
 import com.paranid5.star_wars_travel.feature.about_app.component.AboutAppComponentImpl
-import org.koin.core.module.dsl.singleOf
-import org.koin.dsl.bind
-import org.koin.dsl.module
+import org.kodein.di.DI
+import org.kodein.di.bind
+import org.kodein.di.new
+import org.kodein.di.singleton
 
-val aboutAppModule = module {
-    singleOf(AboutAppComponentImpl::Factory) bind AboutAppComponent.Factory::class
+val aboutAppModule = DI.Module("aboutAppModule") {
+    bind<AboutAppComponent.Factory>() with singleton { new(AboutAppComponentImpl::Factory) }
 }

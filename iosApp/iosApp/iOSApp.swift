@@ -3,10 +3,14 @@ import ComposeApp
 
 @main
 struct iOSApp: App {
+    var controllerArgs = KodeinIOS.shared.initializeWithControllerArgs()
+    
 	var body: some Scene {
 		WindowGroup {
-            ComposeView(rootComponent: KoinIOS.shared.initializeWithRootComponent())
-                .ignoresSafeArea(.keyboard)
+            ComposeView(
+                rootComponent: controllerArgs.rootComponent,
+                themeProvider: controllerArgs.themeProvider
+            ).ignoresSafeArea(.keyboard)
 		}
 	}
 }

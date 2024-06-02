@@ -10,15 +10,21 @@ import androidx.compose.ui.window.application
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.paranid5.star_wars_travel.component.root.RootComponent
+import com.paranid5.star_wars_travel.core.common.presentation.ui.theme.provider.ThemeProvider
 import com.paranid5.star_wars_travel.core.resources.Res
 import com.paranid5.star_wars_travel.core.resources.app_name
-import com.paranid5.star_wars_travel.di.initKoin
+import com.paranid5.star_wars_travel.di.initKodein
 import com.paranid5.star_wars_travel.presentation.App
 import org.jetbrains.compose.resources.stringResource
+import org.kodein.di.instance
+
+private val WINDOW_WIDTH = 1280.dp
+private val WINDOW_HEIGHT = 720.dp
 
 fun main() {
-    val koin = initKoin().koin
-    val rootComponentFactory = koin.get<RootComponent.Factory>()
+    val kodein = initKodein()
+    val rootComponentFactory: RootComponent.Factory by kodein.instance()
+    val themeProvider: ThemeProvider by kodein.instance()
 
     val rootComponent = runOnUiThread {
         rootComponentFactory.create(
@@ -32,11 +38,12 @@ fun main() {
         Window(
             title = stringResource(Res.string.app_name),
             icon = painterResource("app_icon/app-icon.icns"),
-            state = WindowState(width = 1280.dp, height = 720.dp),
+            state = WindowState(width = WINDOW_WIDTH, height = WINDOW_HEIGHT),
             onCloseRequest = ::exitApplication,
         ) {
             App(
                 rootComponent = rootComponent,
+                themeProvider = themeProvider,
                 modifier = Modifier.fillMaxSize()
             )
         }
