@@ -46,9 +46,9 @@ kotlin {
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
-            export(project(":core:common"))
             export(libs.decompose)
             export(libs.essenty.lifecycle)
+            export(project(":data"))
         }
     }
 
@@ -61,9 +61,10 @@ kotlin {
             implementation(libs.kodein.android)
         }
         commonMain.dependencies {
-            api(project(":core:common"))
             implementation(project(":core:component"))
             implementation(project(":core:ui"))
+            implementation(project(":domain"))
+            api(project(":data"))
             implementation(project(":feature:about_app"))
             implementation(project(":feature:planets"))
             implementation(project(":feature:settings"))

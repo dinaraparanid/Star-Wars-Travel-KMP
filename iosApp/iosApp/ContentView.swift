@@ -4,12 +4,12 @@ import ComposeApp
 
 struct ComposeView: UIViewControllerRepresentable {
     let rootComponent: RootComponent
-    let themeProvider: ThemeProvider
+    let storageRepository: StorageRepository
     
     func makeUIViewController(context: Context) -> UIViewController {
         MainViewControllerKt.MainViewController(
             rootComponent: rootComponent,
-            themeProvider: themeProvider
+            storageRepository: storageRepository
         )
     }
 

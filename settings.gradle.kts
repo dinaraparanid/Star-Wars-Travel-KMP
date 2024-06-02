@@ -30,9 +30,10 @@ dependencyResolutionManagement {
 
 include(":composeApp")
 include(":core:ui")
-include(":core:common")
 include(":core:component")
 include(":feature:planets")
 include(":feature:planet")
 include(":feature:about_app")
 include(":feature:settings")
+include(":domain")
+include(":data")

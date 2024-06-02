@@ -3,13 +3,15 @@ package com.paranid5.star_wars_travel.presentation.navbar
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.NavigationRail
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
@@ -29,6 +31,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 private val NAV_BAR_MAX_SIZE = 512.dp
+private val NAV_BAR_MIN_SIZE = 128.dp
 
 @Composable
 internal expect fun NavBar(
@@ -55,7 +58,7 @@ internal fun NavBarMobile(
     ) {
         Spacer(Modifier.weight(1F))
 
-        Row(Modifier.widthIn(max = NAV_BAR_MAX_SIZE)) {
+        Row(Modifier.sizeIn(maxWidth = NAV_BAR_MAX_SIZE, maxHeight = NAV_BAR_MIN_SIZE)) {
             NavBarItem(
                 title = stringResource(Res.string.planets),
                 image = painterResource(Res.drawable.planet),
@@ -99,12 +102,17 @@ internal fun NavBarPC(
     ) {
         Spacer(Modifier.weight(1F))
 
-        Column(Modifier.heightIn(max = NAV_BAR_MAX_SIZE)) {
+        Column(
+            Modifier
+                .align(Alignment.CenterHorizontally)
+                .sizeIn(maxWidth = NAV_BAR_MIN_SIZE, maxHeight = NAV_BAR_MAX_SIZE)
+                .padding(horizontal = AppTheme.dimensions.padding.medium)
+        ) {
             NavBarItem(
                 title = stringResource(Res.string.planets),
                 image = painterResource(Res.drawable.planet),
                 isScreenCurrent = currentScreen is RootChild.Planets,
-                modifier = Modifier.weight(1F),
+                modifier = Modifier.weight(1F).fillMaxWidth(1F),
                 onClick = { onUiIntent(RootUiIntent.ShowPlanets) }
             )
 
@@ -112,7 +120,7 @@ internal fun NavBarPC(
                 title = stringResource(Res.string.settings),
                 image = painterResource(Res.drawable.settings),
                 isScreenCurrent = currentScreen is RootChild.Settings,
-                modifier = Modifier.weight(1F),
+                modifier = Modifier.weight(1F).fillMaxWidth(1F),
                 onClick = { onUiIntent(RootUiIntent.ShowSettings) }
             )
 
@@ -120,7 +128,7 @@ internal fun NavBarPC(
                 title = stringResource(Res.string.about_app),
                 image = painterResource(Res.drawable.question),
                 isScreenCurrent = currentScreen is RootChild.AboutApp,
-                modifier = Modifier.weight(1F),
+                modifier = Modifier.weight(1F).fillMaxWidth(1F),
                 onClick = { onUiIntent(RootUiIntent.ShowAboutApp) }
             )
         }

@@ -9,7 +9,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import com.materialkolor.ktx.darken
 import com.materialkolor.ktx.lighten
-import com.paranid5.star_wars_travel.core.common.presentation.ui.theme.Theme
 import com.paranid5.star_wars_travel.core.ui.AppBarColor
 import com.paranid5.star_wars_travel.core.ui.Pink40
 import com.paranid5.star_wars_travel.core.ui.Pink80
@@ -21,6 +20,7 @@ import com.paranid5.star_wars_travel.core.ui.StarWarsHologram
 import com.paranid5.star_wars_travel.core.ui.StarWarsYellow
 import com.paranid5.star_wars_travel.core.ui.TransparentUtilityDark
 import com.paranid5.star_wars_travel.core.ui.TransparentUtilityLight
+import com.paranid5.star_wars_travel.domain.entities.Theme
 
 @Immutable
 data class AppColors(val colorScheme: ColorScheme = DarkColorScheme) {

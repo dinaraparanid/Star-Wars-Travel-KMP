@@ -35,8 +35,6 @@ internal fun MainScreenPC(
 ) = Row(modifier) {
     NavBar(rootComponent)
 
-    Spacer(Modifier.width(AppTheme.dimensions.padding.extraMedium))
-
     Scaffold(
         modifier = modifier,
         backgroundColor = Color.Transparent,

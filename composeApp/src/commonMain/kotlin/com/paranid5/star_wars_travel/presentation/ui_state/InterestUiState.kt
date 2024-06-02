@@ -1,8 +1,8 @@
 package com.paranid5.star_wars_travel.presentation.ui_state
 
 import androidx.compose.runtime.Immutable
+import com.paranid5.star_wars_travel.domain.entities.wookiepedia.Interest
 import kotlinx.serialization.Serializable
-import com.paranid5.star_wars_travel.core.common.domain.entities.wookiepedia.Interest
 
 @Immutable
 @Serializable

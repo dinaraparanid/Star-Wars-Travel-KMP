@@ -10,9 +10,9 @@ import androidx.compose.ui.window.application
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.paranid5.star_wars_travel.component.root.RootComponent
-import com.paranid5.star_wars_travel.core.common.presentation.ui.theme.provider.ThemeProvider
 import com.paranid5.star_wars_travel.core.resources.Res
 import com.paranid5.star_wars_travel.core.resources.app_name
+import com.paranid5.star_wars_travel.data.StorageRepository
 import com.paranid5.star_wars_travel.di.initKodein
 import com.paranid5.star_wars_travel.presentation.App
 import org.jetbrains.compose.resources.stringResource
@@ -24,7 +24,7 @@ private val WINDOW_HEIGHT = 720.dp
 fun main() {
     val kodein = initKodein()
     val rootComponentFactory: RootComponent.Factory by kodein.instance()
-    val themeProvider: ThemeProvider by kodein.instance()
+    val storageRepository: StorageRepository by kodein.instance()
 
     val rootComponent = runOnUiThread {
         rootComponentFactory.create(
@@ -43,7 +43,7 @@ fun main() {
         ) {
             App(
                 rootComponent = rootComponent,
-                themeProvider = themeProvider,
+                storageRepository = storageRepository,
                 modifier = Modifier.fillMaxSize()
             )
         }

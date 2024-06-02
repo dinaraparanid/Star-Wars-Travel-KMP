@@ -9,16 +9,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.paranid5.star_wars_travel.component.root.RootComponent
-import com.paranid5.star_wars_travel.core.common.presentation.ui.theme.provider.ThemeProvider
 import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
+import com.paranid5.star_wars_travel.data.StorageRepository
+import com.paranid5.star_wars_travel.domain.entities.Theme
 
 @Composable
 fun App(
     rootComponent: RootComponent,
-    themeProvider: ThemeProvider,
+    storageRepository: StorageRepository,
     modifier: Modifier = Modifier,
 ) {
-    val theme by themeProvider.themeState.collectAsState()
+    val theme by storageRepository
+        .themeDataSource
+        .themeFlow
+        .collectAsState(initial = Theme.DARK)
 
     AppTheme(theme) {
         Surface(

@@ -7,7 +7,7 @@ import androidx.compose.ui.window.ComposeViewport
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.paranid5.star_wars_travel.component.root.RootComponent
-import com.paranid5.star_wars_travel.core.common.presentation.ui.theme.provider.ThemeProvider
+import com.paranid5.star_wars_travel.core.common.presentation.ui.theme.provider.ThemeDataSource
 import com.paranid5.star_wars_travel.di.initKodein
 import com.paranid5.star_wars_travel.presentation.App
 import kotlinx.browser.document
@@ -17,12 +17,12 @@ import org.kodein.di.instance
 fun main() {
     val kodein = initKodein()
     val rootComponentFactory: RootComponent.Factory by kodein.instance()
-    val themeProvider: ThemeProvider by kodein.instance()
+    val themeDataSource: ThemeDataSource by kodein.instance()
     val rootComponent = rootComponentFactory.create(DefaultComponentContext(LifecycleRegistry()))
     ComposeViewport(document.body!!) {
         App(
             rootComponent = rootComponent,
-            themeProvider = themeProvider,
+            storageRepository = themeDataSource,
             modifier = Modifier.fillMaxSize(),
         )
     }

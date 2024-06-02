@@ -50,7 +50,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(project(":core:common"))
+            implementation(project(":domain"))
 
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -71,7 +71,7 @@ kotlin {
 
 android {
     namespace = "com.paranid5.star_wars_travel.core.resources"
-    compileSdk = 34
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }

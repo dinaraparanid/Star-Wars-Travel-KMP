@@ -9,7 +9,7 @@ struct iOSApp: App {
 		WindowGroup {
             ComposeView(
                 rootComponent: controllerArgs.rootComponent,
-                themeProvider: controllerArgs.themeProvider
+                storageRepository: controllerArgs.storageRepository
             ).ignoresSafeArea(.keyboard)
 		}
 	}

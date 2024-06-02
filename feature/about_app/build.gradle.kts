@@ -52,6 +52,7 @@ kotlin {
         commonMain.dependencies {
             api(project(":core:component"))
             implementation(project(":core:ui"))
+            implementation(project(":domain"))
 
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -81,7 +82,7 @@ kotlin {
 
 android {
     namespace = "com.paranid5.star_wars_travel.feature.about_app"
-    compileSdk = 34
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }

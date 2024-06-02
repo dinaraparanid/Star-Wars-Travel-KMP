@@ -68,7 +68,7 @@ kotlin {
 
 android {
     namespace = "com.paranid5.star_wars_travel.feature.settings"
-    compileSdk = 34
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }

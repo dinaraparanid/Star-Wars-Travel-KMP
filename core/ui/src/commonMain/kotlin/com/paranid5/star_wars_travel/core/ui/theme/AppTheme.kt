@@ -6,7 +6,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import com.paranid5.star_wars_travel.core.common.presentation.ui.theme.Theme
+import com.paranid5.star_wars_travel.domain.entities.Theme
 
 @Composable
 fun AppTheme(

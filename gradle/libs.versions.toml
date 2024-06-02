@@ -9,6 +9,7 @@ androidx-constraintlayout = "2.1.4"
 androidx-core-ktx = "1.13.1"
 androidx-espresso-core = "3.5.1"
 androidx-material = "1.12.0"
+androidx-dataStore = "1.1.1"
 androidx-test-junit = "1.1.5"
 compose-plugin = "1.6.10"
 kotlinxCoroutinesCore = "1.8.0"
@@ -36,6 +37,9 @@ androidx-material = { group = "com.google.android.material", name = "material", 
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+androidx-datastore-core-okio = { group = "androidx.datastore", name = "datastore-core-okio", version.ref = "androidx-dataStore" }
+androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "androidx-dataStore" }
+androidx-datastore-preferences-android = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidx-dataStore" }
 
 kolor = { module = "com.materialkolor:material-kolor", version.ref = "kolor" }
 
