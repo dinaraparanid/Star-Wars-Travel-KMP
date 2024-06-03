@@ -2,7 +2,7 @@ package com.paranid5.star_wars_travel.data
 
 import android.content.Context
 import androidx.datastore.preferences.preferencesDataStore
-import com.paranid5.star_wars_travel.data.sources.ThemeDataSource
+import com.paranid5.star_wars_travel.data.datastore.ThemeDataSource
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.android.closestDI

@@ -50,6 +50,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(project(":core:component"))
             implementation(project(":feature:planet"))
 
             implementation(compose.runtime)
@@ -58,6 +59,11 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.uiToolingPreview)
+
+            implementation(libs.kotlinx.collections.immutable)
+
+            implementation(libs.paging.common)
+            implementation(libs.paging.compose)
 
             implementation(libs.bundles.component)
             implementation(libs.decompose.extensions.compose)

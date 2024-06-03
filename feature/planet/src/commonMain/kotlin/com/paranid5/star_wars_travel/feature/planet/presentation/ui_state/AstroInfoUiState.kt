@@ -1,4 +1,4 @@
-package com.paranid5.star_wars_travel.presentation.ui_state
+package com.paranid5.star_wars_travel.feature.planet.presentation.ui_state
 
 import androidx.compose.runtime.Immutable
 import com.paranid5.star_wars_travel.domain.entities.wookiepedia.AstrographicalInformation

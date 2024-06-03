@@ -1,7 +1,7 @@
 package com.paranid5.star_wars_travel.data
 
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
-import com.paranid5.star_wars_travel.data.sources.ThemeDataSource
+import com.paranid5.star_wars_travel.data.datastore.ThemeDataSource
 import kotlinx.cinterop.ExperimentalForeignApi
 import okio.Path.Companion.toPath
 import org.kodein.di.DI

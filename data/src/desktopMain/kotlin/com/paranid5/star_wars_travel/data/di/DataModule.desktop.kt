@@ -7,6 +7,14 @@ import org.kodein.di.bind
 import org.kodein.di.singleton
 
 actual val dataModule = DI.Module("dataModule") {
-    import(themeModule)
+    importAll(
+        themeModule,
+        ktorClientModule,
+        planetsNetModule,
+        sqlDelightClientModule,
+        planetsDbModule,
+        planetsRepositoryModule,
+    )
+
     bind<StorageRepository>() with singleton { StorageRepositoryImpl(di) }
 }

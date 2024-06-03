@@ -1,0 +1,346 @@
+CREATE TABLE IF NOT EXISTS AstroInfo (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    rotationPeriod INTEGER NOT NULL,
+    orbitalPeriod INTEGER NOT NULL,
+    sector TEXT,
+    system TEXT,
+    moons INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Region (
+    value TEXT PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS TradeRoute (
+    value TEXT PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS AstroInfoRegion (
+    astroInfoId INTEGER REFERENCES AstroInfo(id) ON DELETE CASCADE,
+    region TEXT REFERENCES Region(value) ON DELETE NO ACTION,
+    PRIMARY KEY (astroInfoId, region)
+);
+
+CREATE TABLE IF NOT EXISTS AstroInfoTradeRoute (
+    astroInfoId INTEGER REFERENCES AstroInfo(id) ON DELETE CASCADE,
+    tradeRoute TEXT REFERENCES TradeRoute(value) ON DELETE NO ACTION,
+    PRIMARY KEY (astroInfoId, tradeRoute)
+);
+
+CREATE TABLE IF NOT EXISTS PhysInfo (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    climate TEXT NOT NULL,
+    gravity TEXT NOT NULL,
+    terrain TEXT NOT NULL,
+    surfaceWater TEXT NOT NULL,
+    diameter INTEGER NOT NULL,
+    planetClass TEXT,
+    atmosphere TEXT
+);
+
+CREATE TABLE IF NOT EXISTS Interest (
+    value TEXT PRIMARY KEY,
+    coverUrl TEXT
+);
+
+CREATE TABLE IF NOT EXISTS Flora (
+    value TEXT PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS Fauna (
+    value TEXT PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS PhysInfoInterest (
+    physInfoId INTEGER REFERENCES PhysInfo(id) ON DELETE CASCADE,
+    interest TEXT REFERENCES Interest(value) ON DELETE CASCADE,
+    PRIMARY KEY (physInfoId, interest)
+);
+
+CREATE TABLE IF NOT EXISTS PhysInfoFlora (
+    physInfoId INTEGER REFERENCES PhysInfo(id) ON DELETE CASCADE,
+    flora TEXT REFERENCES Flora(value) ON DELETE NO ACTION,
+    PRIMARY KEY (physInfoId, flora)
+);
+
+CREATE TABLE IF NOT EXISTS PhysInfoFauna (
+    physInfoId INTEGER REFERENCES PhysInfo(id) ON DELETE CASCADE,
+    fauna TEXT REFERENCES Fauna(value) ON DELETE NO ACTION,
+    PRIMARY KEY (physInfoId, fauna)
+);
+
+CREATE TABLE IF NOT EXISTS SocInfo (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    population INTEGER NOT NULL,
+    government TEXT
+);
+
+CREATE TABLE IF NOT EXISTS NativeSpecies (
+    value TEXT PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS OtherSpecies (
+    value TEXT PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS Language (
+    value TEXT PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS City (
+    value TEXT PRIMARY KEY
+);
+
+CREATE TABLE IF NOT EXISTS SocInfoNativeSpecies (
+    socInfoId INTEGER REFERENCES SocInfo(id) ON DELETE CASCADE,
+    nativeSpecies TEXT REFERENCES NativeSpecies(value) ON DELETE NO ACTION,
+    PRIMARY KEY (socInfoId, nativeSpecies)
+);
+
+CREATE TABLE IF NOT EXISTS SocInfoOtherSpecies (
+    socInfoId INTEGER REFERENCES SocInfo(id) ON DELETE CASCADE,
+    otherSpecies TEXT REFERENCES OtherSpecies(value) ON DELETE NO ACTION,
+    PRIMARY KEY (socInfoId, otherSpecies)
+);
+
+CREATE TABLE IF NOT EXISTS SocInfoLanguage (
+    socInfoId INTEGER REFERENCES SocInfo(id) ON DELETE CASCADE,
+    language TEXT REFERENCES Language(value) ON DELETE NO ACTION,
+    PRIMARY KEY (socInfoId, language)
+);
+
+CREATE TABLE IF NOT EXISTS SocInfoCity (
+    socInfoId INTEGER REFERENCES SocInfo(id) ON DELETE CASCADE,
+    city TEXT REFERENCES City(value) ON DELETE CASCADE,
+    PRIMARY KEY (socInfoId, city)
+);
+
+CREATE TABLE IF NOT EXISTS Planet (
+    title TEXT PRIMARY KEY,
+    edited TEXT NOT NULL,
+    pageNumber INTEGER NOT NULL,
+    description TEXT,
+    coverUrl TEXT,
+    astroInfoId INTEGER REFERENCES AstroInfo(id) ON DELETE CASCADE,
+    physInfoId INTEGER REFERENCES PhysInfo(id) ON DELETE CASCADE,
+    socInfoId INTEGER REFERENCES SocInfo(id) ON DELETE CASCADE
+);
+
+selectBaseItems:
+SELECT
+    Planet.title AS title,
+    Planet.edited AS edited,
+    Planet.pageNumber AS pageNumber,
+    Planet.description AS description,
+    Planet.coverUrl AS coverUrl,
+    AstroInfo.id AS astroInfoId,
+    AstroInfo.rotationPeriod AS rotationPeriod,
+    AstroInfo.orbitalPeriod AS orbitalPeriod,
+    AstroInfo.sector AS sector,
+    AstroInfo.system AS system,
+    AstroInfo.moons AS moons,
+    PhysInfo.id AS physInfoId,
+    PhysInfo.climate AS climate,
+    PhysInfo.gravity AS gravity,
+    PhysInfo.terrain AS terrain,
+    PhysInfo.surfaceWater AS surface,
+    PhysInfo.diameter AS diameter,
+    PhysInfo.planetClass AS planetClass,
+    PhysInfo.atmosphere AS atmosphere,
+    SocInfo.id AS socInfoId,
+    SocInfo.population AS population,
+    SocInfo.government AS government
+FROM
+    Planet,
+    AstroInfo,
+    PhysInfo,
+    SocInfo
+WHERE
+    Planet.astroInfoId = AstroInfo.id AND
+    Planet.physInfoId = PhysInfo.id AND
+    Planet.socInfoId = SocInfo.id
+ORDER BY
+    Planet.edited ASC;
+
+selectRegions:
+SELECT
+    AstroInfoRegion.region AS region
+FROM
+    AstroInfoRegion
+WHERE
+    AstroInfoRegion.astroInfoId = ?;
+
+selectTradeRoutes:
+SELECT
+    AstroInfoTradeRoute.tradeRoute AS tradeRoute
+FROM
+    AstroInfoTradeRoute
+WHERE
+    AstroInfoTradeRoute.astroInfoId = ?;
+
+selectInterests:
+SELECT
+    PhysInfoInterest.interest AS interest,
+    Interest.coverUrl AS coverUrl
+FROM
+    PhysInfoInterest,
+    Interest
+WHERE
+    PhysInfoInterest.physInfoId = ? AND
+    Interest.value = PhysInfoInterest.interest;
+
+selectFlora:
+SELECT
+    PhysInfoFlora.flora AS flora
+FROM
+    PhysInfoFlora
+WHERE
+    PhysInfoFlora.physInfoId = ?;
+
+selectFauna:
+SELECT
+    PhysInfoFauna.fauna AS fauna
+FROM
+    PhysInfoFauna
+WHERE
+    PhysInfoFauna.physInfoId = ?;
+
+selectNativeSpecies:
+SELECT
+    SocInfoNativeSpecies.nativeSpecies AS nativeSpecies
+FROM
+    SocInfoNativeSpecies
+WHERE
+    SocInfoNativeSpecies.socInfoId = ?;
+
+selectOtherSpecies:
+SELECT
+    SocInfoOtherSpecies.otherSpecies AS otherSpecies
+FROM
+    SocInfoOtherSpecies
+WHERE
+    SocInfoOtherSpecies.socInfoId = ?;
+
+selectCities:
+SELECT
+    SocInfoCity.city AS city
+FROM
+    SocInfoCity
+WHERE
+    SocInfoCity.socInfoId = ?;
+
+selectLanguages:
+SELECT
+    SocInfoLanguage.language AS language
+FROM
+    SocInfoLanguage
+WHERE
+    SocInfoLanguage.socInfoId = ?;
+
+insertAstroInfo:
+INSERT OR IGNORE INTO AstroInfo (rotationPeriod, orbitalPeriod, sector, system, moons)
+VALUES (?, ?, ?, ?, ?);
+
+insertedAstroInfo:
+SELECT last_insert_rowid()
+FROM AstroInfo
+LIMIT 1;
+
+insertRegion:
+INSERT OR IGNORE INTO Region (value)
+VALUES (?);
+
+insertTradeRoute:
+INSERT OR IGNORE INTO TradeRoute (value)
+VALUES (?);
+
+insertAstroInfoRegion:
+INSERT OR IGNORE INTO AstroInfoRegion (astroInfoId, region)
+VALUES (?, ?);
+
+insertAstroInfoTradeRoute:
+INSERT OR IGNORE INTO AstroInfoTradeRoute (astroInfoId, tradeRoute)
+VALUES (?, ?);
+
+insertPhysInfo:
+INSERT OR IGNORE INTO PhysInfo (climate, gravity, terrain, surfaceWater, diameter, planetClass, atmosphere)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+insertedPhysInfo:
+SELECT last_insert_rowid()
+FROM PhysInfo
+LIMIT 1;
+
+insertInterest:
+INSERT OR IGNORE INTO Interest (value, coverUrl)
+VALUES (?, ?);
+
+insertFlora:
+INSERT OR IGNORE INTO Flora (value)
+VALUES (?);
+
+insertFauna:
+INSERT OR IGNORE INTO Fauna (value)
+VALUES (?);
+
+insertPhysInfoInterest:
+INSERT OR IGNORE INTO PhysInfoInterest (physInfoId, interest)
+VALUES (?, ?);
+
+insertPhysInfoFlora:
+INSERT OR IGNORE INTO PhysInfoFlora (physInfoId, flora)
+VALUES (?, ?);
+
+insertPhysInfoFauna:
+INSERT OR IGNORE INTO PhysInfoFauna (physInfoId, fauna)
+VALUES (?, ?);
+
+insertSocInfo:
+INSERT OR IGNORE INTO SocInfo (population, government)
+VALUES (?, ?);
+
+insertedSocInfo:
+SELECT last_insert_rowid()
+FROM SocInfo
+LIMIT 1;
+
+insertNativeSpecies:
+INSERT OR IGNORE INTO NativeSpecies (value)
+VALUES (?);
+
+insertOtherSpecies:
+INSERT OR IGNORE INTO OtherSpecies (value)
+VALUES (?);
+
+insertLanguage:
+INSERT OR IGNORE INTO Language (value)
+VALUES (?);
+
+insertCity:
+INSERT OR IGNORE INTO City (value)
+VALUES (?);
+
+insertSocInfoNativeSpecied:
+INSERT OR IGNORE INTO SocInfoNativeSpecies (socInfoId, nativeSpecies)
+VALUES (?, ?);
+
+insertSocInfoOtherSpecies:
+INSERT OR IGNORE INTO SocInfoOtherSpecies (socInfoId, otherSpecies)
+VALUES (?, ?);
+
+insertSocInfoLanguage:
+INSERT OR IGNORE INTO SocInfoLanguage (socInfoId, language)
+VALUES (?, ?);
+
+insertSocInfoCity:
+INSERT OR IGNORE INTO SocInfoCity (socInfoId, city)
+VALUES (?, ?);
+
+insertPlanet:
+INSERT OR IGNORE INTO Planet (title, edited, pageNumber, description, coverUrl, astroInfoId, physInfoId, socInfoId)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+
+updateInterest:
+UPDATE Interest
+SET coverUrl = ?
+WHERE value = ?;

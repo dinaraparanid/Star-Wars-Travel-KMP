@@ -8,6 +8,14 @@ import org.kodein.di.multiton
 import org.kodein.di.new
 
 actual val dataModule = DI.Module("dataModule") {
-    import(themeModule)
+    importAll(
+        themeModule,
+        ktorClientModule,
+        planetsNetModule,
+        sqlDelightClientModule,
+        planetsDbModule,
+        planetsRepositoryModule,
+    )
+
     bind<StorageRepository>() with multiton { new(::StorageRepositoryImpl) }
 }

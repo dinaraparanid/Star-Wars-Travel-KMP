@@ -50,6 +50,9 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(project(":core:component"))
+            api(project(":domain"))
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
@@ -57,17 +60,8 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.uiToolingPreview)
 
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.coroutines.core)
-
-            implementation(libs.kodein)
-
-            implementation(libs.decompose)
+            implementation(libs.bundles.component)
             implementation(libs.decompose.extensions.compose)
-            implementation(libs.mvikotlin)
-            implementation(libs.mviKotlinMain)
-            implementation(libs.mviKotlinLogging)
-            implementation(libs.mviKotlinCoroutines)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

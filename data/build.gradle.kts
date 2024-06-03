@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.sqlDelight)
 }
 
 kotlin {
@@ -47,9 +48,13 @@ kotlin {
     }
 
     sourceSets {
+        val desktopMain by getting
+
         androidMain.dependencies {
             implementation(libs.androidx.datastore.preferences.android)
             implementation(libs.kodein.android)
+            implementation(libs.sqldelight.android)
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             api(project(":domain"))
@@ -57,10 +62,41 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
 
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.serialization.kotlinx.json)
+
             implementation(libs.androidx.datastore.core.okio)
             implementation(libs.androidx.datastore.preferences.core)
 
+            implementation(libs.paging.common)
+
+            implementation(libs.ksoup)
+            implementation(libs.ksoup.network)
+
             implementation(libs.kodein)
+
+            implementation(libs.sqldelight.coroutines)
+        }
+        desktopMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.sqldelight.jvm)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+            implementation(libs.sqldelight.native)
+        }
+        wasmJsMain.dependencies {
+            implementation(libs.ktor.client.js)
+        }
+    }
+
+    sqldelight {
+        databases {
+            create("Planets") {
+                packageName.set("com.paranid5.star_wars_travel.data")
+            }
         }
     }
 }
