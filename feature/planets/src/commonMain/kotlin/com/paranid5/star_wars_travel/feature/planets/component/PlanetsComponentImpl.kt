@@ -59,10 +59,13 @@ internal class PlanetsComponentImpl(
     }
 
     override val regionsPagedFlow by lazy {
-        combine(planetsUiFlow, stateFlow) { planets, state ->
+        combine(
+            planetsUiFlow,
+            stateFlow
+        ) { planets, (_, selectedRegions) ->
             planets
                 .map { it.mainRegion.orEmpty() }
-                .filter(String::isNotEmpty) to state.selectedRegions
+                .filter(String::isNotEmpty) to selectedRegions
         }.map { (allRegs, selectRegs) ->
             allRegs.map { RegionUiState(it, (it in selectRegs)) }
         }

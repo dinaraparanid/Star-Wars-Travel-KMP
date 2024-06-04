@@ -12,8 +12,6 @@ import com.paranid5.star_wars_travel.core.resources.Res
 import com.paranid5.star_wars_travel.core.resources.deathstar
 import org.jetbrains.compose.resources.painterResource
 
-@Suppress("NonSkippableComposable")
-@Composable
 fun coverModel(
     coverUrl: String?,
     context: PlatformContext,

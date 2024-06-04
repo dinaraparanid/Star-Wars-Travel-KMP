@@ -23,7 +23,7 @@ interface PlanetsStore : Store<UiIntent, State, Label> {
         val searchText: String,
         val selectedRegions: ImmutableList<String?>,
     ) {
-        constructor() : this(searchText = "", selectedRegions = persistentListOf())
+        constructor() : this(searchText = "", selectedRegions = persistentListOf(null))
     }
 
     sealed interface Label {

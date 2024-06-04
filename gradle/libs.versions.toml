@@ -24,7 +24,7 @@ kotlin = "2.0.0"
 kolor = "1.6.1"
 paging = "3.3.0-alpha02-0.4.0"
 sqldelight = "2.0.2"
-ktor = "2.3.11"
+ktor = "3.0.0-wasm2"
 ksoup = "0.1.2"
 coil = "3.0.0-alpha06"
 
@@ -66,8 +66,11 @@ ksoup = { group = "com.fleeksoft.ksoup", name = "ksoup", version.ref = "ksoup" }
 ksoup-network = { group = "com.fleeksoft.ksoup", name = "ksoup-network", version.ref = "ksoup" }
 
 kolor = { module = "com.materialkolor:material-kolor", version.ref = "kolor" }
+
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-compose-core = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil" }
 coil-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil" }
+coil-mp = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
 
 decompose = { group = "com.arkivanov.decompose", name = "decompose", version.ref = "decompose" }
 decompose-extensions-compose = { group = "com.arkivanov.decompose", name = "extensions-compose", version.ref = "decompose" }

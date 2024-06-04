@@ -7,10 +7,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 
 interface PlanetsRepository {
-    companion object {
-        const val PAGE_SIZE = 10
-    }
-
     val planetsPagedFlow: Flow<PagingData<WookiepediaPlanet>>
     fun updateInterestsAsync(interests: List<Interest>): Job
 }

@@ -62,10 +62,13 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
 
-            api(libs.kotlinx.collections.immutable)
-
+            api(libs.ktor.client.core)
+            api(libs.coil.compose.core)
             api(libs.coil.compose)
+            api(libs.coil.mp)
             api(libs.coil.ktor)
+
+            api(libs.kotlinx.collections.immutable)
 
             implementation(libs.bundles.component)
             implementation(libs.decompose.extensions.compose)

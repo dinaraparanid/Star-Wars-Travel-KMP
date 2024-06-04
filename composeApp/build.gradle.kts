@@ -80,6 +80,12 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.coroutines.core)
 
+            implementation(libs.ktor.client.core)
+            implementation(libs.coil.compose.core)
+            implementation(libs.coil.compose)
+            implementation(libs.coil.mp)
+            implementation(libs.coil.ktor)
+
             implementation(libs.kodein)
             implementation(libs.kodein.compose)
 
