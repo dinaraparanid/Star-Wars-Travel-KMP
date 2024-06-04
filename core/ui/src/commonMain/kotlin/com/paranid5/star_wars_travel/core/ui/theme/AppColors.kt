@@ -77,6 +77,9 @@ data class AppColors(val colorScheme: ColorScheme = DarkColorScheme) {
     val appBarColor
         get() = AppBarColor
 
+    val starWarsYellow
+        get() = StarWarsYellow
+
     fun getTabColor(isScreenCurrent: Boolean) =
         if (isScreenCurrent) StarWarsHologram else StarWarsYellow
 }

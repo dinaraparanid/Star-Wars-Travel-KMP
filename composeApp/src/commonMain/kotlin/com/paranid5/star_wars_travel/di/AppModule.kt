@@ -2,6 +2,7 @@ package com.paranid5.star_wars_travel.di
 
 import com.paranid5.star_wars_travel.component.root.RootComponent
 import com.paranid5.star_wars_travel.component.root.RootComponentImpl
+import com.paranid5.star_wars_travel.core.component.di.storeFactoryModule
 import com.paranid5.star_wars_travel.data.di.dataModule
 import com.paranid5.star_wars_travel.domain.di.openBrowserModule
 import com.paranid5.star_wars_travel.feature.about_app.di.aboutAppModule
@@ -16,6 +17,7 @@ val appModule = DI.Module("appModule") {
     importAll(
         dataModule,
         openBrowserModule,
+        storeFactoryModule,
         aboutAppModule,
         planetsModule,
         settingsModule,

@@ -9,7 +9,7 @@ import io.ktor.client.HttpClient
 
 internal suspend fun HttpClient.getPlanets(pageNumber: Int = 1) =
     getSwapiPlanets(pageNumber)
-        .getOrElse { SwapiPlanetPage.default }
+        .getOrElse { SwapiPlanetPage() }
         .let { (_, next, previous, results) ->
             PlanetPage(
                 next = next,

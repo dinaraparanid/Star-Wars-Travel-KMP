@@ -9,7 +9,7 @@ internal class PlanetsNetSourceImpl(private val ktorClient: HttpClient) : Planet
     override suspend fun fetchSwapiPlanetPage(pageNum: Int): SwapiPlanetPage =
         ktorClient
             .getSwapiPlanets(pageNum)
-            .getOrElse { SwapiPlanetPage.default }
+            .getOrElse { SwapiPlanetPage() }
 
     override suspend fun fetchCompletePlanetPage(pageNum: Int): PlanetPage =
         ktorClient.getPlanets(pageNum)

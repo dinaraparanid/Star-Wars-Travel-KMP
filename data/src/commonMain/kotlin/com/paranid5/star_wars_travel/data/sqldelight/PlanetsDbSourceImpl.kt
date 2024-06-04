@@ -2,7 +2,6 @@ package com.paranid5.star_wars_travel.data.sqldelight
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
-import app.cash.sqldelight.db.SqlDriver
 import com.paranid5.star_wars_travel.data.DataDispatcher
 import com.paranid5.star_wars_travel.domain.entities.wookiepedia.AstrographicalInformation
 import com.paranid5.star_wars_travel.domain.entities.wookiepedia.Interest
@@ -20,11 +19,11 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 
-internal class PlanetsDbSourceImpl(driver: SqlDriver) :
+internal class PlanetsDbSourceImpl(client: SqlDelightClient) :
     PlanetsDbSource,
     CoroutineScope by CoroutineScope(DataDispatcher) {
     private val queries by lazy {
-        PlanetsQueries(driver)
+        PlanetsQueries(client.driver)
     }
 
     private val mutex by lazy { Mutex() }

@@ -10,8 +10,10 @@ data class SwapiPlanetPage(
     val previous: String?,
     val results: List<SwapiPlanet>,
 ) {
-    internal companion object {
-        inline val default
-            get() = SwapiPlanetPage(0, null, null, emptyList())
-    }
+    constructor() : this(
+        count = 0,
+        next = null,
+        previous = null,
+        results = emptyList(),
+    )
 }

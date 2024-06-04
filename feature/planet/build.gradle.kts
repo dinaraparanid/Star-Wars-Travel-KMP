@@ -50,6 +50,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(project(":core:ui"))
             api(project(":core:component"))
             api(project(":domain"))
 
@@ -58,7 +59,13 @@ kotlin {
             implementation(compose.material)
             implementation(compose.material3)
             implementation(compose.ui)
+            implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+
+            api(libs.kotlinx.collections.immutable)
+
+            api(libs.coil.compose)
+            api(libs.coil.ktor)
 
             implementation(libs.bundles.component)
             implementation(libs.decompose.extensions.compose)

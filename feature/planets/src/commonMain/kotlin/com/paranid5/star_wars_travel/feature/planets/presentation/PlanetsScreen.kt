@@ -1,16 +1,62 @@
 package com.paranid5.star_wars_travel.feature.planets.presentation
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import app.cash.paging.compose.collectAsLazyPagingItems
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsComponent
+import com.paranid5.star_wars_travel.feature.planets.presentation.views.PlanetList
+import com.paranid5.star_wars_travel.feature.planets.presentation.views.PlanetsSearchBar
+import com.paranid5.star_wars_travel.feature.planets.presentation.views.PlanetsWelcomeLabel
+import com.paranid5.star_wars_travel.feature.planets.presentation.views.region.RegionSelectors
 
 @Composable
 fun PlanetsScreen(
     planetsComponent: PlanetsComponent,
-    modifier: Modifier = Modifier,
-) = Box(modifier) {
-    Text("TODO: Planets Screen", Modifier.align(Alignment.Center))
+    modifier: Modifier = Modifier
+) {
+    val state by planetsComponent.stateFlow.collectAsState()
+    val onUiIntent = planetsComponent::onUiIntent
+
+    val regions = planetsComponent.regionsPagedFlow.collectAsLazyPagingItems()
+    val planets = planetsComponent.planetsPagedFlow.collectAsLazyPagingItems()
+
+    Column(modifier) {
+        PlanetsWelcomeLabel(
+            Modifier
+                .fillMaxWidth()
+                .padding(top = AppTheme.dimensions.padding.extraMedium)
+        )
+
+        Spacer(Modifier.height(AppTheme.dimensions.padding.extraMedium))
+
+        PlanetsSearchBar(
+            state = state,
+            onUiIntent = onUiIntent,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(Modifier.height(AppTheme.dimensions.padding.extraMedium))
+
+        RegionSelectors(
+            state = state,
+            onUiIntent = onUiIntent,
+            regions = regions,
+        )
+
+        Spacer(Modifier.height(AppTheme.dimensions.padding.extraMedium))
+
+        PlanetList(
+            planets = planets,
+            onUiIntent = onUiIntent,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
 }

@@ -26,60 +26,61 @@ data class AppTypography(
     )
 
     companion object {
-        val default get() = AppTypography(
-            h = AppHTypo(
-                h1 = TextStyle(
+        val default
+            get() = AppTypography(
+                h = AppHTypo(
+                    h1 = TextStyle(
+                        fontStyle = FontStyle.Normal,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 32.sp,
+                        lineHeight = 32.sp,
+                        letterSpacing = 0.sp,
+                    ),
+                    h2 = TextStyle(
+                        fontStyle = FontStyle.Normal,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 24.sp,
+                        lineHeight = 24.sp,
+                        letterSpacing = 0.sp,
+                    ),
+                    h3 = TextStyle(
+                        fontStyle = FontStyle.Normal,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 18.sp,
+                        lineHeight = 21.sp,
+                        letterSpacing = 0.sp,
+                    )
+                ),
+                body = TextStyle(
                     fontStyle = FontStyle.Normal,
                     fontWeight = FontWeight.Normal,
-                    fontSize = 32.sp,
-                    lineHeight = 32.sp,
+                    fontSize = 16.sp,
+                    lineHeight = 20.5.sp,
+                    letterSpacing = 0.sp,
+                    baselineShift = BaselineShift(-0.5f),
+                ),
+                regular = TextStyle(
+                    fontStyle = FontStyle.Normal,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 14.sp,
+                    lineHeight = 20.sp,
+                    letterSpacing = 0.4.sp,
+                ),
+                caption = TextStyle(
+                    fontStyle = FontStyle.Normal,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 12.sp,
+                    lineHeight = 15.4.sp,
+                    letterSpacing = 0.4.sp,
+                ),
+                captionSm = TextStyle(
+                    fontStyle = FontStyle.Normal,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 10.sp,
+                    lineHeight = 12.8.sp,
                     letterSpacing = 0.sp,
                 ),
-                h2 = TextStyle(
-                    fontStyle = FontStyle.Normal,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 24.sp,
-                    lineHeight = 24.sp,
-                    letterSpacing = 0.sp,
-                ),
-                h3 = TextStyle(
-                    fontStyle = FontStyle.Normal,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 18.sp,
-                    lineHeight = 21.sp,
-                    letterSpacing = 0.sp,
-                )
-            ),
-            body = TextStyle(
-                fontStyle = FontStyle.Normal,
-                fontWeight = FontWeight.Normal,
-                fontSize = 16.sp,
-                lineHeight = 20.5.sp,
-                letterSpacing = 0.sp,
-                baselineShift = BaselineShift(-0.5f),
-            ),
-            regular = TextStyle(
-                fontStyle = FontStyle.Normal,
-                fontWeight = FontWeight.Normal,
-                fontSize = 14.sp,
-                lineHeight = 20.sp,
-                letterSpacing = 0.4.sp,
-            ),
-            caption = TextStyle(
-                fontStyle = FontStyle.Normal,
-                fontWeight = FontWeight.Normal,
-                fontSize = 12.sp,
-                lineHeight = 15.4.sp,
-                letterSpacing = 0.4.sp,
-            ),
-            captionSm = TextStyle(
-                fontStyle = FontStyle.Normal,
-                fontWeight = FontWeight.Normal,
-                fontSize = 10.sp,
-                lineHeight = 12.8.sp,
-                letterSpacing = 0.sp,
-            ),
-        )
+            )
     }
 }
 

@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlinxSerialization)
+    id("kotlin-parcelize")
 }
 
 kotlin {
@@ -49,8 +50,12 @@ kotlin {
     }
 
     sourceSets {
+        val  desktopMain by getting
+
         commonMain.dependencies {
+            implementation(project(":core:ui"))
             implementation(project(":core:component"))
+            implementation(project(":data"))
             implementation(project(":feature:planet"))
 
             implementation(compose.runtime)
@@ -58,15 +63,24 @@ kotlin {
             implementation(compose.material)
             implementation(compose.material3)
             implementation(compose.ui)
+            implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+
+            implementation(libs.constraintlayout)
 
             implementation(libs.kotlinx.collections.immutable)
 
             implementation(libs.paging.common)
             implementation(libs.paging.compose)
 
+            implementation(libs.coil.compose)
+            implementation(libs.coil.ktor)
+
             implementation(libs.bundles.component)
             implementation(libs.decompose.extensions.compose)
+        }
+        desktopMain.dependencies {
+            implementation(libs.kotlinx.coroutines.swing)
         }
     }
 }
