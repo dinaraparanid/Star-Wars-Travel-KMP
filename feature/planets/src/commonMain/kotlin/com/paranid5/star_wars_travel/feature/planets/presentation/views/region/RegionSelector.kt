@@ -62,10 +62,8 @@ internal fun RegionSelector(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(
-                    top = AppTheme.dimensions.padding.extraSmall,
-                    bottom = AppTheme.dimensions.padding.minimum,
-                    start = AppTheme.dimensions.padding.small,
-                    end = AppTheme.dimensions.padding.small,
+                    vertical = AppTheme.dimensions.padding.small,
+                    horizontal = AppTheme.dimensions.padding.medium,
                 )
         )
     }
