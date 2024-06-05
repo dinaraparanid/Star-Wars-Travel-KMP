@@ -44,7 +44,7 @@ internal fun ContentScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(
-                        top = paddingValues.calculateTopPadding() + padding.small,
+                        top = paddingValues.calculateTopPadding() + padding.extraLarge,
                         start = padding.extraMedium,
                         end = padding.extraMedium,
                     )

@@ -36,7 +36,6 @@ fun InterestItem(
             model = coverModel(
                 coverUrl = interest.coverUrl,
                 context = context,
-                isPlaceholderRequired = true
             ),
             contentDescription = stringResource(Res.string.interest_preview),
             alignment = Alignment.Center,

@@ -2,6 +2,7 @@ package com.paranid5.star_wars_travel.feature.planets.component
 
 import androidx.compose.runtime.Immutable
 import com.arkivanov.mvikotlin.core.store.Store
+import com.paranid5.star_wars_travel.domain.utils.ImmutableListSerializer
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.PlanetUiState
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.State
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.Label
@@ -21,6 +22,7 @@ interface PlanetsStore : Store<UiIntent, State, Label> {
     @Immutable
     data class State(
         val searchText: String,
+        @Serializable(with = ImmutableListSerializer::class)
         val selectedRegions: ImmutableList<String?>,
     ) {
         constructor() : this(searchText = "", selectedRegions = persistentListOf(null))

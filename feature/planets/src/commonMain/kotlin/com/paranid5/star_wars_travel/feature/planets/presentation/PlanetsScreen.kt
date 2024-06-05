@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -12,7 +11,7 @@ import androidx.compose.ui.Modifier
 import app.cash.paging.compose.collectAsLazyPagingItems
 import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsComponent
-import com.paranid5.star_wars_travel.feature.planets.presentation.views.PlanetList
+import com.paranid5.star_wars_travel.feature.planets.presentation.views.Planets
 import com.paranid5.star_wars_travel.feature.planets.presentation.views.PlanetsSearchBar
 import com.paranid5.star_wars_travel.feature.planets.presentation.views.PlanetsWelcomeLabel
 import com.paranid5.star_wars_travel.feature.planets.presentation.views.region.RegionSelectors
@@ -29,11 +28,7 @@ fun PlanetsScreen(
     val planets = planetsComponent.planetsPagedFlow.collectAsLazyPagingItems()
 
     Column(modifier) {
-        PlanetsWelcomeLabel(
-            Modifier
-                .fillMaxWidth()
-                .padding(top = AppTheme.dimensions.padding.extraMedium)
-        )
+        PlanetsWelcomeLabel(Modifier.fillMaxWidth())
 
         Spacer(Modifier.height(AppTheme.dimensions.padding.extraMedium))
 
@@ -53,7 +48,7 @@ fun PlanetsScreen(
 
         Spacer(Modifier.height(AppTheme.dimensions.padding.extraMedium))
 
-        PlanetList(
+        Planets(
             planets = planets,
             onUiIntent = onUiIntent,
             modifier = Modifier.fillMaxWidth()
