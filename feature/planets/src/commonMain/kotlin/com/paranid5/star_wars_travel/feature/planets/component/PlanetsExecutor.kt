@@ -5,13 +5,25 @@ import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.Labe
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.State
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.UiIntent
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStoreProvider.Msg
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-internal class PlanetsExecutor : CoroutineExecutor<UiIntent, Unit, State, Msg, Label>(Dispatchers.Default) {
-    override fun executeIntent(intent: UiIntent) = when (intent) {
-        is UiIntent.ReselectRegion -> reselectRegion(intent.region)
-        is UiIntent.UpdateSearchText -> dispatch(Msg.UpdateSearchText(intent.text))
-        is UiIntent.ShowPlanet -> publish(Label.ShowPlanet(intent.planet))
+internal class PlanetsExecutor : CoroutineExecutor<UiIntent, Unit, State, Msg, Label>() {
+    private companion object {
+        const val SNACKBAR_SHOWN_MS = 3000L
+    }
+
+    private var snackbarJob: Job? = null
+
+    override fun executeIntent(intent: UiIntent) {
+        when (intent) {
+            is UiIntent.ReselectRegion -> reselectRegion(intent.region)
+            is UiIntent.UpdateSearchText -> dispatch(Msg.UpdateSearchText(intent.text))
+            is UiIntent.ShowPlanet -> publish(Label.ShowPlanet(intent.planet))
+            is UiIntent.ShowTravelSnackbar -> snackbarJob = showTravelSnackbarThenHide()
+            is UiIntent.HideTravelSnackbar -> hideTravelSnackbar()
+        }
     }
 
     private fun reselectRegion(region: String?) = when (region) {
@@ -23,5 +35,16 @@ internal class PlanetsExecutor : CoroutineExecutor<UiIntent, Unit, State, Msg, L
         }
 
         else -> dispatch(Msg.AddRegion(region))
+    }
+
+    private fun showTravelSnackbarThenHide() = scope.launch {
+        dispatch(Msg.ShowTravelSnackbar)
+        delay(SNACKBAR_SHOWN_MS)
+        dispatch(Msg.HideTravelSnackbar)
+    }
+
+    private fun hideTravelSnackbar() {
+        dispatch(Msg.HideTravelSnackbar)
+        snackbarJob?.cancel()
     }
 }

@@ -12,6 +12,8 @@ internal class PlanetsStoreProvider(private val storeFactory: StoreFactory) {
         data class RemoveRegion(val region: String?) : Msg
         data class AddRegion(val region: String?) : Msg
         data class UpdateSearchText(val text: String) : Msg
+        data object ShowTravelSnackbar : Msg
+        data object HideTravelSnackbar : Msg
     }
 
     fun provide(initialState: State): PlanetsStore = object :

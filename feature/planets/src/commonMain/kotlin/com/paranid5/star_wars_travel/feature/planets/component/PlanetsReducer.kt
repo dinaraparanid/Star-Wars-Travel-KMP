@@ -18,5 +18,9 @@ internal object PlanetsReducer : Reducer<State, Msg> {
             copy(selectedRegions = (selectedRegions - msg.region).toImmutableList())
 
         is Msg.UpdateSearchText -> copy(searchText = msg.text)
+
+        is Msg.ShowTravelSnackbar -> copy(isTravelSnackbarShown = true)
+
+        is Msg.HideTravelSnackbar -> copy(isTravelSnackbarShown = false)
     }
 }

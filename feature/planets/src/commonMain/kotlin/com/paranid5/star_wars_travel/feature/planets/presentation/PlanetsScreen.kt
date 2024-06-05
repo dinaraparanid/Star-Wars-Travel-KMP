@@ -19,7 +19,7 @@ import com.paranid5.star_wars_travel.feature.planets.presentation.views.region.R
 @Composable
 fun PlanetsScreen(
     planetsComponent: PlanetsComponent,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val state by planetsComponent.stateFlow.collectAsState()
     val onUiIntent = planetsComponent::onUiIntent
@@ -50,6 +50,7 @@ fun PlanetsScreen(
 
         Planets(
             planets = planets,
+            state = state,
             onUiIntent = onUiIntent,
             modifier = Modifier.fillMaxWidth()
         )
