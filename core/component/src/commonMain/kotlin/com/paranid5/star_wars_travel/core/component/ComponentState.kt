@@ -22,10 +22,9 @@ sealed interface ComponentState<T : Any> {
     val value: T
 
     data class Initial<T : Any>(override val value: T) : ComponentState<T>
-
     data class Restored<T : Any>(override val value: T) : ComponentState<T>
+}
 
-    fun onInitial(block: () -> Unit) {
-        if (this is Initial) block()
-    }
+inline fun <T : Any> ComponentState<T>.onInitial(block: () -> Unit) {
+    if (this is Initial) block()
 }

@@ -238,7 +238,7 @@ WHERE
     SocInfoLanguage.socInfoId = ?;
 
 insertAstroInfo:
-INSERT OR IGNORE INTO AstroInfo (rotationPeriod, orbitalPeriod, sector, system, moons)
+INSERT OR REPLACE INTO AstroInfo (rotationPeriod, orbitalPeriod, sector, system, moons)
 VALUES (?, ?, ?, ?, ?);
 
 insertedAstroInfo:
@@ -247,23 +247,23 @@ FROM AstroInfo
 LIMIT 1;
 
 insertRegion:
-INSERT OR IGNORE INTO Region (value)
+INSERT OR REPLACE INTO Region (value)
 VALUES (?);
 
 insertTradeRoute:
-INSERT OR IGNORE INTO TradeRoute (value)
+INSERT OR REPLACE INTO TradeRoute (value)
 VALUES (?);
 
 insertAstroInfoRegion:
-INSERT OR IGNORE INTO AstroInfoRegion (astroInfoId, region)
+INSERT OR REPLACE INTO AstroInfoRegion (astroInfoId, region)
 VALUES (?, ?);
 
 insertAstroInfoTradeRoute:
-INSERT OR IGNORE INTO AstroInfoTradeRoute (astroInfoId, tradeRoute)
+INSERT OR REPLACE INTO AstroInfoTradeRoute (astroInfoId, tradeRoute)
 VALUES (?, ?);
 
 insertPhysInfo:
-INSERT OR IGNORE INTO PhysInfo (climate, gravity, terrain, surfaceWater, diameter, planetClass, atmosphere)
+INSERT OR REPLACE INTO PhysInfo (climate, gravity, terrain, surfaceWater, diameter, planetClass, atmosphere)
 VALUES (?, ?, ?, ?, ?, ?, ?);
 
 insertedPhysInfo:
@@ -272,31 +272,31 @@ FROM PhysInfo
 LIMIT 1;
 
 insertInterest:
-INSERT OR IGNORE INTO Interest (value, coverUrl)
+INSERT OR REPLACE INTO Interest (value, coverUrl)
 VALUES (?, ?);
 
 insertFlora:
-INSERT OR IGNORE INTO Flora (value)
+INSERT OR REPLACE INTO Flora (value)
 VALUES (?);
 
 insertFauna:
-INSERT OR IGNORE INTO Fauna (value)
+INSERT OR REPLACE INTO Fauna (value)
 VALUES (?);
 
 insertPhysInfoInterest:
-INSERT OR IGNORE INTO PhysInfoInterest (physInfoId, interest)
+INSERT OR REPLACE INTO PhysInfoInterest (physInfoId, interest)
 VALUES (?, ?);
 
 insertPhysInfoFlora:
-INSERT OR IGNORE INTO PhysInfoFlora (physInfoId, flora)
+INSERT OR REPLACE INTO PhysInfoFlora (physInfoId, flora)
 VALUES (?, ?);
 
 insertPhysInfoFauna:
-INSERT OR IGNORE INTO PhysInfoFauna (physInfoId, fauna)
+INSERT OR REPLACE INTO PhysInfoFauna (physInfoId, fauna)
 VALUES (?, ?);
 
 insertSocInfo:
-INSERT OR IGNORE INTO SocInfo (population, government)
+INSERT OR REPLACE INTO SocInfo (population, government)
 VALUES (?, ?);
 
 insertedSocInfo:
@@ -305,39 +305,39 @@ FROM SocInfo
 LIMIT 1;
 
 insertNativeSpecies:
-INSERT OR IGNORE INTO NativeSpecies (value)
+INSERT OR REPLACE INTO NativeSpecies (value)
 VALUES (?);
 
 insertOtherSpecies:
-INSERT OR IGNORE INTO OtherSpecies (value)
+INSERT OR REPLACE INTO OtherSpecies (value)
 VALUES (?);
 
 insertLanguage:
-INSERT OR IGNORE INTO Language (value)
+INSERT OR REPLACE INTO Language (value)
 VALUES (?);
 
 insertCity:
-INSERT OR IGNORE INTO City (value)
+INSERT OR REPLACE INTO City (value)
 VALUES (?);
 
 insertSocInfoNativeSpecied:
-INSERT OR IGNORE INTO SocInfoNativeSpecies (socInfoId, nativeSpecies)
+INSERT OR REPLACE INTO SocInfoNativeSpecies (socInfoId, nativeSpecies)
 VALUES (?, ?);
 
 insertSocInfoOtherSpecies:
-INSERT OR IGNORE INTO SocInfoOtherSpecies (socInfoId, otherSpecies)
+INSERT OR REPLACE INTO SocInfoOtherSpecies (socInfoId, otherSpecies)
 VALUES (?, ?);
 
 insertSocInfoLanguage:
-INSERT OR IGNORE INTO SocInfoLanguage (socInfoId, language)
+INSERT OR REPLACE INTO SocInfoLanguage (socInfoId, language)
 VALUES (?, ?);
 
 insertSocInfoCity:
-INSERT OR IGNORE INTO SocInfoCity (socInfoId, city)
+INSERT OR REPLACE INTO SocInfoCity (socInfoId, city)
 VALUES (?, ?);
 
 insertPlanet:
-INSERT OR IGNORE INTO Planet (title, edited, pageNumber, description, coverUrl, astroInfoId, physInfoId, socInfoId)
+INSERT OR REPLACE INTO Planet (title, edited, pageNumber, description, coverUrl, astroInfoId, physInfoId, socInfoId)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?);
 
 updateInterest:

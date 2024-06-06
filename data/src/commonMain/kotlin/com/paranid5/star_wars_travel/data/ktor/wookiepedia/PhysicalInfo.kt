@@ -18,7 +18,7 @@ internal suspend inline fun Element.physicalInfo(planet: SwapiPlanet) =
             diameter = planet.diameter.toIntOrZero(),
             planetClass = info("class").firstOrNull(),
             atmosphere = info("atmosphere").firstOrNull(),
-            interest = info("interest").map { Interest(it, null) },
+            interests = info("interest").map { Interest(it, null) },
             flora = info("flora"),
             fauna = info("fauna")
         )

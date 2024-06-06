@@ -1,4 +1,4 @@
-package com.paranid5.star_wars_travel.feature.planets.presentation.views.item
+package com.paranid5.star_wars_travel.feature.planet.presentation.views.common
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -24,7 +24,7 @@ import org.jetbrains.compose.resources.stringResource
 private val ICON_SIZE = 24.dp
 
 @Composable
-internal fun TravelButton(
+fun TravelButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) = Button(

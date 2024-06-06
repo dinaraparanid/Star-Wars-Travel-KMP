@@ -1,4 +1,4 @@
-package com.paranid5.star_wars_travel.feature.planets.presentation.views.item
+package com.paranid5.star_wars_travel.feature.planet.presentation.views.common
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

@@ -14,7 +14,7 @@ data class PhysInfoUiState(
     val diameter: Int = 0,
     val planetClass: String? = null,
     val atmosphere: String? = null,
-    val interest: List<InterestUiState> = emptyList(),
+    val interests: List<InterestUiState> = emptyList(),
     val flora: List<String> = emptyList(),
     val fauna: List<String> = emptyList()
 ) {
@@ -26,7 +26,7 @@ data class PhysInfoUiState(
         diameter = infoEntity.diameter,
         planetClass = infoEntity.planetClass,
         atmosphere = infoEntity.atmosphere,
-        interest = infoEntity.interest.map(::InterestUiState),
+        interests = infoEntity.interests.map(::InterestUiState),
         flora = infoEntity.flora,
         fauna = infoEntity.fauna
     )

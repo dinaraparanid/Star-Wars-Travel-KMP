@@ -16,10 +16,9 @@ internal class SettingsComponentImpl(
     }
 
     override fun onUiIntent(intent: SettingsUiIntent) {
-        componentScope.launch(Dispatchers.Default) {
-            when (intent) {
-                is SettingsUiIntent.ResetTheme ->
-                    storageRepository.themeDataSource.storeTheme(intent.newTheme)
+        when (intent) {
+            is SettingsUiIntent.ResetTheme -> componentScope.launch {
+                storageRepository.themeDataSource.storeTheme(intent.newTheme)
             }
         }
     }

@@ -14,4 +14,6 @@ data class InterestUiState(
         value = entity.value,
         coverUrl = entity.coverUrl
     )
+
+    fun toInterest() = Interest(value = value, coverUrl = coverUrl)
 }

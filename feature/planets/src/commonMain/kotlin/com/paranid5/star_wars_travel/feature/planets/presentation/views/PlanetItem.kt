@@ -1,4 +1,4 @@
-package com.paranid5.star_wars_travel.feature.planets.presentation.views.item
+package com.paranid5.star_wars_travel.feature.planets.presentation.views
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -7,6 +7,9 @@ import androidx.constraintlayout.compose.Dimension
 import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
 import com.paranid5.star_wars_travel.feature.planet.presentation.effects.TravelSnackbarEffect
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.PlanetUiState
+import com.paranid5.star_wars_travel.feature.planet.presentation.views.common.PlanetCover
+import com.paranid5.star_wars_travel.feature.planet.presentation.views.common.PlanetDescription
+import com.paranid5.star_wars_travel.feature.planet.presentation.views.common.TravelButton
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.State
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.UiIntent
 

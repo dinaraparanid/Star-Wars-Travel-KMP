@@ -1,4 +1,4 @@
-package com.paranid5.star_wars_travel.feature.planets.presentation.views.item
+package com.paranid5.star_wars_travel.feature.planet.presentation.views.common
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,7 +17,7 @@ import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.mainRe
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-internal fun PlanetDescription(planet: PlanetUiState, modifier: Modifier = Modifier) =
+fun PlanetDescription(planet: PlanetUiState, modifier: Modifier = Modifier) =
     Column(modifier) {
         PlanetTitle(planet.title)
 

@@ -25,3 +25,7 @@ sealed interface ComponentStore<T : Store<*, *, *>> {
 
     data class Restored<T : Store<*, *, *>>(override val value: T) : ComponentStore<T>
 }
+
+inline fun <T : Store<*, *, *>> ComponentStore<T>.onInitial(block: () -> Unit) {
+    if (this is Initial) block()
+}

@@ -98,7 +98,7 @@ internal fun PlanetsQueries.parsePhysicalInfo(item: SelectBaseItems) =
         diameter = item.diameter.toInt(),
         planetClass = item.planetClass,
         atmosphere = item.atmosphere,
-        interest = selectInterests(physInfoId = item.physInfoId)
+        interests = selectInterests(physInfoId = item.physInfoId)
             .executeAsList()
             .mapNotNull { (interest, coverUrl) ->
                 interest?.let { Interest(it, coverUrl) }
@@ -196,7 +196,7 @@ internal fun PlanetsQueries.addPlanet(planet: WookiepediaPlanet) = runCatching {
 
         val physInfoId = insertPhysInfo(planet.physicalInformation)
 
-        planet.physicalInformation.interest.forEach {
+        planet.physicalInformation.interests.forEach {
             insertInterest(it.value, it.coverUrl)
             insertPhysInfoInterest(physInfoId = physInfoId, interest = it.value)
         }

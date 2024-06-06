@@ -16,7 +16,6 @@ import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.PlanetUiState
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.State
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.UiIntent
-import com.paranid5.star_wars_travel.feature.planets.presentation.views.item.PlanetItem
 
 private val CELL_SIZE = 300.dp
 

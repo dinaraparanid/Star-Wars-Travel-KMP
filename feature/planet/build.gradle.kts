@@ -53,6 +53,7 @@ kotlin {
             api(project(":core:ui"))
             api(project(":core:component"))
             api(project(":domain"))
+            api(project(":data"))
 
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -61,6 +62,8 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+
+            implementation(libs.constraintlayout)
 
             api(libs.ktor.client.core)
             api(libs.coil.compose.core)
