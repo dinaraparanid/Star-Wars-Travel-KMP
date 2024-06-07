@@ -2,6 +2,10 @@ package com.paranid5.star_wars_travel.feature.planet.presentation.ui_state
 
 import androidx.compose.runtime.Immutable
 import com.paranid5.star_wars_travel.domain.entities.wookiepedia.PhysicalInformation
+import com.paranid5.star_wars_travel.domain.utils.ImmutableListSerializer
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.serialization.Serializable
 
 @Immutable
@@ -14,9 +18,12 @@ data class PhysInfoUiState(
     val diameter: Int = 0,
     val planetClass: String? = null,
     val atmosphere: String? = null,
-    val interests: List<InterestUiState> = emptyList(),
-    val flora: List<String> = emptyList(),
-    val fauna: List<String> = emptyList()
+    @Serializable(with = ImmutableListSerializer::class)
+    val interests: ImmutableList<InterestUiState> = persistentListOf(),
+    @Serializable(with = ImmutableListSerializer::class)
+    val flora: ImmutableList<String> = persistentListOf(),
+    @Serializable(with = ImmutableListSerializer::class)
+    val fauna: ImmutableList<String> = persistentListOf(),
 ) {
     constructor(infoEntity: PhysicalInformation) : this(
         climate = infoEntity.climate,
@@ -26,8 +33,8 @@ data class PhysInfoUiState(
         diameter = infoEntity.diameter,
         planetClass = infoEntity.planetClass,
         atmosphere = infoEntity.atmosphere,
-        interests = infoEntity.interests.map(::InterestUiState),
-        flora = infoEntity.flora,
-        fauna = infoEntity.fauna
+        interests = infoEntity.interests.map(::InterestUiState).toImmutableList(),
+        flora = infoEntity.flora.toImmutableList(),
+        fauna = infoEntity.fauna.toImmutableList(),
     )
 }

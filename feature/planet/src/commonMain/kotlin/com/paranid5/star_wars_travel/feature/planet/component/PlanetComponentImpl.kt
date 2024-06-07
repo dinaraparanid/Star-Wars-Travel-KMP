@@ -5,6 +5,8 @@ import com.paranid5.star_wars_travel.core.component.componentScope
 import com.paranid5.star_wars_travel.core.component.getComponentState
 import com.paranid5.star_wars_travel.core.component.onInitial
 import com.paranid5.star_wars_travel.core.ui.UiState
+import com.paranid5.star_wars_travel.core.ui.toUiState
+import com.paranid5.star_wars_travel.core.ui.toUiStateIfNotNull
 import com.paranid5.star_wars_travel.data.DataDispatcher
 import com.paranid5.star_wars_travel.data.PlanetsRepository
 import com.paranid5.star_wars_travel.data.ktor.wookiepedia.loadInterestCover
@@ -13,6 +15,8 @@ import com.paranid5.star_wars_travel.feature.planet.component.PlanetComponent.Ui
 import com.paranid5.star_wars_travel.feature.planet.component.PlanetComponent.State
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.InterestUiState
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.PlanetUiState
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -42,7 +46,7 @@ internal class PlanetComponentImpl(
 
             componentScope.launch(DataDispatcher) {
                 val loadedInterests = initialPlanet.updateInterestsCovers { (value, _) ->
-                    loadInterestCover(value)?.let { UiState.Data(it) } ?: UiState.Error()
+                    loadInterestCover(value).toUiStateIfNotNull()
                 }
 
                 launch(DataDispatcher) { storeInterestsAsync(loadedInterests) }
@@ -61,18 +65,19 @@ internal class PlanetComponentImpl(
         }
     }
 
-    private fun storeInterestsAsync(interests: List<InterestUiState>) =
+    private fun storeInterestsAsync(interests: ImmutableList<InterestUiState>) =
         planetsRepository.updateInterestsAsync(interests.map(InterestUiState::toInterest))
 
-    private fun updateInterests(interests: List<InterestUiState>) = _stateFlow.updateState {
-        copy(
-            planet = planet.copy(
-                physicalInformation = planet
-                    .physicalInformation
-                    .copy(interests = interests),
+    private fun updateInterests(interests: ImmutableList<InterestUiState>) =
+        _stateFlow.updateState {
+            copy(
+                planet = planet.copy(
+                    physicalInformation = planet
+                        .physicalInformation
+                        .copy(interests = interests),
+                )
             )
-        )
-    }
+        }
 
     private fun changeDescriptionVisibility() =
         _stateFlow.updateState { copy(isDescriptionShown = isDescriptionShown.not()) }
@@ -102,7 +107,8 @@ internal class PlanetComponentImpl(
 
 private inline fun PlanetUiState.updateInterestsCovers(
     transform: (InterestUiState) -> UiState<String>
-): List<InterestUiState> =
+): ImmutableList<InterestUiState> =
     physicalInformation
         .interests
         .map { InterestUiState(it.value, transform(it)) }
+        .toImmutableList()

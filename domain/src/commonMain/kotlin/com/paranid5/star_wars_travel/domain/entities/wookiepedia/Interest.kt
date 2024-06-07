@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Interest(
     val value: String,
-    val coverUrl: String?
+    val coverUrl: String?,
 )

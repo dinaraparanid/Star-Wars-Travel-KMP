@@ -3,6 +3,7 @@ package com.paranid5.star_wars_travel.feature.planet.presentation.ui_state
 import androidx.compose.runtime.Immutable
 import com.paranid5.star_wars_travel.core.ui.UiState
 import com.paranid5.star_wars_travel.core.ui.getOrNull
+import com.paranid5.star_wars_travel.core.ui.toUiStateIfNotNull
 import com.paranid5.star_wars_travel.domain.entities.wookiepedia.Interest
 import kotlinx.serialization.Serializable
 
@@ -14,9 +15,7 @@ data class InterestUiState(
 ) {
     constructor(entity: Interest) : this(
         value = entity.value,
-        coverUrlState = entity.coverUrl
-            ?.let { UiState.Data(it) }
-            ?: UiState.Error()
+        coverUrlState = entity.coverUrl.toUiStateIfNotNull()
     )
 
     fun toInterest() = Interest(value = value, coverUrl = coverUrlState.getOrNull())

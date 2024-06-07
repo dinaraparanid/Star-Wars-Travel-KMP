@@ -9,5 +9,5 @@ data class SocietalInformation(
     val otherSpecies: List<String> = emptyList(),
     val primaryLanguages: List<String> = emptyList(),
     val government: String? = null,
-    val majorCities: List<String> = emptyList()
+    val majorCities: List<String> = emptyList(),
 )

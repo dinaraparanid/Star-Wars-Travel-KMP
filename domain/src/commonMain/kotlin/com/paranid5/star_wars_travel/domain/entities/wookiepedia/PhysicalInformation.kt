@@ -13,5 +13,5 @@ data class PhysicalInformation(
     val atmosphere: String? = null,
     val interests: List<Interest> = emptyList(),
     val flora: List<String> = emptyList(),
-    val fauna: List<String> = emptyList()
+    val fauna: List<String> = emptyList(),
 )
