@@ -13,7 +13,6 @@ import com.arkivanov.mvikotlin.core.utils.setMainThreadId
 import com.paranid5.star_wars_travel.component.root.RootComponent
 import com.paranid5.star_wars_travel.core.resources.Res
 import com.paranid5.star_wars_travel.core.resources.app_name
-import com.paranid5.star_wars_travel.data.StorageRepository
 import com.paranid5.star_wars_travel.di.initKodein
 import com.paranid5.star_wars_travel.presentation.App
 import org.jetbrains.compose.resources.stringResource
@@ -28,8 +27,6 @@ fun main() {
 
     val kodein = initKodein()
     val rootComponentFactory: RootComponent.Factory by kodein.instance()
-    val storageRepository: StorageRepository by kodein.instance()
-
     val rootComponent = runOnUiThread {
         rootComponentFactory.create(
             DefaultComponentContext(
@@ -47,7 +44,6 @@ fun main() {
         ) {
             App(
                 rootComponent = rootComponent,
-                storageRepository = storageRepository,
                 modifier = Modifier.fillMaxSize()
             )
         }

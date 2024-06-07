@@ -13,22 +13,16 @@ import coil3.annotation.ExperimentalCoilApi
 import coil3.compose.setSingletonImageLoaderFactory
 import com.paranid5.star_wars_travel.component.root.RootComponent
 import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
-import com.paranid5.star_wars_travel.data.StorageRepository
-import com.paranid5.star_wars_travel.domain.entities.Theme
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun App(
     rootComponent: RootComponent,
-    storageRepository: StorageRepository,
     modifier: Modifier = Modifier,
 ) {
-    val theme by storageRepository
-        .themeDataSource
-        .themeFlow
-        .collectAsState(initial = Theme.DARK)
+    val state by rootComponent.stateFlow.collectAsState()
 
-    AppTheme(theme) {
+    AppTheme(state.theme) {
         setSingletonImageLoaderFactory { context ->
             ImageLoader.Builder(context).build()
         }

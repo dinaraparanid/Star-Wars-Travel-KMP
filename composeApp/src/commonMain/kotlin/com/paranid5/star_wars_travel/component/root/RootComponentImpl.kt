@@ -6,18 +6,30 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
+import com.paranid5.star_wars_travel.core.component.componentScope
+import com.paranid5.star_wars_travel.data.StorageRepository
 import com.paranid5.star_wars_travel.feature.about_app.component.AboutAppComponent
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsComponent
 import com.paranid5.star_wars_travel.feature.settings.component.SettingsComponent
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 
 class RootComponentImpl(
     componentContext: ComponentContext,
     private val planetsComponentFactory: PlanetsComponent.Factory,
     private val settingsComponentFactory: SettingsComponent.Factory,
     private val aboutAppComponentFactory: AboutAppComponent.Factory,
+    storageRepository: StorageRepository,
 ) : RootComponent,
     ComponentContext by componentContext {
     private val navigation = StackNavigation<RootConfig>()
+
+    override val stateFlow = storageRepository
+        .themeDataSource
+        .themeFlow
+        .map { RootState(theme = it) }
+        .stateIn(componentScope, SharingStarted.WhileSubscribed(), RootState())
 
     override val stack: Value<ChildStack<RootConfig, RootChild>> = childStack(
         source = navigation,
@@ -58,6 +70,7 @@ class RootComponentImpl(
         private val planetsComponentFactory: PlanetsComponent.Factory,
         private val settingsComponentFactory: SettingsComponent.Factory,
         private val aboutAppComponentFactory: AboutAppComponent.Factory,
+        private val storageRepository: StorageRepository,
     ) : RootComponent.Factory {
         override fun create(componentContext: ComponentContext): RootComponent =
             RootComponentImpl(
@@ -65,6 +78,7 @@ class RootComponentImpl(
                 planetsComponentFactory = planetsComponentFactory,
                 settingsComponentFactory = settingsComponentFactory,
                 aboutAppComponentFactory = aboutAppComponentFactory,
+                storageRepository = storageRepository
             )
     }
 }

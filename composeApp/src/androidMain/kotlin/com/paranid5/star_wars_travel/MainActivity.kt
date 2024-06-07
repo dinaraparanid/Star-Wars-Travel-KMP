@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.defaultComponentContext
 import com.paranid5.star_wars_travel.component.root.RootComponent
-import com.paranid5.star_wars_travel.data.StorageRepository
 import com.paranid5.star_wars_travel.presentation.App
 import org.kodein.di.DI
 import org.kodein.di.DIAware
@@ -17,7 +16,6 @@ import org.kodein.di.instance
 
 class MainActivity : ComponentActivity(), DIAware {
     override val di: DI by closestDI()
-    private val storageRepository: StorageRepository by instance()
     private val rootComponentFactory: RootComponent.Factory by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +27,6 @@ class MainActivity : ComponentActivity(), DIAware {
         setContent {
             App(
                 rootComponent = rootComponent,
-                storageRepository = storageRepository,
                 modifier = Modifier.fillMaxSize(),
             )
         }

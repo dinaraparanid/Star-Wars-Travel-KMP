@@ -5,14 +5,11 @@ import com.paranid5.star_wars_travel.core.component.componentScope
 import com.paranid5.star_wars_travel.core.component.getComponentState
 import com.paranid5.star_wars_travel.core.component.onInitial
 import com.paranid5.star_wars_travel.core.ui.UiState
-import com.paranid5.star_wars_travel.core.ui.toUiState
 import com.paranid5.star_wars_travel.core.ui.toUiStateIfNotNull
 import com.paranid5.star_wars_travel.data.DataDispatcher
 import com.paranid5.star_wars_travel.data.PlanetsRepository
 import com.paranid5.star_wars_travel.data.ktor.wookiepedia.loadInterestCover
 import com.paranid5.star_wars_travel.domain.utils.updateState
-import com.paranid5.star_wars_travel.feature.planet.component.PlanetComponent.UiIntent
-import com.paranid5.star_wars_travel.feature.planet.component.PlanetComponent.State
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.InterestUiState
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.PlanetUiState
 import kotlinx.collections.immutable.ImmutableList
@@ -34,7 +31,7 @@ internal class PlanetComponentImpl(
     }
 
     private val componentState = getComponentState(
-        defaultState = State(initialPlanet)
+        defaultState = PlanetState(initialPlanet)
     )
 
     private val _stateFlow = MutableStateFlow(componentState.value)
@@ -56,12 +53,12 @@ internal class PlanetComponentImpl(
         }
     }
 
-    override fun onUiIntent(intent: UiIntent) {
+    override fun onUiIntent(intent: PlanetUiIntent) {
         when (intent) {
-            UiIntent.GoBack -> onBack()
-            UiIntent.ChangeDescriptionVisibility -> changeDescriptionVisibility()
-            UiIntent.HideTravelSnackbar -> changeTravelSnackbarVisibility(isShown = false)
-            UiIntent.ShowTravelSnackbar -> componentScope.launch { showTravelSnackbar() }
+            PlanetUiIntent.GoBack -> onBack()
+            PlanetUiIntent.ChangeDescriptionVisibility -> changeDescriptionVisibility()
+            PlanetUiIntent.HideTravelSnackbar -> changeTravelSnackbarVisibility(isShown = false)
+            PlanetUiIntent.ShowTravelSnackbar -> componentScope.launch { showTravelSnackbar() }
         }
     }
 

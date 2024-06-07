@@ -20,14 +20,14 @@ import com.paranid5.star_wars_travel.core.resources.no_description
 import com.paranid5.star_wars_travel.core.resources.show
 import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
 import com.paranid5.star_wars_travel.feature.planet.component.HIDDEN_MAX_LINES
-import com.paranid5.star_wars_travel.feature.planet.component.PlanetComponent.State
-import com.paranid5.star_wars_travel.feature.planet.component.PlanetComponent.UiIntent
+import com.paranid5.star_wars_travel.feature.planet.component.PlanetState
+import com.paranid5.star_wars_travel.feature.planet.component.PlanetUiIntent
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun Description(
-    state: State,
-    onUiIntent: (UiIntent) -> Unit,
+    state: PlanetState,
+    onUiIntent: (PlanetUiIntent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val descriptionVisibilityText by remember(state.isDescriptionShown) {
@@ -69,7 +69,9 @@ internal fun Description(
                 text = stringResource(descriptionVisibilityText),
                 color = AppTheme.colors.transparentUtility,
                 style = AppTheme.typography.captionSm,
-                modifier = Modifier.clickable { onUiIntent(UiIntent.ChangeDescriptionVisibility) },
+                modifier = Modifier.clickable {
+                    onUiIntent(PlanetUiIntent.ChangeDescriptionVisibility)
+                },
             )
         }
     }
