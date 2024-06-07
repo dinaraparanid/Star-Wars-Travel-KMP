@@ -19,7 +19,6 @@ import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.UiIn
 
 private val CELL_SIZE = 300.dp
 
-@Suppress("NonSkippableComposable")
 @Composable
 internal fun Planets(
     planets: LazyPagingItems<PlanetUiState>,

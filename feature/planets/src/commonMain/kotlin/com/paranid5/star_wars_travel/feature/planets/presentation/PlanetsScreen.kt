@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -20,12 +21,12 @@ import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.Planet
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.RegionUiState
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsComponent
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsComponent.Child
-import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.State
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.UiIntent
 import com.paranid5.star_wars_travel.feature.planets.presentation.views.Planets
 import com.paranid5.star_wars_travel.feature.planets.presentation.views.PlanetsSearchBar
 import com.paranid5.star_wars_travel.feature.planets.presentation.views.PlanetsWelcomeLabel
 import com.paranid5.star_wars_travel.feature.planets.presentation.views.region.RegionSelectors
+import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.State as PlanetsState
 
 @Composable
 fun PlanetsScreen(
@@ -38,8 +39,6 @@ fun PlanetsScreen(
     val regions = planetsComponent.regionsPagedFlow.collectAsLazyPagingItems()
     val planets = planetsComponent.planetsPagedFlow.collectAsLazyPagingItems()
 
-    val childSlot by planetsComponent.childSlot.collectAsState()
-
     PlanetsScreenContent(
         state = state,
         onUiIntent = onUiIntent,
@@ -49,7 +48,7 @@ fun PlanetsScreen(
     )
 
     PlanetsScreenSlots(
-        childSlot = childSlot,
+        childSlotState = planetsComponent.childSlot.collectAsState(),
         modifier = Modifier
             .fillMaxSize()
             .background(AppTheme.colors.backgroundGradient)
@@ -59,7 +58,7 @@ fun PlanetsScreen(
 
 @Composable
 private fun PlanetsScreenContent(
-    state: State,
+    state: PlanetsState,
     onUiIntent: (UiIntent) -> Unit,
     regions: LazyPagingItems<RegionUiState>,
     planets: LazyPagingItems<PlanetUiState>,
@@ -95,9 +94,13 @@ private fun PlanetsScreenContent(
 
 @Composable
 private fun PlanetsScreenSlots(
-    childSlot: ChildSlot<*, Child>,
+    childSlotState: State<ChildSlot<*, Child>>,
     modifier: Modifier = Modifier,
-) = when (val config = childSlot.child?.instance) {
-    is Child.Planet -> PlanetScreen(planetComponent = config.component, modifier = modifier)
-    null -> Unit
+) {
+    val childSlot by childSlotState
+
+    when (val config = childSlot.child?.instance) {
+        is Child.Planet -> PlanetScreen(planetComponent = config.component, modifier = modifier)
+        null -> Unit
+    }
 }

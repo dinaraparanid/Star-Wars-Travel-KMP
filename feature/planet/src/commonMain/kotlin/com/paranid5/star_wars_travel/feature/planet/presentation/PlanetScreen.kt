@@ -36,7 +36,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun PlanetScreen(
     planetComponent: PlanetComponent,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val appPadding = AppTheme.dimensions.padding
     val state by planetComponent.stateFlow.collectAsState()
@@ -73,7 +73,7 @@ fun PlanetScreen(
             planetTitle = state.planet.title,
             style = AppTheme.typography.h.h2,
             modifier = Modifier
-                .zIndex(10F)
+                .zIndex(1F)
                 .constrainAs(title) {
                     bottom.linkTo(travelButton.top, margin = appPadding.small)
                     start.linkTo(travelButton.start)
@@ -150,6 +150,7 @@ fun PlanetScreen(
                 top.linkTo(physInfo.bottom, margin = appPadding.extraMedium)
                 start.linkTo(parent.start, margin = appPadding.extraMedium)
                 end.linkTo(parent.end, margin = appPadding.extraMedium)
+                bottom.linkTo(parent.bottom, margin = appPadding.extraMedium)
                 width = Dimension.fillToConstraints
             }
         )

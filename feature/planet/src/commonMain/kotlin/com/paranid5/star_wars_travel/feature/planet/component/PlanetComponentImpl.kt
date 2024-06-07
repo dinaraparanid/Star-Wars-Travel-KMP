@@ -4,6 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.paranid5.star_wars_travel.core.component.componentScope
 import com.paranid5.star_wars_travel.core.component.getComponentState
 import com.paranid5.star_wars_travel.core.component.onInitial
+import com.paranid5.star_wars_travel.core.ui.UiState
 import com.paranid5.star_wars_travel.data.DataDispatcher
 import com.paranid5.star_wars_travel.data.PlanetsRepository
 import com.paranid5.star_wars_travel.data.ktor.wookiepedia.loadInterestCover
@@ -37,23 +38,16 @@ internal class PlanetComponentImpl(
 
     init {
         componentState.onInitial {
+            updateInterests(initialPlanet.updateInterestsCovers { UiState.Loading })
+
             componentScope.launch(DataDispatcher) {
-                val interests = initialPlanet
-                    .physicalInformation
-                    .interests
-                    .map { InterestUiState(it.value, loadInterestCover(it.value)) }
-
-                launch(DataDispatcher) { updateInterestsAsync(interests) }
-
-                _stateFlow.updateState {
-                    copy(
-                        planet = planet.copy(
-                            physicalInformation = planet
-                                .physicalInformation
-                                .copy(interests = interests),
-                        )
-                    )
+                val loadedInterests = initialPlanet.updateInterestsCovers { (value, _) ->
+                    loadInterestCover(value)?.let { UiState.Data(it) } ?: UiState.Error()
                 }
+
+                launch(DataDispatcher) { storeInterestsAsync(loadedInterests) }
+
+                updateInterests(loadedInterests)
             }
         }
     }
@@ -67,8 +61,18 @@ internal class PlanetComponentImpl(
         }
     }
 
-    private fun updateInterestsAsync(interests: List<InterestUiState>) =
+    private fun storeInterestsAsync(interests: List<InterestUiState>) =
         planetsRepository.updateInterestsAsync(interests.map(InterestUiState::toInterest))
+
+    private fun updateInterests(interests: List<InterestUiState>) = _stateFlow.updateState {
+        copy(
+            planet = planet.copy(
+                physicalInformation = planet
+                    .physicalInformation
+                    .copy(interests = interests),
+            )
+        )
+    }
 
     private fun changeDescriptionVisibility() =
         _stateFlow.updateState { copy(isDescriptionShown = isDescriptionShown.not()) }
@@ -95,3 +99,10 @@ internal class PlanetComponentImpl(
         )
     }
 }
+
+private inline fun PlanetUiState.updateInterestsCovers(
+    transform: (InterestUiState) -> UiState<String>
+): List<InterestUiState> =
+    physicalInformation
+        .interests
+        .map { InterestUiState(it.value, transform(it)) }

@@ -14,6 +14,8 @@ import coil3.compose.SubcomposeAsyncImage
 import com.paranid5.star_wars_travel.core.resources.Res
 import com.paranid5.star_wars_travel.core.resources.deathstar
 import com.paranid5.star_wars_travel.core.resources.planet_preview
+import com.paranid5.star_wars_travel.core.ui.UiState
+import com.paranid5.star_wars_travel.core.ui.getOrNull
 import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
 import com.paranid5.star_wars_travel.core.ui.utils.AppProgressIndicator
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.PlanetUiState
@@ -30,12 +32,20 @@ fun PlanetCover(
     val context = LocalPlatformContext.current
 
     SubcomposeAsyncImage(
-        model = coverModel(planet.coverUrl, context),
+        model = coverModel(
+            coverUrl = planet.coverUrl.getOrNull(),
+            context = context,
+        ),
         contentDescription = stringResource(Res.string.planet_preview),
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
         loading = { AppProgressIndicator(Modifier.fillMaxSize()) },
-        error = { PlanetPlaceholder(Modifier.fillMaxSize()) },
+        error = {
+            CoverThumbnail(
+                coverUrlState = planet.coverUrl,
+                modifier = Modifier.fillMaxSize()
+            )
+        },
         modifier = modifier.clip(RoundedCornerShape(roundedCorners)),
     )
 }
@@ -46,3 +56,15 @@ fun PlanetPlaceholder(modifier: Modifier = Modifier) = Image(
     contentDescription = null,
     modifier = modifier,
 )
+
+@Composable
+fun CoverThumbnail(
+    coverUrlState: UiState<String>,
+    modifier: Modifier = Modifier,
+) = when (coverUrlState) {
+    is UiState.Data -> PlanetPlaceholder(modifier)
+    is UiState.Error -> PlanetPlaceholder(modifier)
+    is UiState.Loading -> AppProgressIndicator(modifier)
+    is UiState.Refreshing -> AppProgressIndicator(modifier)
+    is UiState.Undefined -> AppProgressIndicator(modifier)
+}

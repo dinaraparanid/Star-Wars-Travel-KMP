@@ -100,7 +100,7 @@ internal class PlanetsComponentImpl(
     init {
         bind(lifecycle, BinderLifecycleMode.CREATE_DESTROY) {
             store.labels bindTo ::onLabel
-        }
+        }.start()
     }
 
     override fun onUiIntent(intent: UiIntent) = store.accept(intent)

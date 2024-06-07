@@ -13,10 +13,14 @@ import io.ktor.http.ContentType
 import io.ktor.http.userAgent
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.withTimeoutOrNull
 
 private const val WOOKIEPEDIA_BASE_URL = "https://starwars.fandom.com/wiki"
 
 internal val CITATION_REGEX = Regex("\\[\\d+]")
+
+private const val FETCH_TIMEOUT_MS = 10_000L
 
 internal suspend fun PlanetDTO(planet: SwapiPlanet, pageNumber: Int) = coroutineScope {
     val html = WookieHtml(planet.name).getOrNull()
@@ -41,14 +45,16 @@ internal suspend fun PlanetDTO(planet: SwapiPlanet, pageNumber: Int) = coroutine
 }
 
 internal suspend inline fun WookieHtml(query: String) = runCatching {
-    Ksoup.parseGetRequest(
-        url = "$WOOKIEPEDIA_BASE_URL/${wookiepediaFormat(query)}",
-        httpRequestBuilder = {
-            accept(ContentType.Any)
-            userAgent(USER_AGENT)
-        },
-        parser = Parser.xmlParser()
-    )
+    withTimeout(FETCH_TIMEOUT_MS) {
+        Ksoup.parseGetRequest(
+            url = "$WOOKIEPEDIA_BASE_URL/${wookiepediaFormat(query)}",
+            httpRequestBuilder = {
+                accept(ContentType.Any)
+                userAgent(USER_AGENT)
+            },
+            parser = Parser.xmlParser()
+        )
+    }
 }
 
 private suspend inline fun Element.planetDescription() = runCatching {
