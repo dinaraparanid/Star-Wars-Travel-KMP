@@ -2,10 +2,16 @@ package com.paranid5.star_wars_travel.feature.planet.presentation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.paranid5.star_wars_travel.feature.planet.component.PlanetComponent
+import com.paranid5.star_wars_travel.feature.planet.component.PlanetState
+import com.paranid5.star_wars_travel.feature.planet.component.PlanetUiIntent
 
 @Composable
-actual fun PlanetScreen(
-    planetComponent: PlanetComponent,
+internal actual fun PlanetScreenImpl(
+    state: PlanetState,
+    onUiIntent: (PlanetUiIntent) -> Unit,
     modifier: Modifier,
-) = PlanetScreenPC(planetComponent, modifier)
+) = PlanetScreenPC(
+    state = state,
+    onUiIntent = onUiIntent,
+    modifier = modifier,
+)
