@@ -1,22 +1,23 @@
 package com.paranid5.star_wars_travel.feature.planet.presentation
 
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.paranid5.star_wars_travel.core.resources.Res
 import com.paranid5.star_wars_travel.core.resources.astro_info
 import com.paranid5.star_wars_travel.core.resources.phys_info
 import com.paranid5.star_wars_travel.core.resources.soc_info
-import com.paranid5.star_wars_travel.core.ui.common.BackButton
 import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
 import com.paranid5.star_wars_travel.core.ui.utils.onBackEvent
 import com.paranid5.star_wars_travel.feature.planet.component.PlanetComponent
@@ -26,13 +27,9 @@ import com.paranid5.star_wars_travel.feature.planet.presentation.effects.TravelS
 import com.paranid5.star_wars_travel.feature.planet.presentation.utils.toEntryList
 import com.paranid5.star_wars_travel.feature.planet.presentation.views.Description
 import com.paranid5.star_wars_travel.feature.planet.presentation.views.InfoMenu
-import com.paranid5.star_wars_travel.feature.planet.presentation.views.common.PlanetCover
-import com.paranid5.star_wars_travel.feature.planet.presentation.views.common.PlanetTitle
-import com.paranid5.star_wars_travel.feature.planet.presentation.views.common.TravelButton
+import com.paranid5.star_wars_travel.feature.planet.presentation.views.TopBarCover
 import com.paranid5.star_wars_travel.feature.planet.presentation.views.interest.InterestsRow
 import org.jetbrains.compose.resources.stringResource
-
-private val COVER_PC_MAX_SIZE = 312.dp
 
 @Composable
 fun PlanetScreen(
@@ -42,44 +39,53 @@ fun PlanetScreen(
     val state by planetComponent.stateFlow.collectAsState()
     val onUiIntent = planetComponent::onUiIntent
 
+    val appPadding = AppTheme.dimensions.padding
+    val scrollState = rememberScrollState()
+
     TravelSnackbarEffect(
         planet = state.planet,
         isTravelSnackbarVisible = state.isTravelSnackbarShown,
-        onDismissed = { onUiIntent(PlanetUiIntent.HideTravelSnackbar) }
+        onDismissed = { onUiIntent(PlanetUiIntent.HideTravelSnackbar) },
     )
 
-    PlanetScreenImpl(
-        state = state,
-        onUiIntent = onUiIntent,
-        modifier = modifier,
-    )
+    Column(modifier) {
+        TopBarCover(
+            scrollValue = scrollState.value.toFloat(),
+            state = state,
+            onUiIntent = onUiIntent,
+            modifier = Modifier.fillMaxWidth(),
+        )
+
+        Spacer(Modifier.height(appPadding.small))
+
+        Spacer(
+            Modifier
+                .fillMaxWidth()
+                .height(AppTheme.dimensions.separators.minimum)
+                .background(AppTheme.colors.transparentUtility),
+        )
+
+        PlanetScreenDetails(
+            state = state,
+            onUiIntent = onUiIntent,
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .onBackEvent { onUiIntent(PlanetUiIntent.GoBack) }
+        )
+    }
 }
 
 @Composable
-internal expect fun PlanetScreenImpl(
+internal fun PlanetScreenDetails(
     state: PlanetState,
     onUiIntent: (PlanetUiIntent) -> Unit,
-    modifier: Modifier = Modifier,
-)
-
-@Composable
-internal fun PlanetScreenPC(
-    state: PlanetState,
-    onUiIntent: (PlanetUiIntent) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val appPadding = AppTheme.dimensions.padding
 
-    ConstraintLayout(
-        modifier
-            .verticalScroll(rememberScrollState())
-            .onBackEvent { onUiIntent(PlanetUiIntent.GoBack) }
-    ) {
+    ConstraintLayout(modifier) {
         val (
-            title,
-            backButton,
-            cover,
-            travelButton,
             interests,
             description,
             astroInfo,
@@ -87,54 +93,10 @@ internal fun PlanetScreenPC(
             socInfo
         ) = createRefs()
 
-        PlanetTitle(
-            planetTitle = state.planet.title,
-            style = AppTheme.typography.h.h2,
-            modifier = Modifier
-                .zIndex(1F)
-                .constrainAs(title) {
-                    bottom.linkTo(travelButton.top, margin = appPadding.small)
-                    start.linkTo(travelButton.start)
-                }
-        )
-
-        BackButton(
-            onBack = { onUiIntent(PlanetUiIntent.GoBack) },
-            modifier = Modifier
-                .zIndex(1F)
-                .constrainAs(backButton) {
-                    top.linkTo(parent.top, margin = appPadding.small)
-                    start.linkTo(parent.start, margin = appPadding.small)
-                }
-        )
-
-        PlanetCover(
-            planet = state.planet,
-            roundedCorners = AppTheme.dimensions.corners.medium,
-            modifier = Modifier
-                .widthIn(max = COVER_PC_MAX_SIZE)
-                .aspectRatio(1F)
-                .constrainAs(cover) {
-                    top.linkTo(parent.top, margin = appPadding.extraMedium)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }
-        )
-
-        TravelButton(
-            onClick = { onUiIntent(PlanetUiIntent.ShowTravelSnackbar) },
-            modifier = Modifier.constrainAs(travelButton) {
-                centerAround(cover.bottom)
-                start.linkTo(cover.start, margin = appPadding.large)
-                end.linkTo(cover.end, margin = appPadding.large)
-                width = Dimension.fillToConstraints
-            }
-        )
-
         InterestsRow(
             planet = state.planet,
             modifier = Modifier.constrainAs(interests) {
-                top.linkTo(travelButton.bottom, margin = appPadding.extraMedium)
+                top.linkTo(parent.top, margin = appPadding.small)
             }
         )
 

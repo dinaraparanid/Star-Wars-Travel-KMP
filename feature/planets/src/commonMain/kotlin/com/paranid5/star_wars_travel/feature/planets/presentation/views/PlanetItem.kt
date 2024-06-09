@@ -1,7 +1,9 @@
 package com.paranid5.star_wars_travel.feature.planets.presentation.views
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
@@ -32,12 +34,14 @@ internal fun PlanetItem(
 
         PlanetCover(
             planet = planet,
-            modifier = Modifier.constrainAs(cover) {
-                top.linkTo(parent.top)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                width = Dimension.fillToConstraints
-            }
+            modifier = Modifier
+                .clip(RoundedCornerShape(AppTheme.dimensions.corners.minimum))
+                .constrainAs(cover) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    width = Dimension.fillToConstraints
+                }
         )
 
         ConstraintLayout(
