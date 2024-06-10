@@ -1,22 +1,61 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop.
+**Star Wars Travel**
+--------------------
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+[![Kotlin](https://img.shields.io/badge/kotlin-2.0.0-blue.svg?logo=kotlin)](http://kotlinlang.org)
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+## **Developer**
+[Paranid5](https://github.com/dinaraparanid)
 
+## **About App**
+**Star Wars Travel** is a sample Kotlin Multiplatform application that utilises multiple services
+to preview the most historically important planets from Star Wars universe.
+App is aimed to provide crucial information for travelers, explorers and SW fans.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
+Currently, application supports three targets: ***Android***, ***iOS*** and ***Desktop***.
+Projects shares same business and UI logic by utilizing Compose Multiplatform, Decompose, Kodein
+and other KMP libraries
 
-**Note:** Compose/Web is Experimental and may be changed at any time. Use it only for evaluation purposes.
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [GitHub](https://github.com/JetBrains/compose-multiplatform/issues).
+### **Preview**
 
-You can open the web application by running the `:composeApp:wasmJsBrowserDevelopmentRun` Gradle task.
+![preview](preview.gif)
+
+## **Stack**
+
+<ul>
+    <li>General</li>
+    <ul>
+        <li>Kotlin 2.0</li>
+        <li>Kotlin Multiplatform</li>
+        <li>Coroutines + Flow</li>
+        <li>Kodein</li>
+        <li>KotlinX.Collections.Immutable</li>
+    </ul>
+    <p></p>
+    <li>Business logic and data management</li>
+    <ul>
+        <li>Decompose + Essenty</li>
+        <li>MviKotlin</li>
+        <li>Ktor</li>
+        <li>SQLDelight</li>
+        <li>DataStore</li>
+        <li>Paging</li>
+        <li>KotlinX.Serialization</li>
+        <li>KSoup</li>
+    </ul>
+    <li>UI</li>
+    <ul>
+        <li>Compose Multiplatform</li>
+        <li>Decompose</li>
+        <li>Coil + Compose extensions</li>
+        <li>ConstraintLayout (Compose version)</li>
+        <li>Android Canvas (Compose version)</li>
+    </ul>
+</ul>
+
+## **System Requirements**
+
+Stable internet connection is required
+
+## **License**
+
+*GNU Public License V 3.0*
