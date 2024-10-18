@@ -38,19 +38,6 @@ internal fun NavBarItem(
 )
 
 @Composable
-internal fun NavBarItem(
-    title: String,
-    image: Painter,
-    isScreenCurrent: Boolean,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit,
-) = NavBarItemImpl(
-    modifier = modifier,
-    icon = { NavBarIcon(title, image, isScreenCurrent) },
-    onClick = onClick,
-)
-
-@Composable
 private fun NavBarIcon(
     title: String,
     image: ImageVector,

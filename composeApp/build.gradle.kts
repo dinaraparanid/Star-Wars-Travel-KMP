@@ -1,8 +1,8 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
@@ -70,13 +70,15 @@ kotlin {
             implementation(libs.kodein.android)
         }
         commonMain.dependencies {
-            implementation(project(":core:component"))
-            implementation(project(":core:ui"))
-            implementation(project(":domain"))
-            api(project(":data"))
-            implementation(project(":feature:about_app"))
-            implementation(project(":feature:planets"))
-            implementation(project(":feature:settings"))
+            implementation(projects.core.component)
+            implementation(projects.core.ui)
+
+            implementation(projects.domain)
+            implementation(projects.data)
+
+            implementation(projects.feature.aboutApp)
+            implementation(projects.feature.planets)
+            implementation(projects.feature.settings)
 
             implementation(compose.runtime)
             implementation(compose.foundation)

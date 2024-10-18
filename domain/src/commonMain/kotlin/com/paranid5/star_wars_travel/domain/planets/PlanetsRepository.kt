@@ -1,4 +1,4 @@
-package com.paranid5.star_wars_travel.data
+package com.paranid5.star_wars_travel.domain.planets
 
 import androidx.paging.PagingData
 import com.paranid5.star_wars_travel.domain.entities.wookiepedia.Interest

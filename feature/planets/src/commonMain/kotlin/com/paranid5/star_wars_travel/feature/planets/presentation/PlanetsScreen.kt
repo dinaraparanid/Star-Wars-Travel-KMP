@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
@@ -15,7 +16,8 @@ import androidx.compose.ui.zIndex
 import app.cash.paging.compose.LazyPagingItems
 import app.cash.paging.compose.collectAsLazyPagingItems
 import com.arkivanov.decompose.router.slot.ChildSlot
-import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.colors
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.dimensions
 import com.paranid5.star_wars_travel.feature.planet.presentation.PlanetScreen
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.PlanetUiState
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.RegionUiState
@@ -51,8 +53,8 @@ fun PlanetsScreen(
         childSlotState = planetsComponent.childSlot.collectAsState(),
         modifier = Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.backgroundGradient)
-            .zIndex(1F)
+            .background(colors.backgroundGradient)
+            .zIndex(1F),
     )
 }
 
@@ -64,17 +66,19 @@ private fun PlanetsScreenContent(
     planets: LazyPagingItems<PlanetUiState>,
     modifier: Modifier = Modifier,
 ) = Column(modifier) {
-    PlanetsWelcomeLabel(Modifier.fillMaxWidth())
+    val horizontalPaddingModifier = Modifier.padding(horizontal = dimensions.padding.extraMedium)
 
-    Spacer(Modifier.height(AppTheme.dimensions.padding.extraMedium))
+    PlanetsWelcomeLabel(horizontalPaddingModifier.fillMaxWidth())
+
+    Spacer(Modifier.height(dimensions.padding.extraMedium))
 
     PlanetsSearchBar(
         state = state,
         onUiIntent = onUiIntent,
-        modifier = Modifier.fillMaxWidth()
+        modifier = horizontalPaddingModifier.fillMaxWidth(),
     )
 
-    Spacer(Modifier.height(AppTheme.dimensions.padding.extraMedium))
+    Spacer(Modifier.height(dimensions.padding.extraMedium))
 
     RegionSelectors(
         state = state,
@@ -82,13 +86,13 @@ private fun PlanetsScreenContent(
         regions = regions,
     )
 
-    Spacer(Modifier.height(AppTheme.dimensions.padding.extraMedium))
+    Spacer(Modifier.height(dimensions.padding.extraMedium))
 
     Planets(
         planets = planets,
         state = state,
         onUiIntent = onUiIntent,
-        modifier = Modifier.fillMaxWidth()
+        modifier = horizontalPaddingModifier.fillMaxWidth(),
     )
 }
 

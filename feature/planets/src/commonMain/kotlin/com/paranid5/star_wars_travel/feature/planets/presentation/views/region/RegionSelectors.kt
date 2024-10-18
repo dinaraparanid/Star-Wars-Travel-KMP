@@ -1,6 +1,9 @@
 package com.paranid5.star_wars_travel.feature.planets.presentation.views.region
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -9,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import app.cash.paging.compose.LazyPagingItems
 import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.dimensions
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.RegionUiState
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.State
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.UiIntent
@@ -32,7 +36,8 @@ internal fun RegionSelectors(
 
     LazyRow(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.padding.small)
+        horizontalArrangement = Arrangement.spacedBy(dimensions.padding.small),
+        contentPadding = PaddingValues(horizontal = dimensions.padding.extraMedium),
     ) {
         items(
             count = shownRegions.size + 1,
@@ -46,7 +51,7 @@ internal fun RegionSelectors(
                 )
 
                 else -> {
-                    val (region, isSelected) = shownRegions[i - 1]!!
+                    val (region, isSelected) = requireNotNull(shownRegions[i - 1])
 
                     RegionSelector(
                         region = region,

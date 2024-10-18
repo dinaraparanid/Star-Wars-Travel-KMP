@@ -1,13 +1,15 @@
-package com.paranid5.star_wars_travel.data.datastore
+package com.paranid5.star_wars_travel.data.theme
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import com.paranid5.star_wars_travel.domain.entities.Theme
+import com.paranid5.star_wars_travel.domain.theme.ThemeRepository
 import kotlinx.coroutines.flow.map
 
-internal class ThemeDataSourceImpl(private val dataStore: DataStore<Preferences>) : ThemeDataSource {
+internal class ThemeRepositoryImpl(private val dataStore: DataStore<Preferences>) :
+    ThemeRepository {
     private companion object {
         private val THEME_URL = intPreferencesKey("theme")
     }

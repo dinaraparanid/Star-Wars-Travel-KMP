@@ -16,13 +16,12 @@ import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
 import com.paranid5.star_wars_travel.core.component.componentScope
 import com.paranid5.star_wars_travel.core.component.getComponentStore
 import com.paranid5.star_wars_travel.core.component.toStateFlow
-import com.paranid5.star_wars_travel.data.PlanetsRepository
+import com.paranid5.star_wars_travel.domain.planets.PlanetsRepository
 import com.paranid5.star_wars_travel.feature.planet.component.PlanetComponent
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.PlanetUiState
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.RegionUiState
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.mainRegion
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsComponent.Child
-import com.paranid5.star_wars_travel.feature.planets.component.PlanetsComponentImpl.Slot
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.Label
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.State
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.UiIntent

@@ -27,8 +27,8 @@ import com.paranid5.star_wars_travel.core.resources.planets
 import com.paranid5.star_wars_travel.core.resources.question
 import com.paranid5.star_wars_travel.core.resources.settings
 import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.resources.vectorResource
 
 private val NAV_BAR_MAX_SIZE = 512.dp
 private val NAV_BAR_MIN_SIZE = 128.dp
@@ -61,7 +61,7 @@ internal fun NavBarMobile(
         Row(Modifier.sizeIn(maxWidth = NAV_BAR_MAX_SIZE, maxHeight = NAV_BAR_MIN_SIZE)) {
             NavBarItem(
                 title = stringResource(Res.string.planets),
-                image = painterResource(Res.drawable.planet),
+                image = vectorResource(Res.drawable.planet),
                 isScreenCurrent = currentScreen is RootChild.Planets,
                 modifier = Modifier.weight(1F),
                 onClick = { onUiIntent(RootUiIntent.ShowPlanets) }
@@ -69,7 +69,7 @@ internal fun NavBarMobile(
 
             NavBarItem(
                 title = stringResource(Res.string.settings),
-                image = painterResource(Res.drawable.settings),
+                image = vectorResource(Res.drawable.settings),
                 isScreenCurrent = currentScreen is RootChild.Settings,
                 modifier = Modifier.weight(1F),
                 onClick = { onUiIntent(RootUiIntent.ShowSettings) }
@@ -77,7 +77,7 @@ internal fun NavBarMobile(
 
             NavBarItem(
                 title = stringResource(Res.string.about_app),
-                image = painterResource(Res.drawable.question),
+                image = vectorResource(Res.drawable.question),
                 isScreenCurrent = currentScreen is RootChild.AboutApp,
                 modifier = Modifier.weight(1F),
                 onClick = { onUiIntent(RootUiIntent.ShowAboutApp) }
@@ -110,7 +110,7 @@ internal fun NavBarPC(
         ) {
             NavBarItem(
                 title = stringResource(Res.string.planets),
-                image = painterResource(Res.drawable.planet),
+                image = vectorResource(Res.drawable.planet),
                 isScreenCurrent = currentScreen is RootChild.Planets,
                 modifier = Modifier.weight(1F).fillMaxWidth(1F),
                 onClick = { onUiIntent(RootUiIntent.ShowPlanets) }
@@ -118,7 +118,7 @@ internal fun NavBarPC(
 
             NavBarItem(
                 title = stringResource(Res.string.settings),
-                image = painterResource(Res.drawable.settings),
+                image = vectorResource(Res.drawable.settings),
                 isScreenCurrent = currentScreen is RootChild.Settings,
                 modifier = Modifier.weight(1F).fillMaxWidth(1F),
                 onClick = { onUiIntent(RootUiIntent.ShowSettings) }
@@ -126,7 +126,7 @@ internal fun NavBarPC(
 
             NavBarItem(
                 title = stringResource(Res.string.about_app),
-                image = painterResource(Res.drawable.question),
+                image = vectorResource(Res.drawable.question),
                 isScreenCurrent = currentScreen is RootChild.AboutApp,
                 modifier = Modifier.weight(1F).fillMaxWidth(1F),
                 onClick = { onUiIntent(RootUiIntent.ShowAboutApp) }

@@ -7,7 +7,7 @@ import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
 import com.paranid5.star_wars_travel.core.component.componentScope
-import com.paranid5.star_wars_travel.data.StorageRepository
+import com.paranid5.star_wars_travel.domain.theme.ThemeRepository
 import com.paranid5.star_wars_travel.feature.about_app.component.AboutAppComponent
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsComponent
 import com.paranid5.star_wars_travel.feature.settings.component.SettingsComponent
@@ -20,13 +20,12 @@ class RootComponentImpl(
     private val planetsComponentFactory: PlanetsComponent.Factory,
     private val settingsComponentFactory: SettingsComponent.Factory,
     private val aboutAppComponentFactory: AboutAppComponent.Factory,
-    storageRepository: StorageRepository,
+    themeRepository: ThemeRepository,
 ) : RootComponent,
     ComponentContext by componentContext {
     private val navigation = StackNavigation<RootConfig>()
 
-    override val stateFlow = storageRepository
-        .themeDataSource
+    override val stateFlow = themeRepository
         .themeFlow
         .map { RootState(theme = it) }
         .stateIn(componentScope, SharingStarted.WhileSubscribed(), RootState())
@@ -70,7 +69,7 @@ class RootComponentImpl(
         private val planetsComponentFactory: PlanetsComponent.Factory,
         private val settingsComponentFactory: SettingsComponent.Factory,
         private val aboutAppComponentFactory: AboutAppComponent.Factory,
-        private val storageRepository: StorageRepository,
+        private val themeRepository: ThemeRepository,
     ) : RootComponent.Factory {
         override fun create(componentContext: ComponentContext): RootComponent =
             RootComponentImpl(
@@ -78,7 +77,7 @@ class RootComponentImpl(
                 planetsComponentFactory = planetsComponentFactory,
                 settingsComponentFactory = settingsComponentFactory,
                 aboutAppComponentFactory = aboutAppComponentFactory,
-                storageRepository = storageRepository
+                themeRepository = themeRepository,
             )
     }
 }

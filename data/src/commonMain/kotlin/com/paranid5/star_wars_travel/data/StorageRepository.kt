@@ -1,7 +1,8 @@
 package com.paranid5.star_wars_travel.data
 
-import com.paranid5.star_wars_travel.data.datastore.ThemeDataSource
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 
-interface StorageRepository {
-    val themeDataSource: ThemeDataSource
+internal interface StorageRepository {
+    val dataStore: DataStore<Preferences>
 }

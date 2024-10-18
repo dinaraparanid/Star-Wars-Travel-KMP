@@ -7,7 +7,7 @@ import com.paranid5.star_wars_travel.core.component.onInitial
 import com.paranid5.star_wars_travel.core.ui.UiState
 import com.paranid5.star_wars_travel.core.ui.toUiStateIfNotNull
 import com.paranid5.star_wars_travel.data.DataDispatcher
-import com.paranid5.star_wars_travel.data.PlanetsRepository
+import com.paranid5.star_wars_travel.domain.planets.PlanetsRepository
 import com.paranid5.star_wars_travel.data.ktor.wookiepedia.loadInterestCover
 import com.paranid5.star_wars_travel.domain.utils.updateState
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.InterestUiState

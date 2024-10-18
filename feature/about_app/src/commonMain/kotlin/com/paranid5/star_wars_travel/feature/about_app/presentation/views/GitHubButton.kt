@@ -18,8 +18,8 @@ import com.paranid5.star_wars_travel.core.resources.github
 import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
 import com.paranid5.star_wars_travel.feature.about_app.component.AboutAppComponent
 import com.paranid5.star_wars_travel.feature.about_app.component.AboutAppUiIntent
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.resources.vectorResource
 
 private val GITHUB_ICON_SIZE = 32.dp
 
@@ -36,12 +36,12 @@ internal fun GitHubButton(
         shape = RoundedCornerShape(corners.extraSmall),
         colors = ButtonDefaults.buttonColors(containerColor = colors.onBackground),
         modifier = modifier,
-        onClick = { aboutAppComponent.onUiIntent(AboutAppUiIntent.OpenProjectGitHub) }
+        onClick = { aboutAppComponent.onUiIntent(AboutAppUiIntent.OpenProjectGitHub) },
     ) {
         GitHubIcon(
             Modifier
                 .size(GITHUB_ICON_SIZE)
-                .align(Alignment.CenterVertically)
+                .align(Alignment.CenterVertically),
         )
 
         Spacer(Modifier.width(padding.small))
@@ -53,10 +53,10 @@ internal fun GitHubButton(
 @Composable
 private fun GitHubIcon(modifier: Modifier = Modifier) =
     Icon(
-        painter = painterResource(Res.drawable.github),
+        imageVector = vectorResource(Res.drawable.github),
         contentDescription = stringResource(Res.string.available_on_github),
         tint = AppTheme.colors.background,
-        modifier = modifier
+        modifier = modifier,
     )
 
 @Composable
