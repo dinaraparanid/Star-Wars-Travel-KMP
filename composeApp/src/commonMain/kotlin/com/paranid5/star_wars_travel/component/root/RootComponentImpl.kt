@@ -1,21 +1,25 @@
 package com.paranid5.star_wars_travel.component.root
 
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
-import com.arkivanov.decompose.value.Value
+import com.arkivanov.essenty.lifecycle.doOnStart
+import com.arkivanov.essenty.lifecycle.doOnStop
 import com.paranid5.star_wars_travel.core.component.componentScope
+import com.paranid5.star_wars_travel.core.component.getComponentState
 import com.paranid5.star_wars_travel.domain.theme.ThemeRepository
+import com.paranid5.star_wars_travel.domain.utils.updateState
 import com.paranid5.star_wars_travel.feature.about_app.component.AboutAppComponent
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsComponent
 import com.paranid5.star_wars_travel.feature.settings.component.SettingsComponent
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
-class RootComponentImpl(
+internal class RootComponentImpl(
     componentContext: ComponentContext,
     private val planetsComponentFactory: PlanetsComponent.Factory,
     private val settingsComponentFactory: SettingsComponent.Factory,
@@ -25,18 +29,32 @@ class RootComponentImpl(
     ComponentContext by componentContext {
     private val navigation = StackNavigation<RootConfig>()
 
-    override val stateFlow = themeRepository
-        .themeFlow
-        .map { RootState(theme = it) }
-        .stateIn(componentScope, SharingStarted.WhileSubscribed(), RootState())
+    private var themeJob: Job? = null
 
-    override val stack: Value<ChildStack<RootConfig, RootChild>> = childStack(
+    private val componentState = getComponentState(RootState())
+
+    private val _stateFlow = MutableStateFlow(componentState.value)
+    override val stateFlow = _stateFlow.asStateFlow()
+
+    override val stack = childStack(
         source = navigation,
         serializer = RootConfig.serializer(),
         initialConfiguration = RootConfig.Planets,
         handleBackButton = true,
-        childFactory = ::createChild
+        childFactory = ::createChild,
     )
+
+    init {
+        doOnStart {
+            themeJob = componentScope.launch {
+                themeRepository.themeFlow.collectLatest { theme ->
+                    _stateFlow.updateState { copy(theme = theme) }
+                }
+            }
+        }
+
+        doOnStop { themeJob?.cancel() }
+    }
 
     private fun createChild(config: RootConfig, componentContext: ComponentContext) =
         when (config) {
@@ -53,7 +71,7 @@ class RootComponentImpl(
             )
         }
 
-    override fun onUiIntent(intent: RootUiIntent) = when (intent) {
+    override fun onUiIntent(intent: RootUiIntent): Unit = when (intent) {
         RootUiIntent.ShowAboutApp -> navigateToAboutApp()
         RootUiIntent.ShowPlanets -> navigateToPlanets()
         RootUiIntent.ShowSettings -> navigateToSettings()

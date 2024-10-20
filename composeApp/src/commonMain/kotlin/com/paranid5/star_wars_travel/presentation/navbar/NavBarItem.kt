@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -17,10 +15,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.paranid5.star_wars_travel.core.ui.foundation.adaptive.AdaptiveButton
+import com.paranid5.star_wars_travel.core.ui.foundation.adaptive.AdaptiveButtonColors
 import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.dimensions
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.typography
 
 private val ICON_SIZE = 24.dp
 
@@ -56,41 +57,13 @@ private fun NavBarIcon(
                 .align(Alignment.CenterHorizontally)
         )
 
-        Spacer(Modifier.height(AppTheme.dimensions.padding.small))
+        Spacer(Modifier.height(dimensions.padding.small))
 
         Text(
             text = title,
             color = itemColor,
-            style = AppTheme.typography.caption,
-        )
-    }
-}
-
-@Composable
-private fun NavBarIcon(
-    title: String,
-    image: Painter,
-    isScreenCurrent: Boolean,
-    modifier: Modifier = Modifier,
-) {
-    val itemColor by rememberItemColor(isScreenCurrent)
-
-    Column(modifier) {
-        Icon(
-            painter = image,
-            contentDescription = title,
-            tint = itemColor,
-            modifier = Modifier
-                .size(ICON_SIZE)
-                .align(Alignment.CenterHorizontally)
-        )
-
-        Spacer(Modifier.height(AppTheme.dimensions.padding.small))
-
-        Text(
-            text = title,
-            color = itemColor,
-            style = AppTheme.typography.caption,
+            style = typography.caption,
+            maxLines = 1,
         )
     }
 }
@@ -100,21 +73,24 @@ private fun NavBarItemImpl(
     icon: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-) = Button(
+) = AdaptiveButton(
     modifier = modifier,
-    colors = ButtonDefaults.buttonColors(
-        backgroundColor = Color.Transparent,
-    ),
+    colors = AdaptiveButtonColors(backgroundColor = Color.Transparent),
     elevation = null,
-    shape = RoundedCornerShape(AppTheme.dimensions.corners.medium),
+    shape = RoundedCornerShape(dimensions.corners.medium),
     onClick = onClick,
     content = { icon() },
 )
 
 @Composable
 private fun rememberItemColor(isScreenCurrent: Boolean): State<Color> {
-    val colors = AppTheme.colors
-    return remember(isScreenCurrent, colors) {
-        derivedStateOf { colors.getTabColor(isScreenCurrent) }
+    val appBarColors = AppTheme.colors.appBar
+    return remember(isScreenCurrent, appBarColors) {
+        derivedStateOf {
+            when {
+                isScreenCurrent -> appBarColors.selectedTab
+                else -> appBarColors.unselectedTab
+            }
+        }
     }
 }

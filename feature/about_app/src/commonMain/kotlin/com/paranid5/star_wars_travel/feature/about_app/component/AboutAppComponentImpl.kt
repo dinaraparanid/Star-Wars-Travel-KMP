@@ -6,8 +6,8 @@ import com.paranid5.star_wars_travel.domain.use_case.OpenBrowserUseCase
 internal class AboutAppComponentImpl(
     componentContext: ComponentContext,
     private val openBrowserUseCase: OpenBrowserUseCase,
-) : AboutAppComponent,
-    ComponentContext by componentContext {
+) : AboutAppComponent, ComponentContext by componentContext {
+
     private companion object {
         const val MY_GITHUB_URL = "https://github.com/dinaraparanid"
         const val PROJECT_GITHUB_URL = "https://github.com/dinaraparanid/Star-Wars-Travel-KMP"
@@ -26,7 +26,7 @@ internal class AboutAppComponentImpl(
         override fun create(context: ComponentContext): AboutAppComponent =
             AboutAppComponentImpl(
                 componentContext = context,
-                openBrowserUseCase = openBrowserUseCase
+                openBrowserUseCase = openBrowserUseCase,
             )
     }
 }

@@ -2,8 +2,8 @@ package com.paranid5.star_wars_travel.feature.planets.component
 
 import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
-import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.State
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.Label
+import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.State
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.UiIntent
 
 internal class PlanetsStoreProvider(private val storeFactory: StoreFactory) {

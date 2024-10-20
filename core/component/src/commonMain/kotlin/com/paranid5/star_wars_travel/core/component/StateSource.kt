@@ -4,6 +4,5 @@ import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.flow.StateFlow
 
 interface StateSource<State> : ComponentContext {
-
     val stateFlow: StateFlow<State>
 }

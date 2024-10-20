@@ -17,6 +17,10 @@ interface PlanetsComponent :
     ComponentContext,
     StateSource<State>,
     UiIntentHandler<UiIntent> {
+
+    val planetsPagedFlow: Flow<PagingData<PlanetUiState>>
+    val regionsPagedFlow: Flow<PagingData<RegionUiState>>
+
     val childSlot: StateFlow<ChildSlot<*, Child>>
 
     sealed interface Child {
@@ -24,9 +28,6 @@ interface PlanetsComponent :
             internal val component: PlanetComponent
         ) : Child
     }
-
-    val planetsPagedFlow: Flow<PagingData<PlanetUiState>>
-    val regionsPagedFlow: Flow<PagingData<RegionUiState>>
 
     interface Factory {
         fun create(componentContext: ComponentContext): PlanetsComponent

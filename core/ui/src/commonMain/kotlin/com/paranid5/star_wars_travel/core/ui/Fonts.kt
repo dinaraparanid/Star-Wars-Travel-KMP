@@ -8,8 +8,6 @@ import com.paranid5.star_wars_travel.core.resources.Res
 import com.paranid5.star_wars_travel.core.resources.starjedi
 import org.jetbrains.compose.resources.Font
 
-val StarJediFont
+val StarJediFont: FontFamily
     @Composable
-    get() = FontFamily(
-        Font(Res.font.starjedi, weight = FontWeight.Normal)
-    )
+    get() = FontFamily(Font(Res.font.starjedi, weight = FontWeight.Normal))

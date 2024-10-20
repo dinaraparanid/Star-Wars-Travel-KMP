@@ -1,6 +1,5 @@
 package com.paranid5.star_wars_travel.core.ui.theme
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -9,7 +8,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import com.paranid5.star_wars_travel.core.ui.LocalSnackbarHostState
 import com.paranid5.star_wars_travel.domain.entities.Theme
+import io.github.alexzhirkevich.cupertino.adaptive.AdaptiveTheme
+import io.github.alexzhirkevich.cupertino.adaptive.CupertinoThemeSpec
+import io.github.alexzhirkevich.cupertino.adaptive.ExperimentalAdaptiveApi
+import io.github.alexzhirkevich.cupertino.adaptive.MaterialThemeSpec
 
+@OptIn(ExperimentalAdaptiveApi::class)
 @Composable
 fun AppTheme(
     theme: Theme,
@@ -27,18 +31,18 @@ fun AppTheme(
         LocalColors provides colors,
         LocalDimensions provides dimensions,
         LocalTypography provides typography,
-        LocalSnackbarHostState provides snackbarHostState
+        LocalSnackbarHostState provides snackbarHostState,
     ) {
-        MaterialTheme(
-            colorScheme = colors.colorScheme,
-            typography = MaterialTypography,
-            content = { content() },
+        AdaptiveTheme(
+            material = MaterialThemeSpec.Default(),
+            cupertino = CupertinoThemeSpec.Default(),
+            content = content,
         )
     }
 }
 
 object AppTheme {
-    val colors @Composable get() = LocalColors.current
-    val dimensions @Composable get() = LocalDimensions.current
-    val typography @Composable get() = LocalTypography.current
+    val colors: AppColors @Composable get() = LocalColors.current
+    val dimensions: AppDimensions @Composable get() = LocalDimensions.current
+    val typography: AppTypography @Composable get() = LocalTypography.current
 }

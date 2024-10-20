@@ -10,7 +10,7 @@ import org.kodein.di.multiton
 import org.kodein.di.new
 import org.kodein.di.singleton
 
-val planetsModule = DI.Module("planetsModule") {
+val planetsModule: DI.Module = DI.Module("planetsModule") {
     import(planetModule)
     bind<PlanetsComponent.Factory>() with singleton { new(PlanetsComponentImpl::Factory) }
     bind<PlanetsStoreProvider.Factory>() with multiton { new(PlanetsStoreProvider::Factory) }

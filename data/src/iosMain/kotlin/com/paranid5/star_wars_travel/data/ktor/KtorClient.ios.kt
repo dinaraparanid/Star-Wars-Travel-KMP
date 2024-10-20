@@ -11,14 +11,12 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-internal actual fun KtorClient() = HttpClient(Darwin) {
+internal actual fun KtorClient(json: Json) = HttpClient(Darwin) {
     install(UserAgent) {
         agent = USER_AGENT
     }
 
-    install(ContentNegotiation) {
-        json(Json { ignoreUnknownKeys = true })
-    }
+    install(ContentNegotiation) { json(json) }
 
     install(Logging) {
         logger = Logger.DEFAULT

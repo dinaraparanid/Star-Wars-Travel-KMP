@@ -11,67 +11,67 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.dimensions
 import com.paranid5.star_wars_travel.feature.about_app.component.AboutAppComponent
-import com.paranid5.star_wars_travel.feature.about_app.presentation.views.AppDescription1
-import com.paranid5.star_wars_travel.feature.about_app.presentation.views.AppDescription2
-import com.paranid5.star_wars_travel.feature.about_app.presentation.views.AppDeveloper
-import com.paranid5.star_wars_travel.feature.about_app.presentation.views.AppDeveloperLabel
-import com.paranid5.star_wars_travel.feature.about_app.presentation.views.AppIcon
-import com.paranid5.star_wars_travel.feature.about_app.presentation.views.AppNameLabel
-import com.paranid5.star_wars_travel.feature.about_app.presentation.views.GitHubButton
+import com.paranid5.star_wars_travel.feature.about_app.presentation.ui.AppDescription1
+import com.paranid5.star_wars_travel.feature.about_app.presentation.ui.AppDescription2
+import com.paranid5.star_wars_travel.feature.about_app.presentation.ui.AppDeveloper
+import com.paranid5.star_wars_travel.feature.about_app.presentation.ui.AppDeveloperLabel
+import com.paranid5.star_wars_travel.feature.about_app.presentation.ui.AppIcon
+import com.paranid5.star_wars_travel.feature.about_app.presentation.ui.AppNameLabel
+import com.paranid5.star_wars_travel.feature.about_app.presentation.ui.GitHubButton
 
-private val APP_ICON_SIZE = 120.dp
-private val DESCRIPTION_2_MAX_WIDTH = 512.dp
+private val AppIconSize = 120.dp
+private val Description2MaxWidth = 512.dp
 
 @Composable
 fun AboutAppScreen(
     aboutAppComponent: AboutAppComponent,
     modifier: Modifier = Modifier,
 ) {
-    val padding = AppTheme.dimensions.padding
+    val onUiIntent = aboutAppComponent::onUiIntent
 
     Column(modifier.verticalScroll(rememberScrollState())) {
-        Spacer(Modifier.height(padding.enormous))
+        Spacer(Modifier.height(dimensions.padding.enormous))
 
         AppIcon(
             Modifier
-                .size(APP_ICON_SIZE)
+                .size(AppIconSize)
                 .align(Alignment.CenterHorizontally)
         )
 
-        Spacer(Modifier.height(padding.small))
+        Spacer(Modifier.height(dimensions.padding.small))
 
         AppNameLabel(Modifier.align(Alignment.CenterHorizontally))
 
-        Spacer(Modifier.height(padding.small))
+        Spacer(Modifier.height(dimensions.padding.small))
 
         AppDeveloperLabel(Modifier.align(Alignment.CenterHorizontally))
 
-        Spacer(Modifier.height(padding.small))
+        Spacer(Modifier.height(dimensions.padding.small))
 
         AppDeveloper(
-            aboutAppComponent = aboutAppComponent,
+            onUiIntent = onUiIntent,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
-        Spacer(Modifier.height(padding.big))
+        Spacer(Modifier.height(dimensions.padding.big))
 
         AppDescription1(Modifier.align(Alignment.CenterHorizontally))
 
         AppDescription2(
             Modifier
-                .widthIn(max = DESCRIPTION_2_MAX_WIDTH)
+                .widthIn(max = Description2MaxWidth)
                 .align(Alignment.CenterHorizontally)
         )
 
-        Spacer(Modifier.height(padding.large))
+        Spacer(Modifier.height(dimensions.padding.large))
 
         GitHubButton(
-            aboutAppComponent = aboutAppComponent,
+            onUiIntent = onUiIntent,
             modifier = Modifier.align(Alignment.CenterHorizontally),
         )
 
-        Spacer(Modifier.height(padding.small))
+        Spacer(Modifier.height(dimensions.padding.small))
     }
 }

@@ -3,17 +3,13 @@ package com.paranid5.star_wars_travel.presentation.navbar
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.NavigationRail
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.decompose.value.operator.map
@@ -26,12 +22,13 @@ import com.paranid5.star_wars_travel.core.resources.planet
 import com.paranid5.star_wars_travel.core.resources.planets
 import com.paranid5.star_wars_travel.core.resources.question
 import com.paranid5.star_wars_travel.core.resources.settings
-import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
+import com.paranid5.star_wars_travel.core.ui.foundation.adaptive.AdaptiveBottomAppBar
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.colors
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.dimensions
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
-private val NAV_BAR_MAX_SIZE = 512.dp
-private val NAV_BAR_MIN_SIZE = 128.dp
+private val NavBarMinSize = 128.dp
 
 @Composable
 internal expect fun NavBar(
@@ -47,24 +44,16 @@ internal fun NavBarMobile(
     val currentScreen by rememberCurrentScreen(rootComponent)
     val onUiIntent = rootComponent::onUiIntent
 
-    BottomAppBar(
-        containerColor = AppTheme.colors.appBarColor,
-        modifier = modifier.clip(
-            RoundedCornerShape(
-                topStart = AppTheme.dimensions.corners.medium,
-                topEnd = AppTheme.dimensions.corners.medium
-            )
-        )
-    ) {
+    AdaptiveBottomAppBar(modifier = modifier) {
         Spacer(Modifier.weight(1F))
 
-        Row(Modifier.sizeIn(maxWidth = NAV_BAR_MAX_SIZE, maxHeight = NAV_BAR_MIN_SIZE)) {
+        Row(Modifier.sizeIn(maxHeight = NavBarMinSize)) {
             NavBarItem(
                 title = stringResource(Res.string.planets),
                 image = vectorResource(Res.drawable.planet),
                 isScreenCurrent = currentScreen is RootChild.Planets,
                 modifier = Modifier.weight(1F),
-                onClick = { onUiIntent(RootUiIntent.ShowPlanets) }
+                onClick = { onUiIntent(RootUiIntent.ShowPlanets) },
             )
 
             NavBarItem(
@@ -72,7 +61,7 @@ internal fun NavBarMobile(
                 image = vectorResource(Res.drawable.settings),
                 isScreenCurrent = currentScreen is RootChild.Settings,
                 modifier = Modifier.weight(1F),
-                onClick = { onUiIntent(RootUiIntent.ShowSettings) }
+                onClick = { onUiIntent(RootUiIntent.ShowSettings) },
             )
 
             NavBarItem(
@@ -80,7 +69,7 @@ internal fun NavBarMobile(
                 image = vectorResource(Res.drawable.question),
                 isScreenCurrent = currentScreen is RootChild.AboutApp,
                 modifier = Modifier.weight(1F),
-                onClick = { onUiIntent(RootUiIntent.ShowAboutApp) }
+                onClick = { onUiIntent(RootUiIntent.ShowAboutApp) },
             )
         }
 
@@ -98,21 +87,20 @@ internal fun NavBarPC(
 
     NavigationRail(
         modifier = modifier,
-        containerColor = AppTheme.colors.appBarColor,
+        containerColor = colors.appBar.background,
     ) {
         Spacer(Modifier.weight(1F))
 
         Column(
             Modifier
                 .align(Alignment.CenterHorizontally)
-                .sizeIn(maxWidth = NAV_BAR_MIN_SIZE, maxHeight = NAV_BAR_MAX_SIZE)
-                .padding(horizontal = AppTheme.dimensions.padding.medium)
+                .padding(horizontal = dimensions.padding.medium)
         ) {
             NavBarItem(
                 title = stringResource(Res.string.planets),
                 image = vectorResource(Res.drawable.planet),
                 isScreenCurrent = currentScreen is RootChild.Planets,
-                modifier = Modifier.weight(1F).fillMaxWidth(1F),
+                modifier = Modifier.weight(1F),
                 onClick = { onUiIntent(RootUiIntent.ShowPlanets) }
             )
 
@@ -120,7 +108,7 @@ internal fun NavBarPC(
                 title = stringResource(Res.string.settings),
                 image = vectorResource(Res.drawable.settings),
                 isScreenCurrent = currentScreen is RootChild.Settings,
-                modifier = Modifier.weight(1F).fillMaxWidth(1F),
+                modifier = Modifier.weight(1F),
                 onClick = { onUiIntent(RootUiIntent.ShowSettings) }
             )
 
@@ -128,7 +116,7 @@ internal fun NavBarPC(
                 title = stringResource(Res.string.about_app),
                 image = vectorResource(Res.drawable.question),
                 isScreenCurrent = currentScreen is RootChild.AboutApp,
-                modifier = Modifier.weight(1F).fillMaxWidth(1F),
+                modifier = Modifier.weight(1F),
                 onClick = { onUiIntent(RootUiIntent.ShowAboutApp) }
             )
         }

@@ -46,6 +46,9 @@ kotlin {
         it.binaries.framework {
             baseName = "ui"
             isStatic = true
+            export(libs.cupertino.adaptive)
+            export(libs.cupertino.decompose)
+            export(libs.cupertino.icons.extended)
         }
     }
 
@@ -56,20 +59,25 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.domain)
 
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
+            api(compose.runtime)
+            api(compose.foundation)
+            api(compose.material)
+            api(compose.material3)
+            api(compose.ui)
+            api(compose.components.resources)
 
-            implementation(libs.decompose)
+            api(libs.decompose)
 
-            implementation(libs.kotlinx.serialization.json)
+            api(libs.kotlinx.serialization.json)
+            api(libs.kotlinx.collections.immutable)
 
-            implementation(libs.kolor)
+            api(libs.kolor)
 
-            implementation(libs.kodein)
+            api(libs.kodein)
+
+            api(libs.cupertino.adaptive)
+            api(libs.cupertino.decompose)
+            api(libs.cupertino.icons.extended)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -78,7 +86,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.paranid5.star_wars_travel.core.resources"
+    namespace = "com.paranid5.star_wars_travel.core.ui"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
@@ -86,9 +94,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-    }
-    buildFeatures {
-        compose = true
     }
 }
 

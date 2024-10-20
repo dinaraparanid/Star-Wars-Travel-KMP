@@ -5,7 +5,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 
 @Composable
-fun Int.pxToDp() = LocalDensity.current.run { this@pxToDp.toDp() }
+fun Int.pxToDp(): Dp = LocalDensity.current.run { this@pxToDp.toDp() }
 
 @Composable
-fun Dp.toPx() = LocalDensity.current.run { this@toPx.toPx() }
+fun Dp.toPx(): Float = LocalDensity.current.run { this@toPx.toPx() }

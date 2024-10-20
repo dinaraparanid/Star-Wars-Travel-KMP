@@ -6,7 +6,7 @@ import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.multiton
 
-actual val dataModule = DI.Module("dataModule") {
+actual val dataModule: DI.Module = DI.Module("dataModule") {
     importAll(
         themeModule,
         ktorClientModule,
@@ -16,5 +16,5 @@ actual val dataModule = DI.Module("dataModule") {
         planetsRepositoryModule,
     )
 
-    bind<StorageRepository>() with multiton { StorageRepositoryImpl(di) }
+    bind<StorageRepository>() with multiton { StorageRepositoryImpl() }
 }

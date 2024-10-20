@@ -7,5 +7,5 @@ import com.paranid5.star_wars_travel.component.root.RootComponent
 @Composable
 internal actual fun NavBar(
     rootComponent: RootComponent,
-    modifier: Modifier
+    modifier: Modifier,
 ) = NavBarPC(rootComponent, modifier)

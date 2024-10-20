@@ -17,6 +17,7 @@ data class InterestUiState(
         value = entity.value,
         coverUrlState = entity.coverUrl.toUiStateIfNotNull()
     )
-
-    fun toInterest() = Interest(value = value, coverUrl = coverUrlState.getOrNull())
 }
+
+internal fun InterestUiState.toEntity(): Interest =
+    Interest(value = value, coverUrl = coverUrlState.getOrNull())

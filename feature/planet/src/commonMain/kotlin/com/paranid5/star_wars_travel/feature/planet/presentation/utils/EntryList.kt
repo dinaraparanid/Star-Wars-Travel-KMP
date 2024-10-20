@@ -24,6 +24,7 @@ import com.paranid5.star_wars_travel.core.resources.surface_water
 import com.paranid5.star_wars_travel.core.resources.system
 import com.paranid5.star_wars_travel.core.resources.terrain
 import com.paranid5.star_wars_travel.core.resources.trade_routes
+import com.paranid5.star_wars_travel.core.utils.extensions.buildImmutableList
 import com.paranid5.star_wars_travel.domain.use_case.prettifyNumber
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.AstroInfoUiState
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.PhysInfoUiState
@@ -45,7 +46,7 @@ internal fun AstroInfoUiState.toEntryList() =
         stringResource(Res.string.rotation_period) to persistentListOf(rotationPeriod.toString()),
         stringResource(Res.string.orbital_period) to persistentListOf(orbitalPeriod.toString()),
         stringResource(Res.string.trade_routes) to tradeRoutes.toImmutableList()
-    ).filterNotNullOrEmpty()
+    ).filterNotNullNorEmpty()
 
 @Composable
 internal fun PhysInfoUiState.toEntryList() =
@@ -61,7 +62,7 @@ internal fun PhysInfoUiState.toEntryList() =
         stringResource(Res.string.surface_water) to persistentListOf(surfaceWater.toString()),
         stringResource(Res.string.flora) to flora.toImmutableList(),
         stringResource(Res.string.fauna) to fauna.toImmutableList()
-    ).filterNotNullOrEmpty()
+    ).filterNotNullNorEmpty()
 
 @Composable
 internal fun SocInfoUiState.toEntryList() =
@@ -74,7 +75,11 @@ internal fun SocInfoUiState.toEntryList() =
         stringResource(Res.string.languages) to primaryLanguages.toImmutableList(),
         government?.let { stringResource(Res.string.government) to persistentListOf(it) },
         stringResource(Res.string.major_cities) to majorCities.toImmutableList()
-    ).filterNotNullOrEmpty()
+    ).filterNotNullNorEmpty()
 
-private fun ImmutableList<Pair<String, ImmutableList<String>>?>.filterNotNullOrEmpty() =
-    filterNotNull().filter { it.second.isNotEmpty() }.toImmutableList()
+private fun ImmutableList<Pair<String, ImmutableList<String>>?>.filterNotNullNorEmpty() =
+    buildImmutableList {
+        this@filterNotNullNorEmpty.forEach { entry ->
+            entry?.let { if (entry.second.isNotEmpty()) add(entry) }
+        }
+    }

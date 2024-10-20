@@ -2,18 +2,18 @@ package com.paranid5.star_wars_travel.presentation
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import com.paranid5.star_wars_travel.component.root.RootComponent
 import com.paranid5.star_wars_travel.core.ui.LocalSnackbarHostState
-import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.colors
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.dimensions
 import com.paranid5.star_wars_travel.presentation.navbar.NavBar
+import io.github.alexzhirkevich.cupertino.adaptive.AdaptiveScaffold
+import io.github.alexzhirkevich.cupertino.adaptive.ExperimentalAdaptiveApi
 
 @Composable
 internal expect fun MainScreen(
@@ -21,11 +21,12 @@ internal expect fun MainScreen(
     modifier: Modifier = Modifier,
 )
 
+@OptIn(ExperimentalAdaptiveApi::class)
 @Composable
 internal fun MainScreenMobile(
     rootComponent: RootComponent,
     modifier: Modifier = Modifier,
-) = Scaffold(
+) = AdaptiveScaffold(
     modifier = modifier,
     bottomBar = { NavBar(rootComponent) },
     snackbarHost = { MainSnackbarHost() },
@@ -34,6 +35,7 @@ internal fun MainScreenMobile(
     content = { ContentScreen(rootComponent, paddingValues = it) }
 )
 
+@OptIn(ExperimentalAdaptiveApi::class)
 @Composable
 internal fun MainScreenPC(
     rootComponent: RootComponent,
@@ -41,7 +43,7 @@ internal fun MainScreenPC(
 ) = Row(modifier) {
     NavBar(rootComponent)
 
-    Scaffold(
+    AdaptiveScaffold(
         modifier = modifier,
         containerColor = Color.Transparent,
         contentColor = Color.Transparent,
@@ -60,8 +62,10 @@ private fun MainSnackbarHost(modifier: Modifier = Modifier) {
     ) { data ->
         Snackbar(
             snackbarData = data,
-            shape = RoundedCornerShape(AppTheme.dimensions.corners.small),
-            containerColor = AppTheme.colors.starWarsYellow
+            shape = RoundedCornerShape(dimensions.corners.small),
+            containerColor = colors.primary,
+            contentColor = colors.text.onButton,
+            dismissActionContentColor = colors.text.onButton,
         )
     }
 }

@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 
-val ComponentContext.componentScope
+val ComponentContext.componentScope: CoroutineScope
     get() = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate).apply {
         when (lifecycle.state) {
             Lifecycle.State.DESTROYED -> cancel()

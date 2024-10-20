@@ -49,7 +49,7 @@ kotlin {
             baseName = "ComposeApp"
             export(libs.decompose)
             export(libs.essenty.lifecycle)
-            export(project(":data"))
+            export(projects.data)
         }
     }
 
@@ -70,11 +70,11 @@ kotlin {
             implementation(libs.kodein.android)
         }
         commonMain.dependencies {
-            implementation(projects.core.component)
-            implementation(projects.core.ui)
+            api(projects.core.component)
+            api(projects.core.ui)
 
-            implementation(projects.domain)
-            implementation(projects.data)
+            api(projects.domain)
+            api(projects.data)
 
             implementation(projects.feature.aboutApp)
             implementation(projects.feature.planets)
@@ -146,12 +146,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-    }
-    buildFeatures {
-        compose = true
-    }
-    dependencies {
-        debugImplementation(compose.uiTooling)
     }
 }
 

@@ -7,6 +7,6 @@ import org.kodein.di.bind
 import org.kodein.di.new
 import org.kodein.di.singleton
 
-val planetModule = DI.Module("planetModule") {
+val planetModule: DI.Module = DI.Module("planetModule") {
     bind<PlanetComponent.Factory>() with singleton { new(PlanetComponentImpl::Factory) }
 }

@@ -18,16 +18,17 @@ import app.cash.paging.compose.collectAsLazyPagingItems
 import com.arkivanov.decompose.router.slot.ChildSlot
 import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.colors
 import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.dimensions
+import com.paranid5.star_wars_travel.core.utils.doNothing
 import com.paranid5.star_wars_travel.feature.planet.presentation.PlanetScreen
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.PlanetUiState
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.RegionUiState
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsComponent
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsComponent.Child
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.UiIntent
-import com.paranid5.star_wars_travel.feature.planets.presentation.views.Planets
-import com.paranid5.star_wars_travel.feature.planets.presentation.views.PlanetsSearchBar
-import com.paranid5.star_wars_travel.feature.planets.presentation.views.PlanetsWelcomeLabel
-import com.paranid5.star_wars_travel.feature.planets.presentation.views.region.RegionSelectors
+import com.paranid5.star_wars_travel.feature.planets.presentation.ui.Planets
+import com.paranid5.star_wars_travel.feature.planets.presentation.ui.PlanetsSearchBar
+import com.paranid5.star_wars_travel.feature.planets.presentation.ui.PlanetsWelcomeLabel
+import com.paranid5.star_wars_travel.feature.planets.presentation.ui.region.RegionSelectors
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.State as PlanetsState
 
 @Composable
@@ -53,7 +54,7 @@ fun PlanetsScreen(
         childSlotState = planetsComponent.childSlot.collectAsState(),
         modifier = Modifier
             .fillMaxSize()
-            .background(colors.backgroundGradient)
+            .background(colors.background.gradient)
             .zIndex(1F),
     )
 }
@@ -105,6 +106,6 @@ private fun PlanetsScreenSlots(
 
     when (val config = childSlot.child?.instance) {
         is Child.Planet -> PlanetScreen(planetComponent = config.component, modifier = modifier)
-        null -> Unit
+        null -> doNothing
     }
 }

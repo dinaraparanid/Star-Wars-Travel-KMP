@@ -7,6 +7,6 @@ import org.kodein.di.bind
 import org.kodein.di.multiton
 import org.kodein.di.new
 
-actual val openBrowserModule = DI.Module("openBrowserModule") {
+actual val openBrowserModule: DI.Module = DI.Module("openBrowserModule") {
     bind<OpenBrowserUseCase>() with multiton { new(::OpenBrowserUseCaseImpl) }
 }

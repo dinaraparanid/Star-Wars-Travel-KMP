@@ -22,7 +22,6 @@ sealed interface ComponentStore<T : Store<*, *, *>> {
     val value: T
 
     data class Initial<T : Store<*, *, *>>(override val value: T) : ComponentStore<T>
-
     data class Restored<T : Store<*, *, *>>(override val value: T) : ComponentStore<T>
 }
 

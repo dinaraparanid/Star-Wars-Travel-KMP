@@ -8,20 +8,21 @@ import com.paranid5.star_wars_travel.domain.entities.Theme
 import com.paranid5.star_wars_travel.domain.theme.ThemeRepository
 import kotlinx.coroutines.flow.map
 
-internal class ThemeRepositoryImpl(private val dataStore: DataStore<Preferences>) :
-    ThemeRepository {
+internal class ThemeRepositoryImpl(
+    private val dataStore: DataStore<Preferences>,
+) : ThemeRepository {
     private companion object {
-        private val THEME_URL = intPreferencesKey("theme")
+        private val ThemeUrl = intPreferencesKey("theme")
     }
 
     override val themeFlow by lazy {
         dataStore.data
-            .map { preferences -> preferences[THEME_URL] }
+            .map { preferences -> preferences[ThemeUrl] }
             .map { it ?: 0 }
-            .map(Theme.entries::get)
+            .map { Theme.entries.getOrNull(it) ?: Theme.DARK }
     }
 
     override suspend fun storeTheme(theme: Theme) {
-        dataStore.edit { preferences -> preferences[THEME_URL] = theme.ordinal }
+        dataStore.edit { preferences -> preferences[ThemeUrl] = theme.ordinal }
     }
 }

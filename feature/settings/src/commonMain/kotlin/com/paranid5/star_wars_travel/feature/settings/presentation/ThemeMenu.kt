@@ -19,34 +19,41 @@ import androidx.compose.ui.unit.dp
 import com.paranid5.star_wars_travel.core.resources.Res
 import com.paranid5.star_wars_travel.core.resources.dark_mode
 import com.paranid5.star_wars_travel.core.resources.light_mode
-import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.colors
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.dimensions
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.typography
+import com.paranid5.star_wars_travel.core.ui.utils.clickableWithRipple
 import com.paranid5.star_wars_travel.domain.entities.Theme
 import com.paranid5.star_wars_travel.feature.settings.component.SettingsComponent
 import com.paranid5.star_wars_travel.feature.settings.component.SettingsUiIntent
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
-private val THEME_ICON_SIZE = 32.dp
+private val ThemeIconSize = 32.dp
 
 @Composable
 internal fun ThemeMenu(
     settingsComponent: SettingsComponent,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-    val theme by settingsComponent.themeFlow.collectAsState(Theme.DARK)
+    val state by settingsComponent.stateFlow.collectAsState()
     val onUiIntent = settingsComponent::onUiIntent
 
-    when (theme) {
+    when (state.theme) {
         Theme.LIGHT -> ThemeMenuImpl(
             iconPainter = painterResource(Res.drawable.light_mode),
             text = stringResource(Res.string.light_mode),
-            modifier = modifier.clickable { onUiIntent(SettingsUiIntent.ResetTheme(Theme.DARK)) }
+            modifier = modifier.clickable {
+                onUiIntent(SettingsUiIntent.ResetTheme(Theme.DARK))
+            },
         )
 
         Theme.DARK -> ThemeMenuImpl(
             iconPainter = painterResource(Res.drawable.dark_mode),
             text = stringResource(Res.string.dark_mode),
-            modifier = modifier.clickable { onUiIntent(SettingsUiIntent.ResetTheme(Theme.LIGHT)) }
+            modifier = modifier.clickable {
+                onUiIntent(SettingsUiIntent.ResetTheme(Theme.LIGHT))
+            }
         )
     }
 }
@@ -56,27 +63,26 @@ private fun ThemeMenuImpl(
     iconPainter: Painter,
     text: String,
     modifier: Modifier = Modifier
-) {
-    val padding = AppTheme.dimensions.padding
+) = Row(modifier) {
+    Image(
+        painter = iconPainter,
+        contentDescription = text,
+        contentScale = ContentScale.FillBounds,
+        modifier = Modifier
+            .size(ThemeIconSize)
+            .padding(start = dimensions.padding.extraSmall)
+            .align(Alignment.CenterVertically),
+    )
 
-    Row(modifier) {
-        Image(
-            painter = iconPainter,
-            contentDescription = text,
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier
-                .size(THEME_ICON_SIZE)
-                .padding(start = padding.extraSmall)
-                .align(Alignment.CenterVertically)
+    Spacer(Modifier.width(dimensions.padding.small))
+
+    Text(
+        text = text,
+        color = colors.text.primary,
+        style = typography.body,
+        modifier = Modifier.padding(
+            top = dimensions.padding.small,
+            bottom = dimensions.padding.extraSmall,
         )
-
-        Spacer(Modifier.width(padding.small))
-
-        Text(
-            text = text,
-            color = AppTheme.colors.onBackground,
-            style = AppTheme.typography.body,
-            modifier = Modifier.padding(top = padding.small, bottom = padding.extraSmall)
-        )
-    }
+    )
 }

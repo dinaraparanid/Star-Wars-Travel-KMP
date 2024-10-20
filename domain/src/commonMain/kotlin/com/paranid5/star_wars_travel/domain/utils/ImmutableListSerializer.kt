@@ -25,9 +25,9 @@ class ImmutableListSerializer(
 
     override val descriptor: SerialDescriptor = PersistentListDescriptor()
 
-    override fun serialize(encoder: Encoder, value: ImmutableList<String?>) =
+    override fun serialize(encoder: Encoder, value: ImmutableList<String?>): Unit =
         ListSerializer(serializer).serialize(encoder, value)
 
-    override fun deserialize(decoder: Decoder) =
+    override fun deserialize(decoder: Decoder): ImmutableList<String?> =
         ListSerializer(serializer).deserialize(decoder).toImmutableList()
 }

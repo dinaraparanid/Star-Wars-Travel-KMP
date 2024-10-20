@@ -13,7 +13,7 @@ import org.kodein.di.bind
 import org.kodein.di.multiton
 import org.kodein.di.new
 
-val appModule = DI.Module("appModule") {
+val appModule: DI.Module = DI.Module("appModule") {
     importAll(
         dataModule,
         openBrowserModule,

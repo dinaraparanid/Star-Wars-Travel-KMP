@@ -20,7 +20,6 @@ import com.paranid5.star_wars_travel.domain.planets.PlanetsRepository
 import com.paranid5.star_wars_travel.feature.planet.component.PlanetComponent
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.PlanetUiState
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.RegionUiState
-import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.mainRegion
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsComponent.Child
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.Label
 import com.paranid5.star_wars_travel.feature.planets.component.PlanetsStore.State
@@ -40,15 +39,10 @@ internal class PlanetsComponentImpl(
     private val planetsRepository: PlanetsRepository,
 ) : PlanetsComponent,
     ComponentContext by componentContext {
-    @Serializable
-    sealed interface Slot {
-        @Serializable
-        data class Planet(val planet: PlanetUiState) : Slot
-    }
 
     private val componentStore = getComponentStore(
         defaultState = State(),
-        storeFactory = { storeFactory.create().provide(initialState = it) }
+        storeFactory = { storeFactory.create().provide(initialState = it) },
     )
 
     private val store = componentStore.value
@@ -78,13 +72,13 @@ internal class PlanetsComponentImpl(
     override val regionsPagedFlow by lazy {
         combine(
             planetsUiFlow,
-            stateFlow
+            stateFlow,
         ) { planets, (_, selectedRegions) ->
             planets
                 .map { it.mainRegion.orEmpty() }
                 .filter(String::isNotEmpty) to selectedRegions
         }.map { (allRegs, selectRegs) ->
-            allRegs.map { RegionUiState(it, (it in selectRegs)) }
+            allRegs.map { RegionUiState(region = it, isSelected = (it in selectRegs)) }
         }
     }
 
@@ -117,11 +111,17 @@ internal class PlanetsComponentImpl(
     ) = planetComponentFactory.create(
         componentContext = componentContext,
         initialPlanet = configuration.planet,
-        onBack = childSlotNavigation::dismiss
+        onBack = childSlotNavigation::dismiss,
     )
 
     private fun onLabel(label: Label) = when (label) {
         is Label.ShowPlanet -> childSlotNavigation.activate(Slot.Planet(label.planet))
+    }
+
+    @Serializable
+    sealed interface Slot {
+        @Serializable
+        data class Planet(val planet: PlanetUiState) : Slot
     }
 
     class Factory(

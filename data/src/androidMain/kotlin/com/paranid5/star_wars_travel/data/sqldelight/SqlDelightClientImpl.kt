@@ -2,15 +2,16 @@ package com.paranid5.star_wars_travel.data.sqldelight
 
 import android.content.Context
 import androidx.sqlite.db.SupportSQLiteDatabase
+import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import com.paranid5.star_wars_travel.data.Planets
 
-class SqlDelightClientImpl(private val context: Context) : SqlDelightClient {
+internal class SqlDelightClientImpl(private val context: Context) : SqlDelightClient {
     private companion object {
         const val DATABASE_NAME = "planets.db"
     }
 
-    override val driver by lazy {
+    override val driver: SqlDriver by lazy {
         AndroidSqliteDriver(
             schema = Planets.Schema,
             context = context,

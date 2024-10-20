@@ -3,7 +3,6 @@ package com.paranid5.star_wars_travel.feature.planets.utils
 import androidx.paging.PagingData
 import androidx.paging.filter
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.PlanetUiState
-import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.mainRegion
 
 internal fun PagingData<PlanetUiState>.filterByRegions(regions: List<String?>) =
     when {

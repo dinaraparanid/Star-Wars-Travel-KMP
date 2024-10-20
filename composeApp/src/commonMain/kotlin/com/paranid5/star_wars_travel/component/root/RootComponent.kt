@@ -10,6 +10,7 @@ interface RootComponent :
     ComponentContext,
     StateSource<RootState>,
     UiIntentHandler<RootUiIntent> {
+
     val stack: Value<ChildStack<RootConfig, RootChild>>
 
     interface Factory {

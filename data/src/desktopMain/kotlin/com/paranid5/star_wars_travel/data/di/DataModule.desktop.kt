@@ -4,9 +4,10 @@ import com.paranid5.star_wars_travel.data.StorageRepository
 import com.paranid5.star_wars_travel.data.StorageRepositoryImpl
 import org.kodein.di.DI
 import org.kodein.di.bind
+import org.kodein.di.new
 import org.kodein.di.singleton
 
-actual val dataModule = DI.Module("dataModule") {
+actual val dataModule: DI.Module = DI.Module("dataModule") {
     importAll(
         themeModule,
         ktorClientModule,
@@ -16,5 +17,5 @@ actual val dataModule = DI.Module("dataModule") {
         planetsRepositoryModule,
     )
 
-    bind<StorageRepository>() with singleton { StorageRepositoryImpl(di) }
+    bind<StorageRepository>() with singleton { new(::StorageRepositoryImpl) }
 }

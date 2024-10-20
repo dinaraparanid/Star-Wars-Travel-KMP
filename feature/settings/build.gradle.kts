@@ -46,6 +46,7 @@ kotlin {
         it.binaries.framework {
             baseName = "settings"
             isStatic = true
+            export("com.mohamedrejeb.calf:calf-ui:0.5.5")
         }
     }
 

@@ -8,8 +8,8 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.serialization.Serializable
 
-@Immutable
 @Serializable
+@Immutable
 data class SocInfoUiState(
     val population: Long,
     @Serializable(with = ImmutableListSerializer::class)

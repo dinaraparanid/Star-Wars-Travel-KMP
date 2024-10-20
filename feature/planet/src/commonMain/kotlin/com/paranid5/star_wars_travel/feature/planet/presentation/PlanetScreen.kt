@@ -18,17 +18,18 @@ import com.paranid5.star_wars_travel.core.resources.Res
 import com.paranid5.star_wars_travel.core.resources.astro_info
 import com.paranid5.star_wars_travel.core.resources.phys_info
 import com.paranid5.star_wars_travel.core.resources.soc_info
-import com.paranid5.star_wars_travel.core.ui.theme.AppTheme
-import com.paranid5.star_wars_travel.core.ui.utils.onBackEvent
+import com.paranid5.star_wars_travel.core.ui.foundation.onBackEvent
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.colors
+import com.paranid5.star_wars_travel.core.ui.theme.AppTheme.dimensions
 import com.paranid5.star_wars_travel.feature.planet.component.PlanetComponent
 import com.paranid5.star_wars_travel.feature.planet.component.PlanetState
 import com.paranid5.star_wars_travel.feature.planet.component.PlanetUiIntent
 import com.paranid5.star_wars_travel.feature.planet.presentation.effects.TravelSnackbarEffect
+import com.paranid5.star_wars_travel.feature.planet.presentation.ui.Description
+import com.paranid5.star_wars_travel.feature.planet.presentation.ui.InfoMenu
+import com.paranid5.star_wars_travel.feature.planet.presentation.ui.TopBarCover
+import com.paranid5.star_wars_travel.feature.planet.presentation.ui.interest.InterestsRow
 import com.paranid5.star_wars_travel.feature.planet.presentation.utils.toEntryList
-import com.paranid5.star_wars_travel.feature.planet.presentation.views.Description
-import com.paranid5.star_wars_travel.feature.planet.presentation.views.InfoMenu
-import com.paranid5.star_wars_travel.feature.planet.presentation.views.TopBarCover
-import com.paranid5.star_wars_travel.feature.planet.presentation.views.interest.InterestsRow
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -39,7 +40,7 @@ fun PlanetScreen(
     val state by planetComponent.stateFlow.collectAsState()
     val onUiIntent = planetComponent::onUiIntent
 
-    val appPadding = AppTheme.dimensions.padding
+    val appPadding = dimensions.padding
     val scrollState = rememberScrollState()
 
     TravelSnackbarEffect(
@@ -61,8 +62,8 @@ fun PlanetScreen(
         Spacer(
             Modifier
                 .fillMaxWidth()
-                .height(AppTheme.dimensions.separators.minimum)
-                .background(AppTheme.colors.transparentUtility),
+                .height(dimensions.separators.minimum)
+                .background(colors.transparentUtility),
         )
 
         PlanetScreenDetails(
@@ -82,7 +83,7 @@ internal fun PlanetScreenDetails(
     onUiIntent: (PlanetUiIntent) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val appPadding = AppTheme.dimensions.padding
+    val appPadding = dimensions.padding
 
     ConstraintLayout(modifier) {
         val (

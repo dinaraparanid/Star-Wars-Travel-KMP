@@ -11,7 +11,8 @@ import kotlinx.coroutines.launch
 
 internal class PlanetsExecutor : CoroutineExecutor<UiIntent, Unit, State, Msg, Label>() {
     private companion object {
-        const val SNACKBAR_SHOWN_MS = 3000L
+        const val SnackbarShownMs = 3000L
+        const val LastRegion = 1
     }
 
     private var snackbarJob: Job? = null
@@ -30,7 +31,7 @@ internal class PlanetsExecutor : CoroutineExecutor<UiIntent, Unit, State, Msg, L
         null -> dispatch(Msg.ClearRegions)
 
         in state().selectedRegions -> when (state().selectedRegions.size) {
-            1 -> dispatch(Msg.ClearRegions)
+            LastRegion -> dispatch(Msg.ClearRegions)
             else -> dispatch(Msg.RemoveRegion(region))
         }
 
@@ -39,7 +40,7 @@ internal class PlanetsExecutor : CoroutineExecutor<UiIntent, Unit, State, Msg, L
 
     private fun showTravelSnackbarThenHide() = scope.launch {
         dispatch(Msg.ShowTravelSnackbar)
-        delay(SNACKBAR_SHOWN_MS)
+        delay(SnackbarShownMs)
         dispatch(Msg.HideTravelSnackbar)
     }
 

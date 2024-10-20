@@ -53,6 +53,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.core.component)
             api(projects.core.ui)
+            api(projects.core.utils)
 
             api(projects.data)
             api(projects.domain)
@@ -93,8 +94,5 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-    }
-    buildFeatures {
-        compose = true
     }
 }

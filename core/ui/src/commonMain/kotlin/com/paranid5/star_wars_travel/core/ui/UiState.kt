@@ -9,6 +9,7 @@ import kotlinx.serialization.serializer
 @Serializable
 @Immutable
 sealed interface UiState<out T> {
+
     @Serializable
     data object Undefined : UiState<Nothing>
 
@@ -31,10 +32,7 @@ sealed interface UiState<out T> {
 inline fun <reified T> UiState<T>.getOrNull(): T? = when (this) {
     is UiState.Data -> getValue(serializer())
     is UiState.Refreshing -> (value as? UiState.Data)?.getValue(serializer())
-
-    is UiState.Error,
-    is UiState.Loading,
-    is UiState.Undefined -> null
+    is UiState.Error, is UiState.Loading, is UiState.Undefined -> null
 }
 
 inline fun <reified T> UiState<T>.getOrThrow(): T {

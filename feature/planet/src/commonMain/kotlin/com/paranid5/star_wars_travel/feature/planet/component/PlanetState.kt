@@ -4,6 +4,8 @@ import androidx.compose.runtime.Immutable
 import com.paranid5.star_wars_travel.feature.planet.presentation.ui_state.PlanetUiState
 import kotlinx.serialization.Serializable
 
+internal const val HiddenMaxLines = 3
+
 @Serializable
 @Immutable
 data class PlanetState(
@@ -17,5 +19,6 @@ data class PlanetState(
         isTravelSnackbarShown = false,
     )
 
-    val descriptionMaxLines = if (isDescriptionShown) Int.MAX_VALUE else HIDDEN_MAX_LINES
+    val descriptionMaxLines: Int =
+        if (isDescriptionShown) Int.MAX_VALUE else HiddenMaxLines
 }

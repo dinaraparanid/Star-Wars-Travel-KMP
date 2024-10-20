@@ -7,7 +7,7 @@ import org.kodein.di.bind
 import org.kodein.di.multiton
 import org.kodein.di.new
 
-actual val dataModule = DI.Module("dataModule") {
+actual val dataModule: DI.Module = DI.Module("dataModule") {
     importAll(
         themeModule,
         ktorClientModule,

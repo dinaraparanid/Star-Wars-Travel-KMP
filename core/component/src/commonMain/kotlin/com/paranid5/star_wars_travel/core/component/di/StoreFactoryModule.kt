@@ -7,6 +7,6 @@ import org.kodein.di.bind
 import org.kodein.di.new
 import org.kodein.di.singleton
 
-val storeFactoryModule = DI.Module("storeFactoryModule") {
+val storeFactoryModule: DI.Module = DI.Module("storeFactoryModule") {
     bind<StoreFactory>() with singleton { new(::DefaultStoreFactory) }
 }

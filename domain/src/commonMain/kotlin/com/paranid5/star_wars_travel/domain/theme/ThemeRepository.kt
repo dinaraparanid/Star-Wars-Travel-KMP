@@ -5,6 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ThemeRepository {
     val themeFlow: Flow<Theme>
-
     suspend fun storeTheme(theme: Theme)
 }

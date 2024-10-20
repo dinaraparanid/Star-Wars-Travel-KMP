@@ -11,6 +11,14 @@ import com.paranid5.star_wars_travel.domain.entities.wookiepedia.WookiepediaPlan
 import com.paranid5.star_wars_travel.domain.utils.toIntOrZero
 import com.paranid5.starwarstravel.data.PlanetsQueries
 import com.paranid5.starwarstravel.data.SelectBaseItems
+import com.paranid5.starwarstravel.data.SelectCities
+import com.paranid5.starwarstravel.data.SelectFauna
+import com.paranid5.starwarstravel.data.SelectFlora
+import com.paranid5.starwarstravel.data.SelectLanguages
+import com.paranid5.starwarstravel.data.SelectNativeSpecies
+import com.paranid5.starwarstravel.data.SelectOtherSpecies
+import com.paranid5.starwarstravel.data.SelectRegions
+import com.paranid5.starwarstravel.data.SelectTradeRoutes
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.map
@@ -22,6 +30,7 @@ import kotlinx.coroutines.withContext
 internal class PlanetsDbSourceImpl(client: SqlDelightClient) :
     PlanetsDbSource,
     CoroutineScope by CoroutineScope(DataDispatcher) {
+
     private val queries by lazy {
         PlanetsQueries(client.driver)
     }
@@ -35,13 +44,12 @@ internal class PlanetsDbSourceImpl(client: SqlDelightClient) :
             .mapToList(DataDispatcher)
             .map { it.map(queries::parsePlanet) }
 
-    override suspend fun getPlanets() =
-        withContext(DataDispatcher) {
-            queries
-                .selectBaseItems()
-                .executeAsList()
-                .map(queries::parsePlanet)
-        }
+    override suspend fun getPlanets() = withContext(DataDispatcher) {
+        queries
+            .selectBaseItems()
+            .executeAsList()
+            .map(queries::parsePlanet)
+    }
 
     override fun addPlanetAsync(planet: WookiepediaPlanet): Job =
         launch(DataDispatcher) {
@@ -71,7 +79,7 @@ internal fun PlanetsQueries.parsePlanet(item: SelectBaseItems) =
         coverUrl = item.coverUrl,
         astrographicalInformation = parseAstroInfo(item),
         physicalInformation = parsePhysicalInfo(item),
-        societalInformation = parseSocInfo(item)
+        societalInformation = parseSocInfo(item),
     )
 
 internal fun PlanetsQueries.parseAstroInfo(item: SelectBaseItems) =
@@ -83,10 +91,10 @@ internal fun PlanetsQueries.parseAstroInfo(item: SelectBaseItems) =
         moons = item.moons.toInt(),
         region = selectRegions(astroInfoId = item.astroInfoId)
             .executeAsList()
-            .mapNotNull { it.region },
+            .mapNotNull(SelectRegions::region),
         tradeRoutes = selectTradeRoutes(astroInfoId = item.astroInfoId)
             .executeAsList()
-            .mapNotNull { it.tradeRoute }
+            .mapNotNull(SelectTradeRoutes::tradeRoute),
     )
 
 internal fun PlanetsQueries.parsePhysicalInfo(item: SelectBaseItems) =
@@ -105,10 +113,10 @@ internal fun PlanetsQueries.parsePhysicalInfo(item: SelectBaseItems) =
             },
         flora = selectFlora(physInfoId = item.physInfoId)
             .executeAsList()
-            .mapNotNull { it.flora },
+            .mapNotNull(SelectFlora::flora),
         fauna = selectFauna(physInfoId = item.physInfoId)
             .executeAsList()
-            .mapNotNull { it.fauna }
+            .mapNotNull(SelectFauna::fauna),
     )
 
 internal fun PlanetsQueries.parseSocInfo(item: SelectBaseItems) =
@@ -117,16 +125,16 @@ internal fun PlanetsQueries.parseSocInfo(item: SelectBaseItems) =
         government = item.government,
         nativeSpecies = selectNativeSpecies(socInfoId = item.socInfoId)
             .executeAsList()
-            .mapNotNull { it.nativeSpecies },
+            .mapNotNull(SelectNativeSpecies::nativeSpecies),
         otherSpecies = selectOtherSpecies(socInfoId = item.socInfoId)
             .executeAsList()
-            .mapNotNull { it.otherSpecies },
+            .mapNotNull(SelectOtherSpecies::otherSpecies),
         primaryLanguages = selectLanguages(socInfoId = item.socInfoId)
             .executeAsList()
-            .mapNotNull { it.language },
+            .mapNotNull(SelectLanguages::language),
         majorCities = selectCities(socInfoId = item.socInfoId)
             .executeAsList()
-            .mapNotNull { it.city }
+            .mapNotNull(SelectCities::city),
     )
 
 internal fun PlanetsQueries.insertAstroInfo(info: AstrographicalInformation): Long {
@@ -135,7 +143,7 @@ internal fun PlanetsQueries.insertAstroInfo(info: AstrographicalInformation): Lo
         orbitalPeriod = info.orbitalPeriod.toLong(),
         sector = info.sector,
         system = info.system,
-        moons = info.moons.toLong()
+        moons = info.moons.toLong(),
     )
 
     return insertedAstroInfo().executeAsOne()
@@ -149,7 +157,7 @@ internal fun PlanetsQueries.insertPhysInfo(info: PhysicalInformation): Long {
         surfaceWater = info.surfaceWater.toString(),
         diameter = info.diameter.toLong(),
         planetClass = info.planetClass,
-        atmosphere = info.atmosphere
+        atmosphere = info.atmosphere,
     )
 
     return insertedPhysInfo().executeAsOne()
@@ -157,8 +165,8 @@ internal fun PlanetsQueries.insertPhysInfo(info: PhysicalInformation): Long {
 
 internal fun PlanetsQueries.insertSocInfo(info: SocietalInformation): Long {
     insertSocInfo(
-        population = info.population.toLong(),
-        government = info.government
+        population = info.population,
+        government = info.government,
     )
 
     return insertedPhysInfo().executeAsOne()
@@ -177,7 +185,7 @@ internal fun PlanetsQueries.insertPlanet(
     coverUrl = planet.coverUrl,
     astroInfoId = astroInfoId,
     physInfoId = physInfoId,
-    socInfoId = socInfoId
+    socInfoId = socInfoId,
 )
 
 internal fun PlanetsQueries.addPlanet(planet: WookiepediaPlanet) = runCatching {
@@ -237,7 +245,7 @@ internal fun PlanetsQueries.addPlanet(planet: WookiepediaPlanet) = runCatching {
             planet = planet,
             astroInfoId = astroInfoId,
             physInfoId = physInfoId,
-            socInfoId = socInfoId
+            socInfoId = socInfoId,
         )
     }
 }

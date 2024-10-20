@@ -9,7 +9,7 @@ import platform.Foundation.NSUserDomainMask
 
 internal class StorageRepositoryImpl : StorageRepository {
     private companion object {
-        const val DATA_STORE_PATH = "params.preferences_pb"
+        const val DataStorePath = "params.preferences_pb"
 
         @OptIn(ExperimentalForeignApi::class)
         fun producePath(): String {
@@ -21,7 +21,7 @@ internal class StorageRepositoryImpl : StorageRepository {
                 error = null,
             )
 
-            return "${requireNotNull(documentDirectory).path}/$DATA_STORE_PATH"
+            return "${requireNotNull(documentDirectory).path}/$DataStorePath"
         }
     }
 
